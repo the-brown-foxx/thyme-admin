@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+
+import '../util/corner.dart';
+
+class HerbHubTextField extends StatefulWidget {
+  const HerbHubTextField({
+    super.key,
+    this.controller,
+    this.hintText,
+    this.roundedCorners = Corner.all,
+    this.obscureText = false,
+  });
+
+  final TextEditingController? controller;
+  final String? hintText;
+  final Set<Corner> roundedCorners;
+  final bool obscureText;
+
+  @override
+  State<HerbHubTextField> createState() => _HerbHubTextFieldState();
+}
+
+class _HerbHubTextFieldState extends State<HerbHubTextField> {
+  late FocusNode _focusNode;
+  var _hasFocus = false;
+
+  void listener() => setState(() => _hasFocus = _focusNode.hasFocus);
+
+  @override
+  void initState() {
+    _focusNode = FocusNode()
+      ..addListener(listener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(listener);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(final BuildContext context) {
+    final theme = Theme.of(context);
+    final hintStyle = theme.textTheme.bodyLarge
+        ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.8));
+    final border = OutlineInputBorder(
+      borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
+      borderRadius: BorderRadius.only(
+        topLeft: widget.roundedCorners.getRadius(Corner.topLeft),
+        topRight: widget.roundedCorners.getRadius(Corner.topRight),
+        bottomLeft: widget.roundedCorners.getRadius(Corner.bottomLeft),
+        bottomRight: widget.roundedCorners.getRadius(Corner.bottomRight),
+      ),
+    );
+    final fillColorTween = _hasFocus ? ColorTween(
+      begin: theme.colorScheme.surface,
+      end: theme.colorScheme.background,
+    ) : ColorTween(
+      begin: theme.colorScheme.background,
+      end: theme.colorScheme.surface,
+    );
+
+    return TweenAnimationBuilder(
+      tween: fillColorTween,
+      duration: const Duration(milliseconds: 100),
+      builder: (final _, final color, final __) {
+        return TextField(
+          focusNode: _focusNode,
+          controller: widget.controller,
+          obscureText: widget.obscureText,
+          decoration: InputDecoration(
+            hintText: widget.hintText,
+            hintStyle: hintStyle,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            border: border,
+            enabledBorder: border,
+            focusedBorder: border,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            filled: true,
+            fillColor: color,
+          ),
+        );
+      },
+    );
+  }
+}
