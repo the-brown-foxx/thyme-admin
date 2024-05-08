@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/pages/signup/signup_page.dart';
+import 'package:thyme_to_park_admin/ui/pages/login/login_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
 import 'package:thyme_to_park_admin/ui/theme/text_theme.dart';
 
@@ -25,26 +25,7 @@ class MyApp extends StatelessWidget {
           colorScheme: darkColorScheme,
           textTheme: textTheme,
       ),
-      home: const MyHomePage(),
+      home: const LoginPage(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(final BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return const SignupPage();
   }
 }
