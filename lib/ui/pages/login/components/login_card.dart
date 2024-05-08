@@ -3,7 +3,15 @@ import 'package:thyme_to_park_admin/ui/pages/login/components/login_body.dart';
 import 'package:thyme_to_park_admin/ui/pages/login/components/login_image.dart';
 
 class LoginCard extends StatelessWidget {
-  const LoginCard({super.key});
+  final TextEditingController _passwordController;
+  final VoidCallback _onLogin;
+
+  const LoginCard({
+    super.key,
+    required final TextEditingController passwordController,
+    required final VoidCallback onLogin,
+  })  : _passwordController = passwordController,
+        _onLogin = onLogin;
 
   @override
   Widget build(final BuildContext context) {
@@ -18,18 +26,19 @@ class LoginCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(32.0),
       ),
       clipBehavior: Clip.antiAlias,
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: Padding(
-              padding: EdgeInsets.all(64.0),
-              child: LoginBody(),
+              padding: const EdgeInsets.all(64.0),
+              child: LoginBody(
+                passwordController: _passwordController,
+                onLogin: _onLogin,
+              ),
             ),
           ),
-          Expanded(
-            child: LoginImage(),
-          ),
+          const Expanded(child: LoginImage()),
         ],
       ),
     );

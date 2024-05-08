@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/pages/login/components/login_card.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final TextEditingController _passwordController;
+  final VoidCallback _onLogin;
+
+  const LoginPage({
+    super.key,
+    required final TextEditingController passwordController,
+    required final VoidCallback onLogin,
+  })  : _passwordController = passwordController,
+        _onLogin = onLogin;
 
   @override
   Widget build(final BuildContext context) {
@@ -14,7 +22,10 @@ class LoginPage extends StatelessWidget {
           children: [
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1080),
-              child: const LoginCard(),
+              child: LoginCard(
+                passwordController: _passwordController,
+                onLogin: _onLogin,
+              ),
             ),
           ],
         ),
