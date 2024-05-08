@@ -25,7 +25,7 @@ class LoginBody extends StatelessWidget {
           'Admin',
           style: theme.textTheme.titleLarge,
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 16),
         const HerbHubTextField(
           hintText: 'Password',
           obscureText: true,
