@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/components/button.dart';
 import 'package:thyme_to_park_admin/ui/components/text_field.dart';
-import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({super.key});
@@ -13,7 +12,7 @@ class LoginBody extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 32),
         Text(
@@ -31,25 +30,10 @@ class LoginBody extends StatelessWidget {
           obscureText: true,
         ),
         const SizedBox(height: 16),
-        Row(
-          children: [
-            HerbHubButton(
-              text: 'Signup',
-              onPressed: () {},
-              type: ButtonType.outlined,
-              roundedCorners: Edge.left,
-              alignment: Alignment.centerRight,
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: HerbHubButton(
-                text: 'Login',
-                onPressed: () {},
-                roundedCorners: Edge.right,
-                alignment: Alignment.centerLeft,
-              ),
-            ),
-          ],
+        HerbHubButton(
+          text: 'Login',
+          onPressed: () {},
+          alignment: Alignment.center,
         ),
         const SizedBox(height: 32),
       ],
