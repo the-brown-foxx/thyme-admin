@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/model/token.dart';
-import 'package:thyme_to_park_admin/service/token/token_storage.dart';
+import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 
 class PrintingDummyTokenStorage implements TokenStorage {
   String _token = '';

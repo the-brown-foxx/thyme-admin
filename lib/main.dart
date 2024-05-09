@@ -4,8 +4,8 @@ import 'package:thyme_to_park_admin/service/api/actual_api.dart';
 import 'package:thyme_to_park_admin/service/api/api.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/actual_admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
-import 'package:thyme_to_park_admin/service/token/printing_dummy_token_storage.dart';
-import 'package:thyme_to_park_admin/service/token/token_storage.dart';
+import 'package:thyme_to_park_admin/service/authenticator/token/model/printing_dummy_token_storage.dart';
+import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 import 'package:thyme_to_park_admin/ui/page/home/home_screen.dart';
 import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
@@ -27,24 +27,27 @@ class MyApp extends StatelessWidget {
 
   MyApp({super.key});
 
-  late final router = GoRouter(routes: [
-    GoRoute(
-      path: '/',
-      builder: (final context, final state) =>
-          StatefulLoginPage(adminAuthenticator: adminAuthenticator),
-      routes: [
-        GoRoute(
+  late final router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (final context, final state) =>
+            StatefulLoginPage(adminAuthenticator: adminAuthenticator),
+        routes: [
+          GoRoute(
             path: 'home',
-            builder: (final context, final state) => const HomeScreen()),
-      ],
-    ),
-  ]);
+            builder: (final context, final state) => const HomeScreen(),
+          ),
+        ],
+      ),
+    ],
+  );
 
   // This widget is the root of your application.
   @override
   Widget build(final BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'Thyme Admin',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: lightColorScheme,

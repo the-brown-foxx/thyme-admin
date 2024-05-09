@@ -5,8 +5,7 @@ import 'package:thyme_to_park_admin/service/api/api.dart';
 
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/model/token.dart';
-
-import '../../token/token_storage.dart';
+import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 
 class ActualAdminAuthenticator implements AdminAuthenticator {
   final Api _api;
@@ -29,8 +28,8 @@ class ActualAdminAuthenticator implements AdminAuthenticator {
   Future<void> login(final String password) async {
     final response = await post(
       _api.urlOf('/admin/login'),
-      body: jsonEncode({'password': password}),
       headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'password': password}),
     );
     final jsonResponse = _api.parseJsonResponse(response);
     final Token token = jsonResponse.body['token'];
