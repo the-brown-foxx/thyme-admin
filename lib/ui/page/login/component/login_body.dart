@@ -4,7 +4,7 @@ import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 
 class LoginBody extends StatelessWidget {
   final TextEditingController passwordController;
-  final VoidCallback onLogin;
+  final VoidCallback? onLogin;
   final bool passwordIncorrect;
 
   const LoginBody({

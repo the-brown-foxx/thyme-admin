@@ -3,15 +3,16 @@ import 'package:thyme_to_park_admin/ui/page/login/component/login_card.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController passwordController;
-  final VoidCallback onLogin;
+  final VoidCallback? onLogin;
   final bool passwordIncorrect;
+  final bool loading;
 
   const LoginPage({
     super.key,
     required this.passwordController,
     required this.onLogin,
     required this.passwordIncorrect,
-
+    required this.loading,
   });
 
   @override
@@ -28,6 +29,7 @@ class LoginPage extends StatelessWidget {
                 passwordController: passwordController,
                 onLogin: onLogin,
                 passwordIncorrect: passwordIncorrect,
+                loading: loading,
               ),
             ),
           ],

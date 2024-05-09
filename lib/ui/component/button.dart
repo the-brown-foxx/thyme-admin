@@ -8,6 +8,12 @@ enum ButtonType {
 }
 
 class HerbHubButton extends StatelessWidget {
+  final String text;
+  final VoidCallback? onPressed;
+  final ButtonType type;
+  final Set<Corner> roundedCorners;
+  final AlignmentGeometry alignment;
+
   const HerbHubButton({
     super.key,
     required this.text,
@@ -16,12 +22,6 @@ class HerbHubButton extends StatelessWidget {
     this.roundedCorners = Corner.all,
     this.alignment = Alignment.center,
   });
-
-  final String text;
-  final VoidCallback onPressed;
-  final ButtonType type;
-  final Set<Corner> roundedCorners;
-  final AlignmentGeometry alignment;
 
   double get leftPadding => roundedCorners.containsAll(Edge.left) ? 24 : 16;
 

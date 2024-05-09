@@ -22,8 +22,10 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
   final passwordController = TextEditingController();
   var oldText = '';
   var passwordIncorrect = false;
+  var loading = false;
 
   void onLogin() async {
+    setState(() => loading = true);
     try {
       await widget._adminAuthenticator.login(passwordController.text);
     } on IncorrectPasswordException {
@@ -37,6 +39,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       const snackBar = SnackBar(content: Text('Failed to connect to server'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    setState(() => loading = false);
   }
 
   @override
@@ -62,6 +65,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       passwordController: passwordController,
       onLogin: onLogin,
       passwordIncorrect: passwordIncorrect,
+      loading: loading,
     );
   }
 }
