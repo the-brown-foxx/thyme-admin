@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
-import 'package:thyme_to_park_admin/ui/pages/login/login_page.dart';
+import 'package:thyme_to_park_admin/ui/page/login/login_page.dart';
 
 // This could probably be stateless but let's just make it stateful
 // for consistency and in case we want to add actual state in the future

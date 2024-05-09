@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/components/button.dart';
-import 'package:thyme_to_park_admin/ui/components/text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/button.dart';
+import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class SignupBody extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:thyme_to_park_admin/service/authenticator/admin/actual_admin_aut
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/token/printing_dummy_token_storage.dart';
 import 'package:thyme_to_park_admin/service/token/token_storage.dart';
-import 'package:thyme_to_park_admin/ui/pages/login/stateful_login_page.dart';
+import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
 import 'package:thyme_to_park_admin/ui/theme/text_theme.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/pages/login/components/login_body.dart';
-import 'package:thyme_to_park_admin/ui/pages/login/components/login_image.dart';
+import 'package:thyme_to_park_admin/ui/page/login/component/login_body.dart';
+import 'package:thyme_to_park_admin/ui/page/login/component/login_image.dart';
 
 class LoginCard extends StatelessWidget {
   final TextEditingController _passwordController;
