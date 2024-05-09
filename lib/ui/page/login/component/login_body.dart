@@ -3,15 +3,16 @@ import 'package:thyme_to_park_admin/ui/component/button.dart';
 import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 
 class LoginBody extends StatelessWidget {
-  final TextEditingController _passwordController;
-  final VoidCallback _onLogin;
+  final TextEditingController passwordController;
+  final VoidCallback onLogin;
+  final bool passwordIncorrect;
 
   const LoginBody({
     super.key,
-    required final TextEditingController passwordController,
-    required final VoidCallback onLogin,
-  })  : _passwordController = passwordController,
-        _onLogin = onLogin;
+    required this.passwordController,
+    required this.onLogin,
+    required this.passwordIncorrect,
+  });
 
   @override
   Widget build(final BuildContext context) {
@@ -36,12 +37,13 @@ class LoginBody extends StatelessWidget {
         HerbHubTextField(
           hintText: 'Password',
           obscureText: true,
-          controller: _passwordController,
+          controller: passwordController,
+          errorText: passwordIncorrect ? 'Incorrect password' : null,
         ),
         const SizedBox(height: 16),
         HerbHubButton(
           text: 'Login',
-          onPressed: _onLogin,
+          onPressed: onLogin,
           alignment: Alignment.center,
         ),
         const SizedBox(height: 32),
