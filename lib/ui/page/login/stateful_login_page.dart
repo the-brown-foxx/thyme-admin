@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
@@ -28,6 +29,8 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
     setState(() => loading = true);
     try {
       await widget._adminAuthenticator.login(passwordController.text);
+      if (!mounted) return;
+      context.go('/home');
     } on IncorrectPasswordException {
       setState(() => passwordIncorrect = true);
     } on ApiException catch (exception) {
