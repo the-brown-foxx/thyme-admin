@@ -35,11 +35,11 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       setState(() => passwordIncorrect = true);
     } on ApiException catch (exception) {
       if (!mounted) return;
-      final snackBar = SnackBar(content: Text(exception.message));
+      final snackBar = SnackBar(content: Text(exception.message, maxLines: 1));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } on ClientException {
       if (!mounted) return;
-      const snackBar = SnackBar(content: Text('Failed to connect to server'));
+      const snackBar = SnackBar(content: Text('Failed to connect to server', maxLines: 1));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     setState(() => loading = false);

@@ -62,7 +62,7 @@ class HerbHubButton extends StatelessWidget {
         alignment: alignment,
       ),
       onPressed: onPressed,
-      child: Text(text),
+      child: Text(text, maxLines: 1),
     );
   }
 }

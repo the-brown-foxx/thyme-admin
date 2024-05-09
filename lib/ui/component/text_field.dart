@@ -98,6 +98,7 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
                 padding: const EdgeInsets.only(left: 16, top: 4),
                 child: Text(
                   widget.errorText!,
+                  maxLines: 1,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.error,
                   ),

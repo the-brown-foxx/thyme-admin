@@ -19,20 +19,25 @@ class LoginPage extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1080),
-              child: LoginCard(
-                passwordController: passwordController,
-                onLogin: onLogin,
-                passwordIncorrect: passwordIncorrect,
-                loading: loading,
-              ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1080),
+                  child: LoginCard(
+                    passwordController: passwordController,
+                    onLogin: onLogin,
+                    passwordIncorrect: passwordIncorrect,
+                    loading: loading,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

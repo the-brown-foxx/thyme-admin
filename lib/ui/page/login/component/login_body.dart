@@ -26,11 +26,13 @@ class LoginBody extends StatelessWidget {
         const SizedBox(height: 32),
         Text(
           'Thyme',
+          maxLines: 1,
           style: theme.textTheme.displayLarge,
         ),
         const SizedBox(height: 8),
         Text(
           'Admin',
+          maxLines: 1,
           style: theme.textTheme.titleLarge,
         ),
         const SizedBox(height: 16),

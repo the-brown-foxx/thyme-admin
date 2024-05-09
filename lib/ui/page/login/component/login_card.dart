@@ -22,6 +22,7 @@ class LoginCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Card.outlined(
+      margin: const EdgeInsets.all(0.0),
       shape: RoundedRectangleBorder(
         side: BorderSide(
           color: theme.colorScheme.onSurface,

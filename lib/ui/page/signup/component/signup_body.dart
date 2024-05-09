@@ -21,6 +21,7 @@ class SignupBody extends StatelessWidget {
           Text(
             'HerbHub',
             style: theme.textTheme.displayLarge,
+            maxLines: 1,
           ),
           const SizedBox(height: 24),
           const HerbHubTextField(

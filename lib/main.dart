@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:thyme_to_park_admin/service/api/actual_api.dart';
@@ -10,8 +13,24 @@ import 'package:thyme_to_park_admin/ui/page/home/home_screen.dart';
 import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
 import 'package:thyme_to_park_admin/ui/theme/text_theme.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+void main() async {
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    WidgetsFlutterBinding.ensureInitialized();
+    // Must add this line.
+    await windowManager.ensureInitialized();
+
+    const windowOptions = WindowOptions(
+      minimumSize: Size(800, 400),
+      center: true,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
   runApp(MyApp());
 }
 
