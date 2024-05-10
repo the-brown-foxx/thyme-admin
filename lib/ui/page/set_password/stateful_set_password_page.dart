@@ -17,7 +17,8 @@ class StatefulSetPasswordPage extends StatefulWidget {
   }) : _adminAuthenticator = adminAuthenticator;
 
   @override
-  State<StatefulSetPasswordPage> createState() => _StatefulSetPasswordPageState();
+  State<StatefulSetPasswordPage> createState() =>
+      _StatefulSetPasswordPageState();
 }
 
 class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
