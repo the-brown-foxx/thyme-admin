@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
+import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/login/login_page.dart';
 
 // This could probably be stateless but let's just make it stateful
@@ -21,37 +22,63 @@ class StatefulLoginPage extends StatefulWidget {
 
 class _StatefulLoginPageState extends State<StatefulLoginPage> {
   final passwordController = TextEditingController();
-  var oldText = '';
+  var oldPassword = '';
   var passwordIncorrect = false;
   var loading = false;
 
   void onLogin() async {
     setState(() => loading = true);
+    await login();
+    setState(() => loading = false);
+  }
+
+  Future<void> login() async {
     try {
+      if (!await widget._adminAuthenticator.passwordSet && mounted) {
+        context.go('/set-password');
+        return;
+      }
       await widget._adminAuthenticator.login(passwordController.text);
-      if (!mounted) return;
-      context.go('/home');
     } on IncorrectPasswordException {
       setState(() => passwordIncorrect = true);
     } on ApiException catch (exception) {
       if (!mounted) return;
-      final snackBar = SnackBar(content: Text(exception.message, maxLines: 1));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      context.showSnackBar(exception.message);
     } on ClientException {
       if (!mounted) return;
-      const snackBar = SnackBar(content: Text('Failed to connect to server', maxLines: 1));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      context.showSnackBar('Connection error');
     }
-    setState(() => loading = false);
+  }
+
+  void navigateToCorrectPage() async {
+    widget._adminAuthenticator.loggedIn.listen((final loggedIn) {
+      if (loggedIn) {
+        context.go('/home');
+      }
+    });
+
+    try {
+      if (!await widget._adminAuthenticator.passwordSet && mounted) {
+        context.go('/set-password');
+      }
+    } on ApiException catch (exception) {
+      if (!mounted) return;
+      context.showSnackBar(exception.message);
+    } on ClientException {
+      if (mounted) return;
+      context.showSnackBar('Connection error');
+    }
   }
 
   @override
   void initState() {
+    navigateToCorrectPage();
+
     passwordController.addListener(() {
-      if (oldText != passwordController.text) {
+      if (oldPassword != passwordController.text) {
         setState(() => passwordIncorrect = false);
       }
-      oldText = passwordController.text;
+      oldPassword = passwordController.text;
     });
     super.initState();
   }

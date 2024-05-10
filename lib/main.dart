@@ -11,6 +11,7 @@ import 'package:thyme_to_park_admin/service/authenticator/token/model/printing_d
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 import 'package:thyme_to_park_admin/ui/page/home/home_screen.dart';
 import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
+import 'package:thyme_to_park_admin/ui/page/set_password/stateful_set_password_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
 import 'package:thyme_to_park_admin/ui/theme/text_theme.dart';
 import 'package:window_manager/window_manager.dart';
@@ -53,6 +54,11 @@ class MyApp extends StatelessWidget {
         builder: (final context, final state) =>
             StatefulLoginPage(adminAuthenticator: adminAuthenticator),
         routes: [
+          GoRoute(
+            path: 'set-password',
+            builder: (final context, final state) =>
+                StatefulSetPasswordPage(adminAuthenticator: adminAuthenticator),
+          ),
           GoRoute(
             path: 'home',
             builder: (final context, final state) => const HomeScreen(),
