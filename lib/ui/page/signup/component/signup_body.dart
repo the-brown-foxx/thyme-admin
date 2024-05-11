@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/components/button.dart';
-import 'package:thyme_to_park_admin/ui/components/text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/button.dart';
+import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class SignupBody extends StatelessWidget {
@@ -21,6 +21,7 @@ class SignupBody extends StatelessWidget {
           Text(
             'HerbHub',
             style: theme.textTheme.displayLarge,
+            maxLines: 1,
           ),
           const SizedBox(height: 24),
           const HerbHubTextField(

@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import '../util/corner.dart';
 
 class HerbHubTextField extends StatefulWidget {
+  final TextEditingController? controller;
+  final String? hintText;
+  final Set<Corner> roundedCorners;
+  final bool obscureText;
+  final String? errorText;
+
   const HerbHubTextField({
     super.key,
     this.controller,
     this.hintText,
     this.roundedCorners = Corner.all,
     this.obscureText = false,
+    this.errorText,
   });
-
-  final TextEditingController? controller;
-  final String? hintText;
-  final Set<Corner> roundedCorners;
-  final bool obscureText;
 
   @override
   State<HerbHubTextField> createState() => _HerbHubTextFieldState();
@@ -45,7 +47,8 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
     final theme = Theme.of(context);
     final hintStyle = theme.textTheme.bodyLarge
         ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.8));
-    final border = OutlineInputBorder(
+    final hasError = widget.errorText != null;
+    final standardBorder = OutlineInputBorder(
       borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
       borderRadius: BorderRadius.only(
         topLeft: widget.roundedCorners.getRadius(Corner.topLeft),
@@ -54,6 +57,10 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
         bottomRight: widget.roundedCorners.getRadius(Corner.bottomRight),
       ),
     );
+    final errorBorder = standardBorder.copyWith(
+      borderSide: BorderSide(color: theme.colorScheme.error, width: 2),
+    );
+    final border = hasError ? errorBorder : standardBorder;
     final fillColorTween = _hasFocus ? ColorTween(
       begin: theme.colorScheme.surface,
       end: theme.colorScheme.background,
@@ -66,21 +73,39 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
       tween: fillColorTween,
       duration: const Duration(milliseconds: 100),
       builder: (final _, final color, final __) {
-        return TextField(
-          focusNode: _focusNode,
-          controller: widget.controller,
-          obscureText: widget.obscureText,
-          decoration: InputDecoration(
-            hintText: widget.hintText,
-            hintStyle: hintStyle,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: border,
-            enabledBorder: border,
-            focusedBorder: border,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            filled: true,
-            fillColor: color,
-          ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              focusNode: _focusNode,
+              controller: widget.controller,
+              obscureText: widget.obscureText,
+              decoration: InputDecoration(
+                hintText: widget.hintText,
+                hintStyle: hintStyle,
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: border,
+                enabledBorder: border,
+                focusedBorder: border,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                filled: true,
+                fillColor: color,
+              ),
+            ),
+            AnimatedSize(
+              duration: const Duration(milliseconds: 150),
+              child: hasError ? Padding(
+                padding: const EdgeInsets.only(left: 16, top: 4),
+                child: Text(
+                  widget.errorText!,
+                  maxLines: 1,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.error,
+                  ),
+                ),
+              ) : const SizedBox(),
+            ),
+          ],
         );
       },
     );
