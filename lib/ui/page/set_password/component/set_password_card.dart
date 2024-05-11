@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
-import 'package:thyme_to_park_admin/ui/page/login/component/login_body.dart';
-import 'package:thyme_to_park_admin/ui/page/login/component/login_image.dart';
+import 'package:thyme_to_park_admin/ui/page/set_password/component/set_password_body.dart';
+import 'package:thyme_to_park_admin/ui/page/set_password/component/set_password_image.dart';
 
-class LoginCard extends StatelessWidget {
+class SetPasswordCard extends StatelessWidget {
   final TextEditingController passwordController;
-  final VoidCallback? onLogin;
-  final bool passwordIncorrect;
+  final TextEditingController repeatPasswordController;
+  final VoidCallback? onSetPassword;
+  final bool passwordTooShort;
+  final bool passwordsDoNotMatch;
   final bool loading;
 
-  const LoginCard({
+  const SetPasswordCard({
     super.key,
     required this.passwordController,
-    required this.onLogin,
-    required this.passwordIncorrect,
+    required this.repeatPasswordController,
+    required this.onSetPassword,
+    required this.passwordTooShort,
+    required this.passwordsDoNotMatch,
     required this.loading,
   });
 
@@ -30,14 +34,16 @@ class LoginCard extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(64.0),
-                  child: LoginBody(
+                  child: SetPasswordBody(
                     passwordController: passwordController,
-                    onLogin: !loading ? onLogin : null,
-                    passwordIncorrect: passwordIncorrect,
+                    repeatPasswordController: repeatPasswordController,
+                    onSetPassword: !loading ? onSetPassword : null,
+                    passwordTooShort: passwordTooShort,
+                    passwordsDoNotMatch: passwordsDoNotMatch,
                   ),
                 ),
               ),
-              const Expanded(child: LoginImage()),
+              const Expanded(child: SetPasswordImage()),
             ],
           ),
           if (loading) const HerbHubLinearProgressIndicator(),

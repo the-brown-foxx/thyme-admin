@@ -11,7 +11,7 @@ class ActualTokenStorage implements TokenStorage {
   Future<Token?> get token async => await _storage.read(key: _tokenKey);
 
   @override
-  void setToken(final String token) {
+  void setToken(final String? token) {
     _storage.write(key: _tokenKey, value: token);
   }
 }

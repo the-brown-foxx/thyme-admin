@@ -41,6 +41,7 @@ class LoginBody extends StatelessWidget {
           obscureText: true,
           controller: passwordController,
           errorText: passwordIncorrect ? 'Incorrect password' : null,
+          onSubmitted: (final _) => onLogin?.call(),
         ),
         const SizedBox(height: 16),
         HerbHubButton(

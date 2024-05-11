@@ -8,6 +8,7 @@ class HerbHubTextField extends StatefulWidget {
   final Set<Corner> roundedCorners;
   final bool obscureText;
   final String? errorText;
+  final Function(String)? onSubmitted;
 
   const HerbHubTextField({
     super.key,
@@ -16,6 +17,7 @@ class HerbHubTextField extends StatefulWidget {
     this.roundedCorners = Corner.all,
     this.obscureText = false,
     this.errorText,
+    this.onSubmitted,
   });
 
   @override
@@ -80,6 +82,7 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
               focusNode: _focusNode,
               controller: widget.controller,
               obscureText: widget.obscureText,
+              onSubmitted: widget.onSubmitted,
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 hintStyle: hintStyle,
