@@ -52,7 +52,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
 
   void navigateToCorrectPage() async {
     widget._adminAuthenticator.loggedIn.listen((final loggedIn) {
-      if (loggedIn) {
+      if (loggedIn && mounted) {
         context.go('/home');
       }
     });

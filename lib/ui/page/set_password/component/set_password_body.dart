@@ -54,6 +54,7 @@ class SetPasswordBody extends StatelessWidget {
           controller: passwordController,
           errorText: passwordErrorText,
           roundedCorners: Edge.top,
+          onSubmitted: (final _) => onSetPassword?.call(),
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
@@ -62,6 +63,7 @@ class SetPasswordBody extends StatelessWidget {
           controller: repeatPasswordController,
           errorText: passwordsDoNotMatch ? "Passwords don't match" : null,
           roundedCorners: Edge.bottom,
+          onSubmitted: (final _) => onSetPassword?.call(),
         ),
         const SizedBox(height: 16),
         HerbHubButton(
