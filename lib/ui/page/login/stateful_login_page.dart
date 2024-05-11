@@ -6,8 +6,6 @@ import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authentica
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/login/login_page.dart';
 
-// This could probably be stateless but let's just make it stateful
-// for consistency and in case we want to add actual state in the future
 class StatefulLoginPage extends StatefulWidget {
   final AdminAuthenticator _adminAuthenticator;
 
