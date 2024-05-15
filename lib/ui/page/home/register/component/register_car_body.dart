@@ -40,12 +40,15 @@ class RegisterCarBody extends StatelessWidget {
   Widget build(final BuildContext context) {
     final theme = Theme.of(context);
     return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         const SizedBox(height: 32),
         Text(
           'Register car',
           maxLines: 1,
-          style: theme.textTheme.displayLarge,
+          style: theme.textTheme.headlineLarge,
         ),
         const SizedBox(height: 16),
         HerbHubTextField(
@@ -79,6 +82,7 @@ class RegisterCarBody extends StatelessWidget {
           errorText: yearRequired ? 'Year is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
+          keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 16),
         HerbHubTextField(
@@ -98,7 +102,7 @@ class RegisterCarBody extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         HerbHubButton(
-          text: 'Login',
+          text: 'Register',
           onPressed: onRegisterCar,
           alignment: Alignment.center,
         ),

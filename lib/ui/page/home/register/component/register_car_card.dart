@@ -48,22 +48,24 @@ class RegisterCarCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(64.0),
-                  child: RegisterCarBody(
-                    registrationIdController: registrationIdController,
-                    makeController: makeController,
-                    modelController: modelController,
-                    yearController: yearController,
-                    colorController: colorController,
-                    ownerController: ownerController,
-                    onRegisterCar: !loading ? onRegisterCar : null,
-                    registrationIdRequired: registrationIdRequired,
-                    makeRequired: makeRequired,
-                    modelRequired: modelRequired,
-                    yearRequired: yearRequired,
-                    colorRequired: colorRequired,
-                    ownerRequired: ownerRequired,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(64.0),
+                    child: RegisterCarBody(
+                      registrationIdController: registrationIdController,
+                      makeController: makeController,
+                      modelController: modelController,
+                      yearController: yearController,
+                      colorController: colorController,
+                      ownerController: ownerController,
+                      onRegisterCar: !loading ? onRegisterCar : null,
+                      registrationIdRequired: registrationIdRequired,
+                      makeRequired: makeRequired,
+                      modelRequired: modelRequired,
+                      yearRequired: yearRequired,
+                      colorRequired: colorRequired,
+                      ownerRequired: ownerRequired,
+                    ),
                   ),
                 ),
               ),

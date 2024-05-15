@@ -4,6 +4,7 @@ import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authentica
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/page/home/home_screen.dart';
+import 'package:thyme_to_park_admin/ui/page/home/register/stateful_register_car_dialog.dart';
 
 class StatefulHomeScreen extends StatefulWidget {
   final AdminAuthenticator _adminAuthenticator;
@@ -59,7 +60,12 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
   }
 
   Future<void> onRegisterCar() async {
-    throw UnimplementedError();
+    showDialog(
+      context: context,
+      builder: (final _) {
+        return StatefulRegisterCarDialog(carRegistry: widget._carRegistry);
+      },
+    );
   }
 
   void onChangePassword() {

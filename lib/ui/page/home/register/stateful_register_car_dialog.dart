@@ -49,7 +49,7 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
 
   @override
   void initState() {
-    widget._carRegistry.loading.listen((final loading) { 
+    widget._carRegistry.loading.listen((final loading) {
       setState(() => this.loading = loading);
     });
     registrationIdController.addListener(() {
@@ -74,6 +74,10 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
       if (oldYear != yearController.text) {
         setState(() => yearEmpty = false);
       }
+      if (int.tryParse(yearController.text) == null &&
+          yearController.text != '') {
+        yearController.text = oldYear;
+      }
       oldYear = yearController.text;
     });
     colorController.addListener(() {
@@ -91,7 +95,7 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
     super.initState();
   }
 
-    @override
+  @override
   Widget build(final BuildContext context) {
     return RegisterCarDialog(
       registrationIdController: registrationIdController,
