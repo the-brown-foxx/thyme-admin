@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   final VoidCallback onRegisterCar;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
+  final bool loading;
 
   const HomeScreen({
     super.key,
@@ -15,19 +16,24 @@ class HomeScreen extends StatelessWidget {
     required this.onRegisterCar,
     required this.onChangePassword,
     required this.onLogout,
+    required this.loading,
   });
 
   @override
   Widget build(final BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.large(
+        onPressed: onRegisterCar,
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TopBar(
             maxContentWidth: 1080,
-            scrolled: true,
             onChangePassword: onChangePassword,
             onLogout: onLogout,
+            loading: loading,
           ),
           Expanded(
             child: CarsListView(

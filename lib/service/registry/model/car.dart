@@ -16,13 +16,13 @@ sealed class Car {
   });
 
   factory Car.fromJson(final Map<String, dynamic> json) {
-    final registrationId = json['registrationId'] as String;
+    final registrationId = json['registration_id'] as String;
     final make = json['make'] as String;
     final model = json['model'] as String;
     final year = json['year'] as int;
     final color = json['color'] as String;
     final owner = json['owner'] as String;
-    final temporaryPassword = json['temporaryPassword'] as String?;
+    final temporaryPassword = json['temporary_password'] as String?;
 
     return temporaryPassword == null
         ? SetPasswordCar(
