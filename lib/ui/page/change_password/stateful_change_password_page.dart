@@ -70,12 +70,12 @@ class _StatefulChangePasswordPageState
 
   @override
   void initState() {
-    // oldPasswordController.addListener(() {
-    //   if (oldPassword != oldPasswordController.text) {
-    //     setState(() => passwordIncorrect = false);
-    //   }
-    //   oldPassword = oldPasswordController.text;
-    // });
+    oldPasswordController.addListener(() {
+      if (oldPassword != oldPasswordController.text) {
+        setState(() => passwordIncorrect = false);
+      }
+      oldPassword = oldPasswordController.text;
+    });
     newPasswordController.addListener(() {
       if (newPassword != newPasswordController.text) {
         setState(() {
