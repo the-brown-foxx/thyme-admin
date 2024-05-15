@@ -9,7 +9,9 @@ import 'package:thyme_to_park_admin/service/authenticator/admin/actual_admin_aut
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/model/printing_dummy_token_storage.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
-import 'package:thyme_to_park_admin/ui/page/home/home_screen.dart';
+import 'package:thyme_to_park_admin/service/registry/actual_car_registry.dart';
+import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
+import 'package:thyme_to_park_admin/ui/page/home/stateful_home_screen.dart';
 import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
 import 'package:thyme_to_park_admin/ui/page/set_password/stateful_set_password_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
@@ -44,6 +46,10 @@ class MyApp extends StatelessWidget {
     api: api,
     tokenStorage: tokenStorage,
   );
+  late final CarRegistry carRegistry = ActualCarRegistry(
+    api: api,
+    tokenStorage: tokenStorage,
+  );
 
   MyApp({super.key});
 
@@ -61,7 +67,10 @@ class MyApp extends StatelessWidget {
           ),
           GoRoute(
             path: 'home',
-            builder: (final context, final state) => const HomeScreen(),
+            builder: (final context, final state) => StatefulHomeScreen(
+              carRegistry: carRegistry,
+              adminAuthenticator: adminAuthenticator,
+            ),
           ),
         ],
       ),

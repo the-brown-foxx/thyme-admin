@@ -24,19 +24,19 @@ class CarCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            const Icon(Icons.directions_car),
-            const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${car.color} ${car.year} ${car.make} ${car.model}',
+                  car.owner,
                   style: context.theme.textTheme.titleMedium,
                 ),
                 const SizedBox(height: 4),
-                LicensePlate(registrationId: car.registrationId),
+                Text('${car.color} ${car.year} ${car.make} ${car.model}'),
               ],
-            )
+            ),
+            const Spacer(),
+            LicensePlate(registrationId: car.registrationId),
           ],
         ),
       ),
