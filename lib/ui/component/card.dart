@@ -18,7 +18,8 @@ class HerbHubCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final _containerColor = containerColor ?? context.theme.colorScheme.surface;
+    final containerColor =
+        this.containerColor ?? context.theme.colorScheme.surface;
     final borderRadius = largeCornerRadius
         ? BorderRadius.circular(32.0)
         : BorderRadius.only(
@@ -29,7 +30,7 @@ class HerbHubCard extends StatelessWidget {
           );
 
     return Card.outlined(
-      color: _containerColor,
+      color: containerColor,
       margin: const EdgeInsets.all(0.0),
       shape: RoundedRectangleBorder(
         side: BorderSide(

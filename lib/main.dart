@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
                 builder: (final _, final __) => StatefulChangePasswordPage(
                   adminAuthenticator: adminAuthenticator,
                 ),
-              )
+              ),
             ],
           ),
         ],
