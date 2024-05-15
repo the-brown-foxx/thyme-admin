@@ -52,6 +52,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
     widget._adminAuthenticator.loggedIn.listen((final loggedIn) {
       if (loggedIn && mounted) {
         context.go('/home');
+        passwordController.text = '';
       }
     });
 
@@ -77,6 +78,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
         setState(() => passwordIncorrect = false);
       }
       oldPassword = passwordController.text;
+      
     });
     super.initState();
   }
