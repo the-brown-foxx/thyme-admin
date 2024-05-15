@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/icon_button.dart';
+import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
 import 'package:thyme_to_park_admin/ui/component/theme.dart';
 
 class TopBar extends StatelessWidget {
   final double maxContentWidth;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
-  final bool scrolled;
+  final bool loading;
 
   const TopBar({
     super.key,
     this.maxContentWidth = double.infinity,
     required this.onChangePassword,
     required this.onLogout,
-    this.scrolled = false,
+    required this.loading,
   });
 
   @override
@@ -23,9 +24,7 @@ class TopBar extends StatelessWidget {
       children: [
         AnimatedContainer(
           duration: const Duration(milliseconds: 150),
-          color: scrolled
-              ? context.theme.colorScheme.surface
-              : context.theme.colorScheme.background,
+          color: context.theme.colorScheme.surface,
           child: Align(
             alignment: Alignment.center,
             child: Padding(
@@ -57,10 +56,10 @@ class TopBar extends StatelessWidget {
             ),
           ),
         ),
-        Divider(
+        !loading ? const Divider(
           height: 0,
           thickness: 2,
-        ),
+        ) : const HerbHubLinearProgressIndicator(),
       ],
     );
   }
