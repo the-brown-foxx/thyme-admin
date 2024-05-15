@@ -7,10 +7,12 @@ import 'package:thyme_to_park_admin/service/api/actual_api.dart';
 import 'package:thyme_to_park_admin/service/api/api.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/actual_admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
-import 'package:thyme_to_park_admin/service/authenticator/token/model/printing_dummy_token_storage.dart';
+import 'package:thyme_to_park_admin/service/authenticator/token/actual_token_storage.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
+import 'package:thyme_to_park_admin/service/registry/actual_car_registry.dart';
+import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/ui/page/change_password/stateful_change_password_page.dart';
-import 'package:thyme_to_park_admin/ui/page/home/home_screen.dart';
+import 'package:thyme_to_park_admin/ui/page/home/stateful_home_screen.dart';
 import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
 import 'package:thyme_to_park_admin/ui/page/set_password/stateful_set_password_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
@@ -39,9 +41,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   final Api api = ActualApi();
 
-  // TODO: Make this the actual one
-  final TokenStorage tokenStorage = PrintingDummyTokenStorage();
+  final TokenStorage tokenStorage = ActualTokenStorage();
   late final AdminAuthenticator adminAuthenticator = ActualAdminAuthenticator(
+    api: api,
+    tokenStorage: tokenStorage,
+  );
+  late final CarRegistry carRegistry = ActualCarRegistry(
     api: api,
     tokenStorage: tokenStorage,
   );
@@ -52,22 +57,28 @@ class MyApp extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (final context, final state) =>
+        builder: (final _, final __) =>
             StatefulLoginPage(adminAuthenticator: adminAuthenticator),
         routes: [
           GoRoute(
             path: 'set-password',
-            builder: (final context, final state) =>
+            builder: (final _, final __) =>
                 StatefulSetPasswordPage(adminAuthenticator: adminAuthenticator),
           ),
           GoRoute(
             path: 'home',
-            builder: (final context, final state) => const HomeScreen(),
-          ),
-          GoRoute(
-            path: 'change-password',
-            builder: (final context, final state) =>
-             StatefulChangePasswordPage(adminAuthenticator: adminAuthenticator),
+            builder: (final _, final __) => StatefulHomeScreen(
+              carRegistry: carRegistry,
+              adminAuthenticator: adminAuthenticator,
+            ),
+            routes: [
+              GoRoute(
+                path: 'change-password',
+                builder: (final _, final __) => StatefulChangePasswordPage(
+                  adminAuthenticator: adminAuthenticator,
+                ),
+              )
+            ],
           ),
         ],
       ),

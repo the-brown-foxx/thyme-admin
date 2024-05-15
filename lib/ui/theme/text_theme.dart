@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final monospace = GoogleFonts.jetBrainsMono();
+
 final textTheme = GoogleFonts.interTextTheme(
   const TextTheme(
     displayLarge: TextStyle(fontWeight: FontWeight.w900),

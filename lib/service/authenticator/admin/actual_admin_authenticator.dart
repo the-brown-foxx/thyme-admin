@@ -50,11 +50,11 @@ class ActualAdminAuthenticator implements AdminAuthenticator {
   }) async {
     final response = await post(
       _api.urlOf('/admin/change-password'),
+      headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'old_password': oldPassword,
         'new_password': newPassword,
       }),
-      headers: {'Content-Type': 'application/json'},
     );
     _api.parseJsonResponse(response);
   }
