@@ -11,7 +11,7 @@ class HerbHubCard extends StatelessWidget {
   const HerbHubCard({
     super.key,
     this.roundedCorners = Corner.all,
-    this.largeCornerRadius = true, // TODO: Make this default to false
+    this.largeCornerRadius = false,
     this.containerColor,
     required this.child,
   });

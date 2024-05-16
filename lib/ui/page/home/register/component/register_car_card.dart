@@ -41,6 +41,7 @@ class RegisterCarCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return HerbHubCard(
+      largeCornerRadius: true,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [

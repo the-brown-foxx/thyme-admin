@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/button.dart';
 import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
-
 
 class RegisterCarBody extends StatelessWidget {
   final TextEditingController registrationIdController;
@@ -59,7 +59,7 @@ class RegisterCarBody extends StatelessWidget {
           roundedCorners: Edge.top,
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         HerbHubTextField(
           hintText: 'Make',
           controller: makeController,
@@ -67,7 +67,7 @@ class RegisterCarBody extends StatelessWidget {
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         HerbHubTextField(
           hintText: 'Model',
           controller: modelController,
@@ -75,7 +75,7 @@ class RegisterCarBody extends StatelessWidget {
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         HerbHubTextField(
           hintText: 'Year',
           controller: yearController,
@@ -84,7 +84,7 @@ class RegisterCarBody extends StatelessWidget {
           onSubmitted: (final _) => onRegisterCar?.call(),
           keyboardType: TextInputType.number,
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         HerbHubTextField(
           hintText: 'Color',
           controller: colorController,
@@ -92,7 +92,7 @@ class RegisterCarBody extends StatelessWidget {
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         HerbHubTextField(
           hintText: 'Owner',
           controller: ownerController,
@@ -101,10 +101,25 @@ class RegisterCarBody extends StatelessWidget {
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
         const SizedBox(height: 16),
-        HerbHubButton(
-          text: 'Register',
-          onPressed: onRegisterCar,
-          alignment: Alignment.center,
+        Row(
+          children: [
+            HerbHubButton(
+              text: 'Cancel',
+              onPressed: () { throw UnimplementedError(); /* TODO */ },
+              roundedCorners: Edge.left,
+              type: ButtonType.outlined,
+              alignment: Alignment.centerRight,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: HerbHubButton(
+                text: 'Register',
+                onPressed: onRegisterCar,
+                roundedCorners: Edge.right,
+                alignment: Alignment.centerLeft,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 32),
       ],
