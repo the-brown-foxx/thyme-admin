@@ -87,9 +87,9 @@ class ChangePasswordBody extends StatelessWidget {
               text: 'Cancel',
               onPressed: onCancel,
               roundedCorners:
-                  Edge.left, // Add rounded corner for the rightmost button
+                  Edge.left,
               type: ButtonType
-                  .outlined, // Consider using outlined style for consistency
+                  .outlined,
               alignment: Alignment.centerRight,
             ),
             const SizedBox(width: 8),
