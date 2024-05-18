@@ -12,6 +12,7 @@ class RegisterCarBody extends StatelessWidget {
   final TextEditingController colorController;
   final TextEditingController ownerController;
   final VoidCallback? onRegisterCar;
+  final VoidCallback? onCancel;
   final bool registrationIdRequired;
   final bool makeRequired;
   final bool modelRequired;
@@ -28,6 +29,7 @@ class RegisterCarBody extends StatelessWidget {
     required this.colorController,
     required this.ownerController,
     required this.onRegisterCar,
+    required this.onCancel,
     required this.registrationIdRequired,
     required this.makeRequired,
     required this.modelRequired,
@@ -105,7 +107,7 @@ class RegisterCarBody extends StatelessWidget {
           children: [
             HerbHubButton(
               text: 'Cancel',
-              onPressed: () { throw UnimplementedError(); /* TODO */ },
+              onPressed: onCancel,
               roundedCorners: Edge.left,
               type: ButtonType.outlined,
               alignment: Alignment.centerRight,

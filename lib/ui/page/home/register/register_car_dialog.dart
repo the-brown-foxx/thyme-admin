@@ -11,6 +11,7 @@ class RegisterCarDialog extends StatelessWidget {
   final TextEditingController colorController;
   final TextEditingController ownerController;
   final VoidCallback? onRegisterCar;
+  final VoidCallback? onCancel;
   final bool registrationIdRequired;
   final bool makeRequired;
   final bool modelRequired;
@@ -28,6 +29,7 @@ class RegisterCarDialog extends StatelessWidget {
     required this.colorController,
     required this.ownerController,
     required this.onRegisterCar,
+    required this.onCancel,
     required this.registrationIdRequired,
     required this.makeRequired,
     required this.modelRequired,
@@ -56,6 +58,7 @@ class RegisterCarDialog extends StatelessWidget {
           colorController: colorController,
           ownerController: ownerController,
           onRegisterCar: onRegisterCar,
+          onCancel: onCancel,
           registrationIdRequired: registrationIdRequired,
           makeRequired: makeRequired,
           modelRequired: modelRequired,

@@ -7,6 +7,7 @@ class ChangePasswordPage extends StatelessWidget {
   final TextEditingController newPasswordController;
   final TextEditingController repeatPasswordController;
   final VoidCallback? onChangePassword;
+  final VoidCallback? onCancel;
   final bool passwordIncorrect;
   final bool passwordTooShort;
   final bool passwordsDoNotMatch;
@@ -18,6 +19,7 @@ class ChangePasswordPage extends StatelessWidget {
     required this.newPasswordController,
     required this.repeatPasswordController,
     required this.onChangePassword,
+    required this.onCancel,
     required this.passwordIncorrect,
     required this.passwordTooShort,
     required this.passwordsDoNotMatch,
@@ -42,6 +44,7 @@ class ChangePasswordPage extends StatelessWidget {
                     newPasswordController: newPasswordController,
                     repeatPasswordController: repeatPasswordController,
                     onChangePassword: onChangePassword,
+                    onCancel: onCancel,
                     passwordIncorrect: passwordIncorrect,
                     passwordTooShort: passwordTooShort,
                     passwordsDoNotMatch: passwordsDoNotMatch,

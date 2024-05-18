@@ -105,6 +105,7 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
       colorController: colorController,
       ownerController: ownerController,
       onRegisterCar: onRegisterCar,
+      onCancel: onCancel,
       registrationIdRequired: registrationIdRequired,
       makeRequired: makeRequired,
       modelRequired: modelRequired,
@@ -113,6 +114,10 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
       ownerRequired: ownerRequired,
       loading: loading,
     );
+  }
+
+  void onCancel() {
+    Navigator.of(context).pop(); 
   }
 
   void onRegisterCar() async {

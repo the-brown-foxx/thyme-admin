@@ -33,6 +33,10 @@ class _StatefulChangePasswordPageState
   int? minPasswordLength;
   var loading = false;
 
+  void onCancel() {
+    Navigator.of(context).pop(); 
+  }
+
   void onChangePassword() async {
     setState(() => loading = true);
     await changePassword();
@@ -111,6 +115,7 @@ class _StatefulChangePasswordPageState
       newPasswordController: newPasswordController,
       repeatPasswordController: repeatPasswordController,
       onChangePassword: onChangePassword,
+      onCancel: onCancel,
       passwordIncorrect: passwordIncorrect,
       passwordTooShort: passwordTooShort,
       passwordsDoNotMatch: passwordsDoNotMatch,

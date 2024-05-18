@@ -8,6 +8,7 @@ class ChangePasswordBody extends StatelessWidget {
   final TextEditingController newPasswordController;
   final TextEditingController repeatPasswordController;
   final VoidCallback? onChangePassword;
+  final VoidCallback? onCancel;
   final bool passwordIncorrect;
   final bool passwordTooShort;
   final bool passwordsDoNotMatch;
@@ -19,6 +20,7 @@ class ChangePasswordBody extends StatelessWidget {
     required this.newPasswordController,
     required this.repeatPasswordController,
     required this.onChangePassword,
+    required this.onCancel,
     required this.passwordIncorrect,
     required this.passwordTooShort,
     required this.passwordsDoNotMatch,
@@ -30,8 +32,8 @@ class ChangePasswordBody extends StatelessWidget {
     final theme = Theme.of(context);
     final passwordErrorText = passwordTooShort
         ? (minPasswordLength != null
-        ? 'Password must be at least $minPasswordLength characters long'
-        : 'Password is too short')
+            ? 'Password must be at least $minPasswordLength characters long'
+            : 'Password is too short')
         : null;
 
     return Column(
@@ -48,7 +50,7 @@ class ChangePasswordBody extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           'Change your password. '
-              'Make sure to make it hard to guess but easy to remember.',
+          'Make sure to make it hard to guess but easy to remember.',
           style: theme.textTheme.bodyLarge,
         ),
         const SizedBox(height: 16),
@@ -79,12 +81,29 @@ class ChangePasswordBody extends StatelessWidget {
           onSubmitted: (final _) => onChangePassword?.call(),
         ),
         const SizedBox(height: 16),
-        HerbHubButton(
-          text: 'Change password',
-          onPressed: onChangePassword,
-          alignment: Alignment.center,
+        Row(
+          children: [
+            HerbHubButton(
+              text: 'Cancel',
+              onPressed: onCancel,
+              roundedCorners:
+                  Edge.left, // Add rounded corner for the rightmost button
+              type: ButtonType
+                  .outlined, // Consider using outlined style for consistency
+              alignment: Alignment.centerRight,
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: HerbHubButton(
+                text: 'Change password',
+                onPressed: onChangePassword,
+                roundedCorners: Edge.right,
+                alignment: Alignment.centerLeft,
+              ),
+            ),
+            const SizedBox(width: 8),
+          ],
         ),
-        const SizedBox(height: 32),
       ],
     );
   }
