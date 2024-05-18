@@ -13,7 +13,6 @@ class LicensePlate extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(minWidth: 128),
       child: HerbHubCard(
-        largeCornerRadius: false,
         roundedCorners: const {},
         containerColor: context.theme.colorScheme.background,
         child: Center(

@@ -1,11 +1,13 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:thyme_to_park_admin/service/api/api.dart';
+import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car_update.dart';
 import 'package:thyme_to_park_admin/service/registry/model/new_car.dart';
 
-import '../api/api.dart';
-import '../authenticator/token/token_storage.dart';
 import 'car_registry.dart';
 
 class ActualCarRegistry implements CarRegistry {
@@ -26,7 +28,9 @@ class ActualCarRegistry implements CarRegistry {
       api: api,
       tokenStorage: tokenStorage,
     );
-    registry._loadCars();
+    registry._runMutation(() async {
+      registry._loadCars();
+    });
     return registry;
   }
 
@@ -44,23 +48,22 @@ class ActualCarRegistry implements CarRegistry {
     if (_loading.value) return;
     try {
       _loading.value = true;
-      mutation();
+      await mutation();
+      await _loadCars();
     } finally {
       _loading.value = false;
     }
   }
 
   Future<void> _loadCars() async {
-    _runMutation(() async {
-      final response = await get(
-        _api.urlOf('/cars'),
-        headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
-      );
-      final jsonResponse = _api.parseJsonResponse(response);
-      final carsJson = jsonResponse.body['cars'] as List<dynamic>;
-      _cars.value =
-          carsJson.map((final carJson) => Car.fromJson(carJson)).toList();
-    });
+    final response = await get(
+      _api.urlOf('/cars'),
+      headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
+    );
+    final jsonResponse = _api.parseJsonResponse(response);
+    final carsJson = jsonResponse.body['cars'] as List<dynamic>;
+    _cars.value =
+        carsJson.map((final carJson) => Car.fromJson(carJson)).toList();
   }
 
   @override
@@ -80,15 +83,16 @@ class ActualCarRegistry implements CarRegistry {
         _api.urlOf('/cars'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${_tokenStorage.token}',
+          'Authorization': 'Bearer ${await _tokenStorage.token}',
         },
-        body: {
+        body: jsonEncode({
           'registration_id': car.registrationId,
           'make': car.make,
           'model': car.model,
           'year': car.year,
           'color': car.color,
-        },
+          'owner': car.owner,
+        }),
       );
       _api.parseJsonResponse(response);
     });
@@ -101,15 +105,15 @@ class ActualCarRegistry implements CarRegistry {
         _api.urlOf('/cars'),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${_tokenStorage.token}',
+          'Authorization': 'Bearer ${await _tokenStorage.token}',
         },
-        body: {
+        body: jsonEncode({
           'registration_id': car.registrationId,
           'make': car.make,
           'model': car.model,
           'year': car.year,
           'color': car.color,
-        },
+        }),
       );
       _api.parseJsonResponse(response);
     });
@@ -120,7 +124,7 @@ class ActualCarRegistry implements CarRegistry {
     _runMutation(() async {
       final response = await delete(
         _api.urlOf('/cars/$registrationId'),
-        headers: {'Authorization': 'Bearer ${_tokenStorage.token}'},
+        headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
       );
       _api.parseJsonResponse(response);
     });

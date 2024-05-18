@@ -9,6 +9,7 @@ class ChangePasswordCard extends StatelessWidget {
   final TextEditingController newPasswordController;
   final TextEditingController repeatPasswordController;
   final VoidCallback? onChangePassword;
+  final VoidCallback? onCancel;
   final bool passwordIncorrect;
   final bool passwordTooShort;
   final bool passwordsDoNotMatch;
@@ -20,6 +21,7 @@ class ChangePasswordCard extends StatelessWidget {
     required this.newPasswordController,
     required this.repeatPasswordController,
     required this.onChangePassword,
+    required this.onCancel,
     required this.passwordIncorrect,
     required this.passwordTooShort,
     required this.passwordsDoNotMatch,
@@ -29,6 +31,7 @@ class ChangePasswordCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return HerbHubCard(
+      largeCornerRadius: true,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -43,6 +46,7 @@ class ChangePasswordCard extends StatelessWidget {
                     newPasswordController: newPasswordController,
                     repeatPasswordController: repeatPasswordController,
                     onChangePassword: !loading ? onChangePassword : null,
+                    onCancel: !loading ? onCancel : null,
                     passwordIncorrect: passwordIncorrect,
                     passwordTooShort: passwordTooShort,
                     passwordsDoNotMatch: passwordsDoNotMatch,

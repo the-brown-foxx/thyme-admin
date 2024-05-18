@@ -9,6 +9,7 @@ class HerbHubTextField extends StatefulWidget {
   final bool obscureText;
   final String? errorText;
   final Function(String)? onSubmitted;
+  final TextInputType? keyboardType;
 
   const HerbHubTextField({
     super.key,
@@ -18,6 +19,7 @@ class HerbHubTextField extends StatefulWidget {
     this.obscureText = false,
     this.errorText,
     this.onSubmitted,
+    this.keyboardType,
   });
 
   @override
@@ -83,6 +85,7 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
               controller: widget.controller,
               obscureText: widget.obscureText,
               onSubmitted: widget.onSubmitted,
+              keyboardType: widget.keyboardType,
               decoration: InputDecoration(
                 hintText: widget.hintText,
                 hintStyle: hintStyle,
