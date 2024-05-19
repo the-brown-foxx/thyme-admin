@@ -78,7 +78,7 @@ class ActualCarRegistry implements CarRegistry {
 
   @override
   Future<void> registerCar(final NewCar car) async {
-    _runMutation(() async {
+    await _runMutation(() async {
       final response = await post(
         _api.urlOf('/cars'),
         headers: {
@@ -100,7 +100,7 @@ class ActualCarRegistry implements CarRegistry {
 
   @override
   Future<void> updateCar(final CarUpdate car) async {
-    _runMutation(() async {
+    await _runMutation(() async {
       final response = await patch(
         _api.urlOf('/cars'),
         headers: {
@@ -121,7 +121,7 @@ class ActualCarRegistry implements CarRegistry {
 
   @override
   Future<void> unregisterCar(final String registrationId) async {
-    _runMutation(() async {
+    await _runMutation(() async {
       final response = await delete(
         _api.urlOf('/cars/$registrationId'),
         headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},

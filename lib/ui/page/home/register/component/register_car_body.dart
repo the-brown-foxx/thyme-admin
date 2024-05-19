@@ -13,12 +13,12 @@ class RegisterCarBody extends StatelessWidget {
   final TextEditingController ownerController;
   final VoidCallback? onRegisterCar;
   final VoidCallback? onCancel;
-  final bool registrationIdRequired;
-  final bool makeRequired;
-  final bool modelRequired;
-  final bool yearRequired;
-  final bool colorRequired;
-  final bool ownerRequired;
+  final bool registrationIdBlank;
+  final bool makeBlank;
+  final bool modelBlank;
+  final bool yearBlank;
+  final bool colorBlank;
+  final bool ownerBlank;
 
   const RegisterCarBody({
     super.key,
@@ -30,12 +30,12 @@ class RegisterCarBody extends StatelessWidget {
     required this.ownerController,
     required this.onRegisterCar,
     required this.onCancel,
-    required this.registrationIdRequired,
-    required this.makeRequired,
-    required this.modelRequired,
-    required this.yearRequired,
-    required this.colorRequired,
-    required this.ownerRequired,
+    required this.registrationIdBlank,
+    required this.makeBlank,
+    required this.modelBlank,
+    required this.yearBlank,
+    required this.colorBlank,
+    required this.ownerBlank,
   });
 
   @override
@@ -57,7 +57,7 @@ class RegisterCarBody extends StatelessWidget {
           hintText: 'Registration ID',
           controller: registrationIdController,
           errorText:
-              registrationIdRequired ? 'Registration ID is required' : null,
+              registrationIdBlank ? 'Registration ID is required' : null,
           roundedCorners: Edge.top,
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
@@ -65,7 +65,7 @@ class RegisterCarBody extends StatelessWidget {
         HerbHubTextField(
           hintText: 'Make',
           controller: makeController,
-          errorText: makeRequired ? 'Make is required' : null,
+          errorText: makeBlank ? 'Make is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
@@ -73,7 +73,7 @@ class RegisterCarBody extends StatelessWidget {
         HerbHubTextField(
           hintText: 'Model',
           controller: modelController,
-          errorText: modelRequired ? 'Model is required' : null,
+          errorText: modelBlank ? 'Model is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
@@ -81,7 +81,7 @@ class RegisterCarBody extends StatelessWidget {
         HerbHubTextField(
           hintText: 'Year',
           controller: yearController,
-          errorText: yearRequired ? 'Year is required' : null,
+          errorText: yearBlank ? 'Year is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
           keyboardType: TextInputType.number,
@@ -90,7 +90,7 @@ class RegisterCarBody extends StatelessWidget {
         HerbHubTextField(
           hintText: 'Color',
           controller: colorController,
-          errorText: colorRequired ? 'Color is required' : null,
+          errorText: colorBlank ? 'Color is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
@@ -98,7 +98,7 @@ class RegisterCarBody extends StatelessWidget {
         HerbHubTextField(
           hintText: 'Owner',
           controller: ownerController,
-          errorText: ownerRequired ? 'Owner required.' : null,
+          errorText: ownerBlank ? 'Owner required.' : null,
           roundedCorners: Edge.bottom,
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),

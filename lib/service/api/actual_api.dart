@@ -20,22 +20,32 @@ class ActualApi implements Api {
     final jsonResponse = JsonResponse(response);
 
     switch (jsonResponse.body['status']) {
-      case 'CAR_NOT_FOUND': throw CarNotFoundException(
-        registrationId: jsonResponse.body['registration_id'],
-      );
-      case 'REGISTRATION_ID_TAKEN': throw RegistrationIdTakenException(
-        registrationId: jsonResponse.body['registration_id'],
-      );
-      case 'FIELD_CANNOT_BE_BLANK': throw FieldCannotBeBlankException(
-        fieldName: jsonResponse.body['field_name'],
-      );
-      case 'PASSWORD_TOO_SHORT': throw PasswordTooShortException(
-        minLength: jsonResponse.body['min_length'],
-      );
-      case 'INCORRECT_PASSWORD': throw IncorrectPasswordException();
-      case 'INVALID_TOKEN': throw InvalidTokenException();
-      case 'SUCCESSFUL': return jsonResponse;
-      default: throw UnknownException();
+      case 'CAR_NOT_FOUND':
+        throw CarNotFoundException(
+          registrationId: jsonResponse.body['registration_id'],
+        );
+      case 'REGISTRATION_ID_TAKEN':
+        throw RegistrationIdTakenException(
+          registrationId: jsonResponse.body['registration_id'],
+        );
+      case 'FIELD_CANNOT_BE_BLANK':
+        throw FieldCannotBeBlankException(
+          fieldName: jsonResponse.body['field_name'],
+        );
+      case 'PASSWORD_TOO_SHORT':
+        throw PasswordTooShortException(
+          minLength: jsonResponse.body['min_length'],
+        );
+      case 'INCORRECT_PASSWORD':
+        throw IncorrectPasswordException();
+      case 'INVALID_TOKEN':
+        throw InvalidTokenException();
+      case null:
+        throw InvalidTokenException();
+      case 'SUCCESSFUL':
+        return jsonResponse;
+      default:
+        throw UnknownException();
     }
   }
 }
