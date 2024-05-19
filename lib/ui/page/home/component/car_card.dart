@@ -19,6 +19,7 @@ class CarCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return HerbHubCard(
+      roundedCorners: roundedCorners,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
