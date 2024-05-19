@@ -13,7 +13,7 @@ class StatefulRegisterCarDialog extends StatefulWidget {
   const StatefulRegisterCarDialog({
     super.key,
     required final CarRegistry carRegistry,
-  }) : _carRegistry = carRegistry;
+  })  : _carRegistry = carRegistry;
 
   @override
   State<StatefulRegisterCarDialog> createState() =>
@@ -111,7 +111,7 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
   }
 
   void onCancel() {
-    Navigator.of(context).pop(); 
+    Navigator.of(context).pop();
   }
 
   void onRegisterCar() async {
@@ -145,6 +145,9 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
             ownerBlank = true;
         }
       });
+    } on InvalidTokenException {
+      if (!mounted) return;
+      context.showSnackBar('Invalid token');
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);

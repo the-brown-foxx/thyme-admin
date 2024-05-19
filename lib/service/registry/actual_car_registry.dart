@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:thyme_to_park_admin/service/api/api.dart';
+import 'package:thyme_to_park_admin/service/api/model/exception.dart';
+import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car_update.dart';
@@ -13,24 +15,27 @@ import 'car_registry.dart';
 class ActualCarRegistry implements CarRegistry {
   final Api _api;
   final TokenStorage _tokenStorage;
+  final AdminAuthenticator _adminAuthenticator;
 
   ActualCarRegistry._({
     required final Api api,
     required final TokenStorage tokenStorage,
+    required final AdminAuthenticator adminAuthenticator,
   })  : _api = api,
-        _tokenStorage = tokenStorage;
+        _tokenStorage = tokenStorage,
+        _adminAuthenticator = adminAuthenticator;
 
   factory ActualCarRegistry({
     required final Api api,
     required final TokenStorage tokenStorage,
+    required final AdminAuthenticator adminAuthenticator,
   }) {
     final registry = ActualCarRegistry._(
       api: api,
       tokenStorage: tokenStorage,
+      adminAuthenticator: adminAuthenticator,
     );
-    registry._runMutation(() async {
-      registry._loadCars();
-    });
+    registry._runMutation(() async {});
     return registry;
   }
 
@@ -50,6 +55,8 @@ class ActualCarRegistry implements CarRegistry {
       _loading.value = true;
       await mutation();
       await _loadCars();
+    } on InvalidTokenException {
+      await _adminAuthenticator.logout();
     } finally {
       _loading.value = false;
     }
@@ -68,12 +75,17 @@ class ActualCarRegistry implements CarRegistry {
 
   @override
   Future<Car> getCar(final String registrationId) async {
-    final response = await get(
-      _api.urlOf('/cars/$registrationId'),
-      headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
-    );
-    final jsonResponse = _api.parseJsonResponse(response);
-    return Car.fromJson(jsonResponse.body['car']);
+    try {
+      final response = await get(
+        _api.urlOf('/cars/$registrationId'),
+        headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
+      );
+      final jsonResponse = _api.parseJsonResponse(response);
+      return Car.fromJson(jsonResponse.body['car']);
+    } on InvalidTokenException {
+      _adminAuthenticator.logout();
+      rethrow;
+    }
   }
 
   @override
