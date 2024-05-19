@@ -14,7 +14,7 @@ class PrintingDummyTokenStorage implements TokenStorage {
   }
 
   @override
-  void setToken(final String? token) {
+  Future<void> setToken(final String? token) async {
     if (kDebugMode) {
       print('Setting token: $token');
     }

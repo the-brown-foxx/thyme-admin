@@ -1,4 +1,6 @@
 abstract interface class AdminAuthenticator {
+  Stream<bool> get loading;
+
   Stream<bool> get loggedIn;
 
   Future<bool> get passwordSet;
@@ -10,5 +12,5 @@ abstract interface class AdminAuthenticator {
     required final String newPassword,
   });
 
-  void logout();
+  Future<void> logout();
 }

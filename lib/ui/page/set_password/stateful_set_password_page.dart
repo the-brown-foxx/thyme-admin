@@ -29,39 +29,12 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
   int? minPasswordLength;
   var loading = false;
 
-  void onSetPassword() async {
-    setState(() => loading = true);
-    await setPassword();
-    setState(() => loading = false);
-  }
-  
-  Future<void> setPassword() async {
-    if (passwordController.text != repeatPasswordController.text) {
-      setState(() => passwordsDoNotMatch = true);
-      return;
-    }
-    
-    try {
-      await widget._adminAuthenticator
-          .changePassword(newPassword: passwordController.text);
-      if (!mounted) return;
-      context.pop();
-    } on PasswordTooShortException catch (exception) {
-      setState(() {
-        minPasswordLength = exception.minLength;
-        passwordTooShort = true;
-      });
-    } on ApiException catch (exception) {
-      if (!mounted) return;
-      context.showSnackBar(exception.message);
-    } on ClientException {
-      if (!mounted) return;
-      context.showSnackBar('Connection error');
-    }
-  }
-
   @override
   void initState() {
+    widget._adminAuthenticator.loading.listen((final loading) {
+      setState(() => this.loading = loading);
+    });
+
     passwordController.addListener(() {
       if (oldPassword != passwordController.text) {
         setState(() {
@@ -71,6 +44,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
       }
       oldPassword = passwordController.text;
     });
+
     repeatPasswordController.addListener(() {
       if (oldRepeatPassword != repeatPasswordController.text) {
         setState(() {
@@ -79,6 +53,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
       }
       oldRepeatPassword = repeatPasswordController.text;
     });
+
     super.initState();
   }
 
@@ -99,5 +74,30 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
       passwordsDoNotMatch: passwordsDoNotMatch,
       loading: loading,
     );
+  }
+
+  void onSetPassword() async {
+    if (passwordController.text != repeatPasswordController.text) {
+      setState(() => passwordsDoNotMatch = true);
+      return;
+    }
+
+    try {
+      await widget._adminAuthenticator
+          .changePassword(newPassword: passwordController.text);
+      if (!mounted) return;
+      context.pop();
+    } on PasswordTooShortException catch (exception) {
+      setState(() {
+        minPasswordLength = exception.minLength;
+        passwordTooShort = true;
+      });
+    } on ApiException catch (exception) {
+      if (!mounted) return;
+      context.showSnackBar(exception.message);
+    } on ClientException {
+      if (!mounted) return;
+      context.showSnackBar('Connection error');
+    }
   }
 }

@@ -24,28 +24,22 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
   var passwordIncorrect = false;
   var loading = false;
 
-  void onLogin() async {
-    setState(() => loading = true);
-    await login();
-    setState(() => loading = false);
-  }
+  @override
+  void initState() {
+    navigateToCorrectPage();
 
-  Future<void> login() async {
-    try {
-      if (!await widget._adminAuthenticator.passwordSet && mounted) {
-        context.go('/set-password');
-        return;
+    widget._adminAuthenticator.loading.listen((final loading) {
+      setState(() => this.loading = loading);
+    });
+
+    passwordController.addListener(() {
+      if (oldPassword != passwordController.text) {
+        setState(() => passwordIncorrect = false);
       }
-      await widget._adminAuthenticator.login(passwordController.text);
-    } on IncorrectPasswordException {
-      setState(() => passwordIncorrect = true);
-    } on ApiException catch (exception) {
-      if (!mounted) return;
-      context.showSnackBar(exception.message);
-    } on ClientException {
-      if (!mounted) return;
-      context.showSnackBar('Connection error');
-    }
+      oldPassword = passwordController.text;
+      
+    });
+    super.initState();
   }
 
   void navigateToCorrectPage() async {
@@ -70,20 +64,6 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
   }
 
   @override
-  void initState() {
-    navigateToCorrectPage();
-
-    passwordController.addListener(() {
-      if (oldPassword != passwordController.text) {
-        setState(() => passwordIncorrect = false);
-      }
-      oldPassword = passwordController.text;
-      
-    });
-    super.initState();
-  }
-
-  @override
   void dispose() {
     passwordController.dispose();
     super.dispose();
@@ -97,5 +77,23 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       passwordIncorrect: passwordIncorrect,
       loading: loading,
     );
+  }
+
+  void onLogin() async {
+    try {
+      if (!await widget._adminAuthenticator.passwordSet && mounted) {
+        context.go('/set-password');
+        return;
+      }
+      await widget._adminAuthenticator.login(passwordController.text);
+    } on IncorrectPasswordException {
+      setState(() => passwordIncorrect = true);
+    } on ApiException catch (exception) {
+      if (!mounted) return;
+      context.showSnackBar(exception.message);
+    } on ClientException {
+      if (!mounted) return;
+      context.showSnackBar('Connection error');
+    }
   }
 }

@@ -73,6 +73,6 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
   }
 
   Future<void> onLogout() async {
-    widget._adminAuthenticator.logout();
+    await widget._adminAuthenticator.logout();
   }
 }
