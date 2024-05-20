@@ -41,7 +41,6 @@ class ChangePasswordBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: 32),
         Text(
           "Let's change your password!",
           maxLines: 2,
@@ -101,7 +100,6 @@ class ChangePasswordBody extends StatelessWidget {
                 alignment: Alignment.centerLeft,
               ),
             ),
-            const SizedBox(width: 8),
           ],
         ),
       ],

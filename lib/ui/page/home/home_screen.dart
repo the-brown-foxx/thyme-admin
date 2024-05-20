@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   final VoidCallback onRegisterCar;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
+  final Function(Car) onCarTap;
   final bool loading;
 
   const HomeScreen({
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
     required this.onRegisterCar,
     required this.onChangePassword,
     required this.onLogout,
+    required this.onCarTap,
     required this.loading,
   });
 
@@ -39,6 +41,7 @@ class HomeScreen extends StatelessWidget {
             child: CarsListView(
               cars: cars,
               maxContentWidth: 1080,
+              onCarTap: onCarTap,
             ),
           ),
         ],

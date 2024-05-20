@@ -45,8 +45,7 @@ class RegisterCarBody extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        const SizedBox(height: 32),
+      children: [
         Text(
           'Register car',
           maxLines: 1,
@@ -123,7 +122,6 @@ class RegisterCarBody extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 32),
       ],
     );
   }

@@ -43,11 +43,12 @@ class RegisterCarDialog extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(32),
-          side: BorderSide(
-            color: context.theme.colorScheme.onSurface,
-            width: 2,
-          )),
+        borderRadius: BorderRadius.circular(32),
+        side: BorderSide(
+          color: context.theme.colorScheme.onSurface,
+          width: 2,
+        ),
+      ),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1080),
         child: RegisterCarCard(

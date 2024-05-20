@@ -23,7 +23,6 @@ class LoginBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: 32),
         Text(
           'Thyme',
           maxLines: 1,
@@ -49,7 +48,6 @@ class LoginBody extends StatelessWidget {
           onPressed: onLogin,
           alignment: Alignment.center,
         ),
-        const SizedBox(height: 32),
       ],
     );
   }
