@@ -13,12 +13,12 @@ class RegisterCarCard extends StatelessWidget {
   final TextEditingController ownerController;
   final VoidCallback? onRegisterCar;
   final VoidCallback? onCancel;
-  final bool registrationIdRequired;
-  final bool makeRequired;
-  final bool modelRequired;
-  final bool yearRequired;
-  final bool colorRequired;
-  final bool ownerRequired;
+  final bool registrationIdBlank;
+  final bool makeBlank;
+  final bool modelBlank;
+  final bool yearBlank;
+  final bool colorBlank;
+  final bool ownerBlank;
   final bool loading;
 
   const RegisterCarCard({
@@ -31,12 +31,12 @@ class RegisterCarCard extends StatelessWidget {
     required this.ownerController,
     required this.onRegisterCar,
     required this.onCancel,
-    required this.registrationIdRequired,
-    required this.makeRequired,
-    required this.modelRequired,
-    required this.yearRequired,
-    required this.colorRequired,
-    required this.ownerRequired,
+    required this.registrationIdBlank,
+    required this.makeBlank,
+    required this.modelBlank,
+    required this.yearBlank,
+    required this.colorBlank,
+    required this.ownerBlank,
     required this.loading,
   });
 
@@ -63,12 +63,12 @@ class RegisterCarCard extends StatelessWidget {
                       ownerController: ownerController,
                       onRegisterCar: !loading ? onRegisterCar : null,
                       onCancel: !loading ? onCancel : null,
-                      registrationIdRequired: registrationIdRequired,
-                      makeRequired: makeRequired,
-                      modelRequired: modelRequired,
-                      yearRequired: yearRequired,
-                      colorRequired: colorRequired,
-                      ownerRequired: ownerRequired,
+                      registrationIdBlank: registrationIdBlank,
+                      makeBlank: makeBlank,
+                      modelBlank: modelBlank,
+                      yearBlank: yearBlank,
+                      colorBlank: colorBlank,
+                      ownerBlank: ownerBlank,
                     ),
                   ),
                 ),

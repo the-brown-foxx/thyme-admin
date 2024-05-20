@@ -33,53 +33,19 @@ class _StatefulChangePasswordPageState
   int? minPasswordLength;
   var loading = false;
 
-  void onCancel() {
-    Navigator.of(context).pop(); 
-  }
-
-  void onChangePassword() async {
-    setState(() => loading = true);
-    await changePassword();
-    setState(() => loading = false);
-  }
-  
-  Future<void> changePassword() async {
-    if (newPasswordController.text != repeatPasswordController.text) {
-      setState(() => passwordsDoNotMatch = true);
-      return;
-    }
-    
-    try {
-      await widget._adminAuthenticator.changePassword(
-        oldPassword: oldPasswordController.text, 
-        newPassword: newPasswordController.text,
-      );
-      if (!mounted) return;
-      context.pop();
-    } on IncorrectPasswordException {
-      setState(() => passwordIncorrect = true);
-    } on PasswordTooShortException catch (exception) {
-      setState(() {
-        minPasswordLength = exception.minLength;
-        passwordTooShort = true;
-      });
-    } on ApiException catch (exception) {
-      if (!mounted) return;
-      context.showSnackBar(exception.message);
-    } on ClientException {
-      if (!mounted) return;
-      context.showSnackBar('Connection error');
-    }
-  }
-
   @override
   void initState() {
+    widget._adminAuthenticator.loading.listen((final loading) {
+      setState(() => this.loading = loading);
+    });
+
     oldPasswordController.addListener(() {
       if (oldPassword != oldPasswordController.text) {
         setState(() => passwordIncorrect = false);
       }
       oldPassword = oldPasswordController.text;
     });
+
     newPasswordController.addListener(() {
       if (newPassword != newPasswordController.text) {
         setState(() {
@@ -89,6 +55,7 @@ class _StatefulChangePasswordPageState
       }
       newPassword = newPasswordController.text;
     });
+
     repeatPasswordController.addListener(() {
       if (repeatPassword != repeatPasswordController.text) {
         setState(() {
@@ -97,6 +64,7 @@ class _StatefulChangePasswordPageState
       }
       repeatPassword = repeatPasswordController.text;
     });
+
     super.initState();
   }
 
@@ -121,5 +89,38 @@ class _StatefulChangePasswordPageState
       passwordsDoNotMatch: passwordsDoNotMatch,
       loading: loading,
     );
+  }
+
+  void onCancel() {
+    Navigator.of(context).pop();
+  }
+
+  void onChangePassword() async {
+    if (newPasswordController.text != repeatPasswordController.text) {
+      setState(() => passwordsDoNotMatch = true);
+      return;
+    }
+
+    try {
+      await widget._adminAuthenticator.changePassword(
+        oldPassword: oldPasswordController.text,
+        newPassword: newPasswordController.text,
+      );
+      if (!mounted) return;
+      context.pop();
+    } on IncorrectPasswordException {
+      setState(() => passwordIncorrect = true);
+    } on PasswordTooShortException catch (exception) {
+      setState(() {
+        minPasswordLength = exception.minLength;
+        passwordTooShort = true;
+      });
+    } on ApiException catch (exception) {
+      if (!mounted) return;
+      context.showSnackBar(exception.message);
+    } on ClientException {
+      if (!mounted) return;
+      context.showSnackBar('Connection error');
+    }
   }
 }

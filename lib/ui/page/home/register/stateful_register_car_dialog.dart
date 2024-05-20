@@ -13,7 +13,7 @@ class StatefulRegisterCarDialog extends StatefulWidget {
   const StatefulRegisterCarDialog({
     super.key,
     required final CarRegistry carRegistry,
-  }) : _carRegistry = carRegistry;
+  })  : _carRegistry = carRegistry;
 
   @override
   State<StatefulRegisterCarDialog> createState() =>
@@ -33,18 +33,12 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
   var oldYear = '';
   var oldColor = '';
   var oldOwner = '';
-  var registrationIdRequired = false;
-  var makeRequired = false;
-  var modelRequired = false;
-  var yearRequired = false;
-  var colorRequired = false;
-  var ownerRequired = false;
-  var registrationIdEmpty = false;
-  var makeEmpty = false;
-  var modelEmpty = false;
-  var yearEmpty = false;
-  var colorEmpty = false;
-  var ownerEmpty = false;
+  var registrationIdBlank = false;
+  var makeBlank = false;
+  var modelBlank = false;
+  var yearBlank = false;
+  var colorBlank = false;
+  var ownerBlank = false;
   var loading = false;
 
   @override
@@ -54,25 +48,25 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
     });
     registrationIdController.addListener(() {
       if (oldRegistrationId != registrationIdController.text) {
-        setState(() => registrationIdEmpty = false);
+        setState(() => registrationIdBlank = false);
       }
       oldRegistrationId = registrationIdController.text;
     });
     makeController.addListener(() {
       if (oldMake != makeController.text) {
-        setState(() => makeEmpty = false);
+        setState(() => makeBlank = false);
       }
       oldMake = makeController.text;
     });
     modelController.addListener(() {
       if (oldModel != modelController.text) {
-        setState(() => modelEmpty = false);
+        setState(() => modelBlank = false);
       }
       oldModel = modelController.text;
     });
     yearController.addListener(() {
       if (oldYear != yearController.text) {
-        setState(() => yearEmpty = false);
+        setState(() => yearBlank = false);
       }
       if (int.tryParse(yearController.text) == null &&
           yearController.text != '') {
@@ -82,13 +76,13 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
     });
     colorController.addListener(() {
       if (oldColor != colorController.text) {
-        setState(() => colorEmpty = false);
+        setState(() => colorBlank = false);
       }
       oldColor = colorController.text;
     });
     ownerController.addListener(() {
       if (oldOwner != ownerController.text) {
-        setState(() => ownerEmpty = false);
+        setState(() => ownerBlank = false);
       }
       oldOwner = ownerController.text;
     });
@@ -106,18 +100,18 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
       ownerController: ownerController,
       onRegisterCar: onRegisterCar,
       onCancel: onCancel,
-      registrationIdRequired: registrationIdRequired,
-      makeRequired: makeRequired,
-      modelRequired: modelRequired,
-      yearRequired: yearRequired,
-      colorRequired: colorRequired,
-      ownerRequired: ownerRequired,
+      registrationIdBlank: registrationIdBlank,
+      makeBlank: makeBlank,
+      modelBlank: modelBlank,
+      yearBlank: yearBlank,
+      colorBlank: colorBlank,
+      ownerBlank: ownerBlank,
       loading: loading,
     );
   }
 
   void onCancel() {
-    Navigator.of(context).pop(); 
+    Navigator.of(context).pop();
   }
 
   void onRegisterCar() async {
@@ -127,13 +121,33 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
           registrationId: registrationIdController.text,
           make: makeController.text,
           model: modelController.text,
-          year: int.parse(yearController.text),
+          year: int.tryParse(yearController.text) ?? -1,
           color: colorController.text,
           owner: ownerController.text,
         ),
       );
       if (!mounted) return;
       context.pop();
+    } on FieldCannotBeBlankException catch (exception) {
+      setState(() {
+        switch (exception.fieldName) {
+          case 'registration_id':
+            registrationIdBlank = true;
+          case 'make':
+            makeBlank = true;
+          case 'model':
+            modelBlank = true;
+          case 'year':
+            yearBlank = true;
+          case 'color':
+            colorBlank = true;
+          case 'owner':
+            ownerBlank = true;
+        }
+      });
+    } on InvalidTokenException {
+      if (!mounted) return;
+      context.showSnackBar('Invalid token');
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);

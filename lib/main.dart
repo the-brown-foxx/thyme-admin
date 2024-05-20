@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
   late final CarRegistry carRegistry = ActualCarRegistry(
     api: api,
     tokenStorage: tokenStorage,
+    adminAuthenticator: adminAuthenticator,
   );
 
   MyApp({super.key});
