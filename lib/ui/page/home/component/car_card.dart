@@ -8,11 +8,13 @@ import '../../../util/corner.dart';
 
 class CarCard extends StatelessWidget {
   final Car car;
+  final VoidCallback onTap;
   final Set<Corner> roundedCorners;
 
   const CarCard({
     super.key,
     required this.car,
+    required this.onTap,
     this.roundedCorners = Corner.all,
   });
 
@@ -20,24 +22,27 @@ class CarCard extends StatelessWidget {
   Widget build(final BuildContext context) {
     return HerbHubCard(
       roundedCorners: roundedCorners,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  car.owner,
-                  style: context.theme.textTheme.titleMedium,
-                ),
-                const SizedBox(height: 4),
-                Text('${car.color} ${car.year} ${car.make} ${car.model}'),
-              ],
-            ),
-            const Spacer(),
-            LicensePlate(registrationId: car.registrationId),
-          ],
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    car.owner,
+                    style: context.theme.textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text('${car.color} ${car.year} ${car.make} ${car.model}'),
+                ],
+              ),
+              const Spacer(),
+              LicensePlate(registrationId: car.registrationId),
+            ],
+          ),
         ),
       ),
     );

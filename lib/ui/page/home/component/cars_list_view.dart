@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
-import '../../../../service/registry/model/car.dart';
 import 'car_card.dart';
 
 class CarsListView extends StatelessWidget {
   final List<Car> cars;
+  final Function(Car) onCarTap;
   final double maxContentWidth;
 
   const CarsListView({
     super.key,
     required this.cars,
+    required this.onCarTap,
     this.maxContentWidth = double.infinity,
   });
 
@@ -24,8 +26,10 @@ class CarsListView extends StatelessWidget {
         final roundedCorners = index == 0
             ? Edge.top
             : index == lastIndex
-            ? Edge.bottom
-            : <Corner>{};
+                ? Edge.bottom
+                : <Corner>{};
+
+        final car = cars[index];
 
         return Align(
           alignment: Alignment.center,
@@ -37,7 +41,8 @@ class CarsListView extends StatelessWidget {
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: maxContentWidth),
               child: CarCard(
-                car: cars[index],
+                car: car,
+                onTap: () => onCarTap(car),
                 roundedCorners: roundedCorners,
               ),
             ),

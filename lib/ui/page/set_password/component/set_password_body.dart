@@ -35,7 +35,6 @@ class SetPasswordBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: 32),
         Text(
           "Let's get you set up!",
           maxLines: 2,
@@ -71,7 +70,6 @@ class SetPasswordBody extends StatelessWidget {
           onPressed: onSetPassword,
           alignment: Alignment.center,
         ),
-        const SizedBox(height: 32),
       ],
     );
   }
