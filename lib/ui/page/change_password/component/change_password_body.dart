@@ -79,7 +79,7 @@ class ChangePasswordBody extends StatelessWidget {
           roundedCorners: Edge.bottom,
           onSubmitted: (final _) => onChangePassword?.call(),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 16),
         Row(
           children: [
             HerbHubButton(
