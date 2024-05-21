@@ -32,11 +32,12 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
   @override
   void initState() {
     widget._adminAuthenticator.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
 
     passwordController.addListener(() {
-      if (oldPassword != passwordController.text) {
+      if (oldPassword != passwordController.text && mounted) {
         setState(() {
           passwordTooShort = false;
           passwordsDoNotMatch = false;
@@ -46,7 +47,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
     });
 
     repeatPasswordController.addListener(() {
-      if (oldRepeatPassword != repeatPasswordController.text) {
+      if (oldRepeatPassword != repeatPasswordController.text && mounted) {
         setState(() {
           passwordsDoNotMatch = false;
         });

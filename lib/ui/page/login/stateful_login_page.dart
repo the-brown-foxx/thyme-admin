@@ -29,11 +29,12 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
     navigateToCorrectPage();
 
     widget._adminAuthenticator.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
 
     passwordController.addListener(() {
-      if (oldPassword != passwordController.text) {
+      if (oldPassword != passwordController.text && mounted) {
         setState(() => passwordIncorrect = false);
       }
       oldPassword = passwordController.text;

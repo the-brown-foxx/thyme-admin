@@ -8,12 +8,14 @@ import 'package:thyme_to_park_admin/ui/util/corner.dart';
 class CarInfoBody extends StatelessWidget {
   final Car car;
   final VoidCallback onEdit;
+  final VoidCallback onDelete;
   final VoidCallback onCancel;
 
   const CarInfoBody({
     super.key,
     required this.car,
     required this.onEdit,
+    required this.onDelete,
     required this.onCancel,
   });
 
@@ -45,6 +47,15 @@ class CarInfoBody extends StatelessWidget {
               roundedCorners: Edge.left,
               type: ButtonType.outlined,
               alignment: Alignment.centerRight,
+            ),
+            const SizedBox(width: 8),
+            HerbHubButton(
+              text: 'Delete',
+              onPressed: onDelete,
+              roundedCorners: const {},
+              type: ButtonType.outlined,
+              alignment: Alignment.center,
+              useErrorColor: true,
             ),
             const SizedBox(width: 8),
             Expanded(

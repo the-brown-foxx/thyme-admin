@@ -23,11 +23,13 @@ class CarsListView extends StatelessWidget {
       itemCount: cars.length,
       itemBuilder: (final _, final index) {
         final lastIndex = cars.length - 1;
-        final roundedCorners = index == 0
-            ? Edge.top
-            : index == lastIndex
-                ? Edge.bottom
-                : <Corner>{};
+        final roundedCorners = lastIndex == 0
+            ? Corner.all
+            : index == 0
+                ? Edge.top
+                : index == lastIndex
+                    ? Edge.bottom
+                    : <Corner>{};
 
         final car = cars[index];
 

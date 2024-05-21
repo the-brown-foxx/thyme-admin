@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/dialog.dart';
-import 'package:thyme_to_park_admin/ui/page/home/info/component/car_info_card.dart';
+import 'package:thyme_to_park_admin/ui/page/home/unregister/component/unregister_car_card.dart';
 
-class CarInfoDialog extends StatelessWidget {
+class UnregisterCarDialog extends StatelessWidget {
   final Car car;
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final VoidCallback onConfirm;
   final VoidCallback onCancel;
+  final bool loading;
 
-  const CarInfoDialog({
+  const UnregisterCarDialog({
     super.key,
     required this.car,
-    required this.onEdit,
-    required this.onDelete,
+    required this.onConfirm,
     required this.onCancel,
+    required this.loading
   });
 
   @override
@@ -24,12 +24,11 @@ class CarInfoDialog extends StatelessWidget {
     return HerbHubDialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1080),
-        child: CarInfoCard(
+        child: UnregisterCarCard(
           car: car,
-          onEdit: onEdit,
-          onDelete: onDelete,
+          onConfirm: onConfirm,
           onCancel: onCancel,
-          loading: false,
+          loading: loading,
         ),
       ),
     );

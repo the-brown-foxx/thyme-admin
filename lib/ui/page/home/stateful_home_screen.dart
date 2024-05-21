@@ -31,10 +31,12 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
     navigateToCorrectPage();
 
     widget._carRegistry.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
 
     widget._carRegistry.cars.listen((final cars) {
+      if (!mounted) return;
       setState(() => this.cars = cars);
     });
 
@@ -81,9 +83,10 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
   void onCarTap(final Car car) {
     showDialog(
       context: context,
-      builder: (final _) {
-        return StatefulCarInfoDialog(car: car);
-      },
+      builder: (final _) => StatefulCarInfoDialog(
+          car: car,
+          carRegistry: widget._carRegistry,
+        ),
     );
   }
 }
