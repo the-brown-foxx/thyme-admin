@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/icon_button.dart';
 import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
+import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/theme.dart';
 
 class TopBar extends StatelessWidget {
-  final double maxContentWidth;
+  final TextEditingController searchController;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
   final bool loading;
+  final double maxContentWidth;
 
   const TopBar({
     super.key,
-    this.maxContentWidth = double.infinity,
+    required this.searchController,
     required this.onChangePassword,
     required this.onLogout,
     required this.loading,
+    this.maxContentWidth = double.infinity,
   });
 
   @override
@@ -36,11 +39,13 @@ class TopBar extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text(
-                      'Cars',
-                      style: context.theme.textTheme.titleLarge,
+                    Expanded(
+                      child: HerbHubTextField(
+                        hintText: 'Search',
+                        controller: searchController,
+                      ),
                     ),
-                    const Spacer(),
+                    const SizedBox(width: 8),
                     HerbHubIconButton(
                       onPressed: onChangePassword,
                       icon: Icons.password,
