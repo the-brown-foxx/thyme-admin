@@ -81,9 +81,10 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
   void onCarTap(final Car car) {
     showDialog(
       context: context,
-      builder: (final _) {
-        return StatefulCarInfoDialog(car: car);
-      },
+      builder: (final _) => StatefulCarInfoDialog(
+          car: car,
+          carRegistry: widget._carRegistry,
+        ),
     );
   }
 }
