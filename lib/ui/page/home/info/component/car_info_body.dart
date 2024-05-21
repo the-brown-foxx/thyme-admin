@@ -54,7 +54,8 @@ class CarInfoBody extends StatelessWidget {
               onPressed: onDelete,
               roundedCorners: const {},
               type: ButtonType.outlined,
-              alignment: Alignment.centerRight,
+              alignment: Alignment.center,
+              useErrorColor: true,
             ),
             const SizedBox(width: 8),
             Expanded(

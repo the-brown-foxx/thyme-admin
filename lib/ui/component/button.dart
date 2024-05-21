@@ -13,6 +13,7 @@ class HerbHubButton extends StatelessWidget {
   final ButtonType type;
   final Set<Corner> roundedCorners;
   final AlignmentGeometry alignment;
+  final bool useErrorColor;
 
   const HerbHubButton({
     super.key,
@@ -21,6 +22,7 @@ class HerbHubButton extends StatelessWidget {
     this.type = ButtonType.filled,
     this.roundedCorners = Corner.all,
     this.alignment = Alignment.center,
+    this.useErrorColor = false,
   });
 
   double get leftPadding => roundedCorners.containsAll(Edge.left) ? 24 : 16;
@@ -32,12 +34,19 @@ class HerbHubButton extends StatelessWidget {
     final theme = Theme.of(context);
     final side = switch (type) {
       ButtonType.filled => null,
-      ButtonType.outlined =>
-          BorderSide(color: theme.colorScheme.primary, width: 2),
+      ButtonType.outlined => BorderSide(
+          color: useErrorColor
+              ? theme.colorScheme.error
+              : theme.colorScheme.onSurface,
+          width: 2,
+        ),
     };
+
     final foregroundColor = switch (type) {
-      ButtonType.filled => theme.colorScheme.onPrimary,
-      ButtonType.outlined => theme.colorScheme.onSurface,
+      ButtonType.filled =>
+        useErrorColor ? theme.colorScheme.onError : theme.colorScheme.onPrimary,
+      ButtonType.outlined =>
+        useErrorColor ? theme.colorScheme.error : theme.colorScheme.onSurface,
     };
     final backgroundColor = switch (type) {
       ButtonType.filled => theme.colorScheme.primary,
