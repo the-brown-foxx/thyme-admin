@@ -44,44 +44,45 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
   @override
   void initState() {
     widget._carRegistry.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
     registrationIdController.addListener(() {
-      if (oldRegistrationId != registrationIdController.text) {
+      if (oldRegistrationId != registrationIdController.text && mounted) {
         setState(() => registrationIdBlank = false);
       }
       oldRegistrationId = registrationIdController.text;
     });
     makeController.addListener(() {
-      if (oldMake != makeController.text) {
+      if (oldMake != makeController.text && mounted) {
         setState(() => makeBlank = false);
       }
       oldMake = makeController.text;
     });
     modelController.addListener(() {
-      if (oldModel != modelController.text) {
+      if (oldModel != modelController.text && mounted) {
         setState(() => modelBlank = false);
       }
       oldModel = modelController.text;
     });
     yearController.addListener(() {
-      if (oldYear != yearController.text) {
+      if (oldYear != yearController.text && mounted) {
         setState(() => yearBlank = false);
       }
       if (int.tryParse(yearController.text) == null &&
-          yearController.text != '') {
+          yearController.text != '' && mounted) {
         yearController.text = oldYear;
       }
       oldYear = yearController.text;
     });
     colorController.addListener(() {
-      if (oldColor != colorController.text) {
+      if (oldColor != colorController.text && mounted) {
         setState(() => colorBlank = false);
       }
       oldColor = colorController.text;
     });
     ownerController.addListener(() {
-      if (oldOwner != ownerController.text) {
+      if (oldOwner != ownerController.text && mounted) {
         setState(() => ownerBlank = false);
       }
       oldOwner = ownerController.text;

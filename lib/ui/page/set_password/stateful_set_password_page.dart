@@ -36,7 +36,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
     });
 
     passwordController.addListener(() {
-      if (oldPassword != passwordController.text) {
+      if (oldPassword != passwordController.text && mounted) {
         setState(() {
           passwordTooShort = false;
           passwordsDoNotMatch = false;
@@ -46,7 +46,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
     });
 
     repeatPasswordController.addListener(() {
-      if (oldRepeatPassword != repeatPasswordController.text) {
+      if (oldRepeatPassword != repeatPasswordController.text && mounted) {
         setState(() {
           passwordsDoNotMatch = false;
         });

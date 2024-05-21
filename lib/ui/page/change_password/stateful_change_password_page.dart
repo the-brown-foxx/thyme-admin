@@ -40,14 +40,14 @@ class _StatefulChangePasswordPageState
     });
 
     oldPasswordController.addListener(() {
-      if (oldPassword != oldPasswordController.text) {
+      if (oldPassword != oldPasswordController.text && mounted) {
         setState(() => passwordIncorrect = false);
       }
       oldPassword = oldPasswordController.text;
     });
 
     newPasswordController.addListener(() {
-      if (newPassword != newPasswordController.text) {
+      if (newPassword != newPasswordController.text && mounted) {
         setState(() {
           passwordTooShort = false;
           passwordsDoNotMatch = false;
@@ -57,7 +57,7 @@ class _StatefulChangePasswordPageState
     });
 
     repeatPasswordController.addListener(() {
-      if (repeatPassword != repeatPasswordController.text) {
+      if (repeatPassword != repeatPasswordController.text && mounted) {
         setState(() {
           passwordsDoNotMatch = false;
         });

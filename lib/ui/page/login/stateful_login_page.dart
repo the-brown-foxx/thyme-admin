@@ -33,7 +33,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
     });
 
     passwordController.addListener(() {
-      if (oldPassword != passwordController.text) {
+      if (oldPassword != passwordController.text && mounted) {
         setState(() => passwordIncorrect = false);
       }
       oldPassword = passwordController.text;
