@@ -30,7 +30,10 @@ class CarInfo extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label.toUpperCase(), style: context.theme.textTheme.labelSmall),
+                Text(
+                  label.toUpperCase(),
+                  style: context.theme.textTheme.labelSmall,
+                ),
                 Text(value, style: context.theme.textTheme.bodyLarge),
               ],
             ),
