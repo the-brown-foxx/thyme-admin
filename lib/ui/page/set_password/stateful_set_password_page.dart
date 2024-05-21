@@ -32,6 +32,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
   @override
   void initState() {
     widget._adminAuthenticator.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
 

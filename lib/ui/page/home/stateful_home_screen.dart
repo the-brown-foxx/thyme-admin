@@ -31,10 +31,12 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
     navigateToCorrectPage();
 
     widget._carRegistry.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
 
     widget._carRegistry.cars.listen((final cars) {
+      if (!mounted) return;
       setState(() => this.cars = cars);
     });
 

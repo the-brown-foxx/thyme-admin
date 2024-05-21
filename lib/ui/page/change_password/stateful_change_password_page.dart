@@ -36,6 +36,7 @@ class _StatefulChangePasswordPageState
   @override
   void initState() {
     widget._adminAuthenticator.loading.listen((final loading) {
+      if (!mounted) return;
       setState(() => this.loading = loading);
     });
 
