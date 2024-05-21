@@ -9,12 +9,14 @@ class UnregisterCarDialog extends StatelessWidget {
   final Car car;
   final VoidCallback onConfirm;
   final VoidCallback onCancel;
+  final bool loading;
 
   const UnregisterCarDialog({
     super.key,
     required this.car,
     required this.onConfirm,
     required this.onCancel,
+    required this.loading
   });
 
   @override
@@ -26,7 +28,7 @@ class UnregisterCarDialog extends StatelessWidget {
           car: car,
           onConfirm: onConfirm,
           onCancel: onCancel,
-          loading: false,
+          loading: loading,
         ),
       ),
     );

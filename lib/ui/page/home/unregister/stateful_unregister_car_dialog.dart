@@ -24,12 +24,25 @@ class StatefulUnregisterCarDialog extends StatefulWidget {
 
 class _StatefulUnregisterCarDialogState
     extends State<StatefulUnregisterCarDialog> {
+  var loading = false;
+
+  @override
+  void initState() {
+    widget._carRegistry.loading.listen((final loading) {
+      if (!mounted) return;
+      setState(() => this.loading = loading);
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(final BuildContext context) {
     return UnregisterCarDialog(
       car: widget.car,
       onConfirm: onConfirm,
       onCancel: onCancel,
+      loading: loading,
     );
   }
 
