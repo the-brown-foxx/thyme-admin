@@ -6,6 +6,8 @@ sealed class Car {
   final String color;
   final String owner;
 
+  String get modelInfo => '$color $year $make $model';
+
   const Car({
     required this.registrationId,
     required this.make,

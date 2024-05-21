@@ -5,6 +5,7 @@ import 'package:thyme_to_park_admin/ui/page/home/component/top_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<Car> cars;
+  final TextEditingController searchController;
   final VoidCallback onRegisterCar;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
@@ -14,6 +15,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({
     super.key,
     required this.cars,
+    required this.searchController,
     required this.onRegisterCar,
     required this.onChangePassword,
     required this.onLogout,
@@ -32,10 +34,11 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TopBar(
-            maxContentWidth: 1080,
+            searchController: searchController,
             onChangePassword: onChangePassword,
             onLogout: onLogout,
             loading: loading,
+            maxContentWidth: 1080,
           ),
           Expanded(
             child: CarsListView(
