@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
@@ -29,18 +30,25 @@ class CarCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    car.owner,
-                    style: context.theme.textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text('${car.color} ${car.year} ${car.make} ${car.model}'),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      car.owner,
+                      style: context.theme.textTheme.titleMedium,
+                      maxLines: 1,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${car.color} ${car.year} ${car.make} ${car.model}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
+              const SizedBox(width: 16),
               LicensePlate(registrationId: car.registrationId),
             ],
           ),
