@@ -41,7 +41,7 @@ class CarCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${car.color} ${car.year} ${car.make} ${car.model}',
+                      car.modelInfo,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
