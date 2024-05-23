@@ -106,7 +106,7 @@ class EditCarBody extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: HerbHubButton(
-                text: 'Edit',
+                text: 'Save',
                 onPressed: onEditCar,
                 roundedCorners: Edge.right,
                 alignment: Alignment.centerLeft,
