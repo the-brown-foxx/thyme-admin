@@ -16,7 +16,7 @@ class UnregisterCarDialog extends StatelessWidget {
     required this.car,
     required this.onConfirm,
     required this.onCancel,
-    required this.loading
+    required this.loading,
   });
 
   @override

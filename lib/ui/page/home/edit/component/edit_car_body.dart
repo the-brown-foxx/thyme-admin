@@ -2,34 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/button.dart';
 import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
+import 'package:thyme_to_park_admin/service/registry/model/car.dart';
+import 'package:thyme_to_park_admin/ui/page/home/component/license_plate.dart';
 
-class RegisterCarBody extends StatelessWidget {
-  final TextEditingController registrationIdController;
+class EditCarBody extends StatelessWidget {
+  final Car car;
   final TextEditingController makeController;
   final TextEditingController modelController;
   final TextEditingController yearController;
   final TextEditingController colorController;
   final TextEditingController ownerController;
-  final VoidCallback? onRegisterCar;
+  final VoidCallback? onEditCar;
   final VoidCallback? onCancel;
-  final bool registrationIdBlank;
   final bool makeBlank;
   final bool modelBlank;
   final bool yearBlank;
   final bool colorBlank;
   final bool ownerBlank;
 
-  const RegisterCarBody({
+  const EditCarBody({
     super.key,
-    required this.registrationIdController,
+    required this.car,
     required this.makeController,
     required this.modelController,
     required this.yearController,
     required this.colorController,
     required this.ownerController,
-    required this.onRegisterCar,
+    required this.onEditCar,
     required this.onCancel,
-    required this.registrationIdBlank,
     required this.makeBlank,
     required this.modelBlank,
     required this.yearBlank,
@@ -46,26 +46,19 @@ class RegisterCarBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Register car',
+          'Edit car',
           maxLines: 1,
           style: theme.textTheme.headlineLarge,
         ),
         const SizedBox(height: 16),
-        HerbHubTextField(
-          hintText: 'Registration ID',
-          controller: registrationIdController,
-          errorText:
-              registrationIdBlank ? 'Registration ID is required' : null,
-          roundedCorners: Edge.top,
-          onSubmitted: (final _) => onRegisterCar?.call(),
-        ),
+        LicensePlate(registrationId: car.registrationId),
         const SizedBox(height: 8),
         HerbHubTextField(
           hintText: 'Make',
           controller: makeController,
           errorText: makeBlank ? 'Make is required' : null,
           roundedCorners: const {},
-          onSubmitted: (final _) => onRegisterCar?.call(),
+          onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
@@ -73,7 +66,7 @@ class RegisterCarBody extends StatelessWidget {
           controller: modelController,
           errorText: modelBlank ? 'Model is required' : null,
           roundedCorners: const {},
-          onSubmitted: (final _) => onRegisterCar?.call(),
+          onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
@@ -81,7 +74,7 @@ class RegisterCarBody extends StatelessWidget {
           controller: yearController,
           errorText: yearBlank ? 'Year is required' : null,
           roundedCorners: const {},
-          onSubmitted: (final _) => onRegisterCar?.call(),
+          onSubmitted: (final _) => onEditCar?.call(),
           keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 8),
@@ -90,7 +83,7 @@ class RegisterCarBody extends StatelessWidget {
           controller: colorController,
           errorText: colorBlank ? 'Color is required' : null,
           roundedCorners: const {},
-          onSubmitted: (final _) => onRegisterCar?.call(),
+          onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
@@ -98,7 +91,7 @@ class RegisterCarBody extends StatelessWidget {
           controller: ownerController,
           errorText: ownerBlank ? 'Owner required.' : null,
           roundedCorners: Edge.bottom,
-          onSubmitted: (final _) => onRegisterCar?.call(),
+          onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 16),
         Row(
@@ -113,8 +106,8 @@ class RegisterCarBody extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: HerbHubButton(
-                text: 'Register',
-                onPressed: onRegisterCar,
+                text: 'Edit',
+                onPressed: onEditCar,
                 roundedCorners: Edge.right,
                 alignment: Alignment.centerLeft,
               ),
