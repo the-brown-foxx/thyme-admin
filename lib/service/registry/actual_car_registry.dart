@@ -125,6 +125,7 @@ class ActualCarRegistry implements CarRegistry {
           'model': car.model,
           'year': car.year,
           'color': car.color,
+          'owner': car.owner,
         }),
       );
       _api.parseJsonResponse(response);

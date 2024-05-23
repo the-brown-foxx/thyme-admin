@@ -4,6 +4,7 @@ import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/page/home/info/car_info_dialog.dart';
 import 'package:thyme_to_park_admin/ui/page/home/unregister/stateful_unregister_car_dialog.dart';
+import 'package:thyme_to_park_admin/ui/page/home/edit/stateful_edit_car_dialog.dart';
 
 class StatefulCarInfoDialog extends StatefulWidget {
   final Car car;
@@ -31,7 +32,15 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
   }
 
   void onEdit() {
-    throw UnimplementedError();
+    context.pop();
+    showDialog(
+      context: context,
+      builder: (final _) {
+        return StatefulEditCarDialog(
+          carRegistry: widget._carRegistry, 
+          car: widget.car,);
+      },
+    );
   }
 
   void onDelete() {
