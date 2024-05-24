@@ -6,6 +6,7 @@ import 'package:thyme_to_park_admin/ui/component/theme.dart';
 
 class TopBar extends StatelessWidget {
   final TextEditingController searchController;
+  final VoidCallback onOpenLogs;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
   final bool loading;
@@ -14,6 +15,7 @@ class TopBar extends StatelessWidget {
   const TopBar({
     super.key,
     required this.searchController,
+    required this.onOpenLogs,
     required this.onChangePassword,
     required this.onLogout,
     required this.loading,
@@ -44,6 +46,11 @@ class TopBar extends StatelessWidget {
                         hintText: 'Search',
                         controller: searchController,
                       ),
+                    ),
+                    const SizedBox(width: 8),
+                    HerbHubIconButton(
+                      onPressed: () {},
+                      icon: Icons.list,
                     ),
                     const SizedBox(width: 8),
                     HerbHubIconButton(

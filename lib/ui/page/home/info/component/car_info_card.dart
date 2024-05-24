@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:thyme_to_park_admin/service/log/model/car_log.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
-import 'package:thyme_to_park_admin/ui/page/home/info/component/car_info_image.dart';
+import 'package:thyme_to_park_admin/ui/page/home/info/component/car_log_list_view.dart';
 
 import 'car_info_body.dart';
 
 class CarInfoCard extends StatelessWidget {
   final Car car;
+  final List<CarLog> carLogs;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onCancel;
@@ -15,6 +17,7 @@ class CarInfoCard extends StatelessWidget {
 
   const CarInfoCard({
     super.key,
+    required this.carLogs,
     required this.car,
     required this.onEdit,
     required this.onDelete,
@@ -35,7 +38,12 @@ class CarInfoCard extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(64.0),
+                    padding: const EdgeInsets.only(
+                      left: 64,
+                      top: 64,
+                      right: 32,
+                      bottom: 64,
+                    ),
                     child: CarInfoBody(
                       car: car,
                       onEdit: onEdit,
@@ -45,7 +53,7 @@ class CarInfoCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Expanded(child: CarInfoImage()),
+              Expanded(child: CarLogsListView(carLogs: carLogs)),
             ],
           ),
           if (loading) const HerbHubLinearProgressIndicator(),

@@ -7,6 +7,7 @@ class HomeScreen extends StatelessWidget {
   final List<Car> cars;
   final TextEditingController searchController;
   final VoidCallback onRegisterCar;
+  final VoidCallback onOpenLogs;
   final VoidCallback onChangePassword;
   final VoidCallback onLogout;
   final Function(Car) onCarTap;
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
     required this.cars,
     required this.searchController,
     required this.onRegisterCar,
+    required this.onOpenLogs,
     required this.onChangePassword,
     required this.onLogout,
     required this.onCarTap,
@@ -35,6 +37,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           TopBar(
             searchController: searchController,
+            onOpenLogs: onOpenLogs,
             onChangePassword: onChangePassword,
             onLogout: onLogout,
             loading: loading,
