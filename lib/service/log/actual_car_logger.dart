@@ -21,6 +21,7 @@ class ActualCarLogger implements CarLogger {
   })  : _api = api,
         _tokenStorage = tokenStorage,
         _adminAuthenticator = adminAuthenticator {
+    fetch();
     Timer.periodic(const Duration(seconds: 10), (final _) {
       fetch();
     });

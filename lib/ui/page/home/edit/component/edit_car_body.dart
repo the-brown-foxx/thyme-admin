@@ -3,7 +3,7 @@ import 'package:thyme_to_park_admin/ui/component/button.dart';
 import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
-import 'package:thyme_to_park_admin/ui/page/home/component/license_plate.dart';
+import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
 
 class EditCarBody extends StatelessWidget {
   final Car car;

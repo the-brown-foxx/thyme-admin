@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:thyme_to_park_admin/service/log/model/car_log.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
+import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
-class CarLogCard extends StatelessWidget {
+class LogCard extends StatelessWidget {
   final CarLog carLog;
   final Set<Corner> roundedCorners;
 
-  const CarLogCard({
+  const LogCard({
     super.key,
     required this.carLog,
     this.roundedCorners = Corner.all,
@@ -39,6 +40,8 @@ class CarLogCard extends StatelessWidget {
               ),
               if (carLog.sus) const SizedBox(width: 16),
               if (carLog.sus) const Icon(Icons.warning),
+              const SizedBox(width: 16),
+              LicensePlate(registrationId: carLog.carRegistrationId),
             ],
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/page/home/component/cars_list_view.dart';
-import 'package:thyme_to_park_admin/ui/page/home/component/top_bar.dart';
+import 'package:thyme_to_park_admin/ui/page/home/component/home_top_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<Car> cars;
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TopBar(
+          HomeTopBar(
             searchController: searchController,
             onOpenLogs: onOpenLogs,
             onChangePassword: onChangePassword,

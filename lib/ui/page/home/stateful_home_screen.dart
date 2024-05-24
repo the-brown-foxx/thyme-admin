@@ -89,7 +89,7 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
   }
 
   void onOpenLogs() async {
-    throw UnimplementedError();
+    context.go('/home/logs');
   }
 
   Future<void> onRegisterCar() async {

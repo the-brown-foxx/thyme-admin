@@ -4,7 +4,7 @@ import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/component/disableable_ink_well.dart';
 import 'package:thyme_to_park_admin/ui/component/theme.dart';
-import 'package:thyme_to_park_admin/ui/page/home/component/license_plate.dart';
+import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
 
 import '../../../util/corner.dart';
 

@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/icon_button.dart';
 import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
-import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/theme.dart';
 
-class TopBar extends StatelessWidget {
-  final TextEditingController searchController;
-  final VoidCallback onOpenLogs;
-  final VoidCallback onChangePassword;
-  final VoidCallback onLogout;
+class LogsTopBar extends StatelessWidget {
+  final VoidCallback onNavigateUp;
   final bool loading;
   final double maxContentWidth;
 
-  const TopBar({
+  const LogsTopBar({
     super.key,
-    required this.searchController,
-    required this.onOpenLogs,
-    required this.onChangePassword,
-    required this.onLogout,
+    required this.onNavigateUp,
     required this.loading,
     this.maxContentWidth = double.infinity,
   });
@@ -41,26 +34,16 @@ class TopBar extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
+                    HerbHubIconButton(
+                      onPressed: onNavigateUp,
+                      icon: Icons.arrow_back,
+                    ),
+                    const SizedBox(width: 16),
                     Expanded(
-                      child: HerbHubTextField(
-                        hintText: 'Search',
-                        controller: searchController,
+                      child: Text(
+                        'Logs',
+                        style: context.theme.textTheme.titleLarge,
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    HerbHubIconButton(
-                      onPressed: () {},
-                      icon: Icons.list,
-                    ),
-                    const SizedBox(width: 8),
-                    HerbHubIconButton(
-                      onPressed: onChangePassword,
-                      icon: Icons.password,
-                    ),
-                    const SizedBox(width: 8),
-                    HerbHubIconButton(
-                      onPressed: onLogout,
-                      icon: Icons.logout,
                     ),
                   ],
                 ),
@@ -68,10 +51,12 @@ class TopBar extends StatelessWidget {
             ),
           ),
         ),
-        !loading ? const Divider(
-          height: 0,
-          thickness: 2,
-        ) : const HerbHubLinearProgressIndicator(),
+        !loading
+            ? const Divider(
+                height: 0,
+                thickness: 2,
+              )
+            : const HerbHubLinearProgressIndicator(),
       ],
     );
   }
