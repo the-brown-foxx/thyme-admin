@@ -75,12 +75,17 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
     return HomeScreen(
       searchController: searchController,
       cars: cars,
+      onOpenLogs: onOpenLogs,
       onRegisterCar: onRegisterCar,
       onChangePassword: onChangePassword,
       onLogout: onLogout,
       onCarTap: onCarTap,
       loading: loading,
     );
+  }
+
+  void onOpenLogs() async {
+    throw UnimplementedError();
   }
 
   Future<void> onRegisterCar() async {
