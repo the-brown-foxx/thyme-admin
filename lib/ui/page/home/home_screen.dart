@@ -6,6 +6,7 @@ import 'package:thyme_to_park_admin/ui/page/home/component/home_top_bar.dart';
 class HomeScreen extends StatelessWidget {
   final List<Car> cars;
   final TextEditingController searchController;
+  final int vacantSpace;
   final VoidCallback onUpdateParkingSpaceCount;
   final VoidCallback onRegisterCar;
   final VoidCallback onOpenLogs;
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     super.key,
     required this.cars,
     required this.searchController,
+    required this.vacantSpace,
     required this.onUpdateParkingSpaceCount,
     required this.onRegisterCar,
     required this.onOpenLogs,
@@ -39,7 +41,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           HomeTopBar(
             searchController: searchController,
-            vacantSpace: 8,
+            vacantSpace: vacantSpace,
             onUpdateParkingSpaceCount: onUpdateParkingSpaceCount,
             onOpenLogs: onOpenLogs,
             onChangePassword: onChangePassword,
