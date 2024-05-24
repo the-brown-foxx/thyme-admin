@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
+import 'package:thyme_to_park_admin/service/log/car_logger.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/search.dart';
@@ -11,13 +12,16 @@ import 'package:thyme_to_park_admin/ui/page/home/register/stateful_register_car_
 class StatefulHomeScreen extends StatefulWidget {
   final AdminAuthenticator _adminAuthenticator;
   final CarRegistry _carRegistry;
+  final CarLogger _carLogger;
 
   const StatefulHomeScreen({
     super.key,
     required final CarRegistry carRegistry,
     required final AdminAuthenticator adminAuthenticator,
+    required final CarLogger carLogger,
   })  : _adminAuthenticator = adminAuthenticator,
-        _carRegistry = carRegistry;
+        _carRegistry = carRegistry,
+        _carLogger = carLogger;
 
   @override
   State<StatefulHomeScreen> createState() => _StatefulHomeScreenState();
@@ -111,6 +115,7 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
       builder: (final _) => StatefulCarInfoDialog(
         car: car,
         carRegistry: widget._carRegistry,
+        carLogger: widget._carLogger,
       ),
     );
   }

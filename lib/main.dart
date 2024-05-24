@@ -9,6 +9,8 @@ import 'package:thyme_to_park_admin/service/authenticator/admin/actual_admin_aut
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/actual_token_storage.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
+import 'package:thyme_to_park_admin/service/log/actual_car_logger.dart';
+import 'package:thyme_to_park_admin/service/log/car_logger.dart';
 import 'package:thyme_to_park_admin/service/registry/actual_car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/ui/page/change_password/stateful_change_password_page.dart';
@@ -51,6 +53,11 @@ class MyApp extends StatelessWidget {
     tokenStorage: tokenStorage,
     adminAuthenticator: adminAuthenticator,
   );
+  late final CarLogger carLogger = ActualCarLogger(
+    api: api,
+    tokenStorage: tokenStorage,
+    adminAuthenticator: adminAuthenticator,
+  );
 
   MyApp({super.key});
 
@@ -71,6 +78,7 @@ class MyApp extends StatelessWidget {
             builder: (final _, final __) => StatefulHomeScreen(
               carRegistry: carRegistry,
               adminAuthenticator: adminAuthenticator,
+              carLogger: carLogger,
             ),
             routes: [
               GoRoute(

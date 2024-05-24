@@ -14,7 +14,7 @@ class ActualCarLogger implements CarLogger {
   final TokenStorage _tokenStorage;
   final AdminAuthenticator _adminAuthenticator;
 
-  ActualCarLogger._({
+  ActualCarLogger({
     required final Api api,
     required final TokenStorage tokenStorage,
     required final AdminAuthenticator adminAuthenticator,
@@ -58,7 +58,9 @@ class ActualCarLogger implements CarLogger {
   }
 
   @override
-  Future<List<CarLog>> getCarLogsByRegistrationId(final String registrationId) async {
+  Future<List<CarLog>> getCarLogsByRegistrationId(
+    final String registrationId,
+  ) async {
     var logs = <CarLog>[];
     try {
       _loading.value = true;
