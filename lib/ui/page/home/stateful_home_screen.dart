@@ -79,6 +79,7 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
     return HomeScreen(
       searchController: searchController,
       cars: cars,
+      onUpdateParkingSpaceCount: onUpdateParkingSpaceCount,
       onOpenLogs: onOpenLogs,
       onRegisterCar: onRegisterCar,
       onChangePassword: onChangePassword,
@@ -90,6 +91,10 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
 
   void onOpenLogs() async {
     context.go('/home/logs');
+  }
+
+  void onUpdateParkingSpaceCount() {
+    throw UnimplementedError();
   }
 
   Future<void> onRegisterCar() async {
