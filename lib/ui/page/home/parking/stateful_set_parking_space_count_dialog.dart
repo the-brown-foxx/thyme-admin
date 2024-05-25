@@ -35,12 +35,24 @@ class _StatefulSetParkingSpaceCountDialogState
   void initState() {
     // TODO: implement loading
 
+    widget._parkingSpaceCounter.parkingSpaceCount.listen((final count) {
+      if (!mounted) return;
+      setState(() {
+        totalSpaceController.text = count.totalSpace.toString();
+        vacantSpaceController.text = count.vacantSpace.toString();
+      });
+    });
+
     totalSpaceController.addListener(() {
       if (oldTotalSpaceController != totalSpaceController.text && mounted) {
         setState(() {
           totalSpaceBlank = false;
           totalSpaceIsLessThanVacantSpace = false;
         });
+      }
+      if (int.tryParse(totalSpaceController.text) == null &&
+          totalSpaceController.text != '' && mounted) {
+        totalSpaceController.text = oldTotalSpaceController;
       }
       oldTotalSpaceController = totalSpaceController.text;
     });
@@ -50,6 +62,10 @@ class _StatefulSetParkingSpaceCountDialogState
         setState(() {
           vacantSpaceBlank = false;
         });
+      }
+      if (int.tryParse(vacantSpaceController.text) == null &&
+          vacantSpaceController.text != '' && mounted) {
+        vacantSpaceController.text = oldVacantSpaceController;
       }
       oldVacantSpaceController = vacantSpaceController.text;
     });
