@@ -54,7 +54,7 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
     final hintStyle = theme.textTheme.bodyLarge
         ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.8));
     final hasError = widget.errorText != null;
-    final icon = widget.icon != null ? Icon(widget.icon) : null;
+    final icon = widget.icon != null ? Icon(widget.icon, size: 16) : null;
     final standardBorder = OutlineInputBorder(
       borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
       borderRadius: BorderRadius.only(
