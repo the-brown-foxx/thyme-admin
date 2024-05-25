@@ -86,15 +86,15 @@ class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
       setState(() {
         switch (exception.fieldName) {
           case 'make':
-            makeController.error = 'Make required';
+            makeController.error = 'Make is required';
           case 'model':
-            modelController.error = 'Model required';
+            modelController.error = 'Model is required';
           case 'year':
-            yearController.error = 'Year required';
+            yearController.error = 'Year is required';
           case 'color':
-            colorController.error = 'Color required';
+            colorController.error = 'Color is required';
           case 'owner':
-            ownerController.error = 'Owner required';
+            ownerController.error = 'Owner is required';
         }
       });
     } on InvalidTokenException {
