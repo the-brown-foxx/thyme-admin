@@ -54,6 +54,7 @@ class EditCarBody extends StatelessWidget {
         LicensePlate(registrationId: car.registrationId),
         const SizedBox(height: 16),
         HerbHubTextField(
+          icon: Icons.sell,
           hintText: 'Make',
           controller: makeController,
           errorText: makeBlank ? 'Make is required' : null,
@@ -62,6 +63,7 @@ class EditCarBody extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
+          icon: Icons.notes,
           hintText: 'Model',
           controller: modelController,
           errorText: modelBlank ? 'Model is required' : null,
@@ -70,6 +72,7 @@ class EditCarBody extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
+          icon: Icons.onetwothree,
           hintText: 'Year',
           controller: yearController,
           errorText: yearBlank ? 'Year is required' : null,
@@ -79,6 +82,7 @@ class EditCarBody extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
+          icon: Icons.color_lens,
           hintText: 'Color',
           controller: colorController,
           errorText: colorBlank ? 'Color is required' : null,
@@ -87,6 +91,7 @@ class EditCarBody extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
+          icon: Icons.person,
           hintText: 'Owner',
           controller: ownerController,
           errorText: ownerBlank ? 'Owner required.' : null,
