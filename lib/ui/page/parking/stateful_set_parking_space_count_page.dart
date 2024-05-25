@@ -68,9 +68,9 @@ class _StatefulSetParkingSpaceCountPageState
       });
     } on FieldCannotBeBlankException catch (exception) {
       if (!mounted) return;
-      if (exception.fieldName == 'totalSpace') {
+      if (exception.fieldName == 'total_space') {
         totalSpaceController.error = 'Total space is required';
-      } else if (exception.fieldName == 'vacantSpace') {
+      } else if (exception.fieldName == 'vacant_space') {
         vacantSpaceController.error = 'Vacant space is required';
       }
     } on ApiException catch (exception) {
