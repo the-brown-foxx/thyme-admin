@@ -77,7 +77,7 @@ class _StatefulChangePasswordPageState
     } on IncorrectPasswordException {
       oldPasswordController.error = 'Incorrect old password';
     } on PasswordTooShortException catch (exception) {
-      oldPasswordController.error =
+      newPasswordController.error =
           'Password must be at least ${exception.minLength} characters long';
     } on ApiException catch (exception) {
       if (!mounted) return;
