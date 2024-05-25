@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/login/login_page.dart';
 
@@ -19,9 +20,7 @@ class StatefulLoginPage extends StatefulWidget {
 }
 
 class _StatefulLoginPageState extends State<StatefulLoginPage> {
-  final passwordController = TextEditingController();
-  var oldPassword = '';
-  var passwordIncorrect = false;
+  final passwordController = TextFieldController();
   var loading = false;
 
   @override
@@ -33,13 +32,6 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       setState(() => this.loading = loading);
     });
 
-    passwordController.addListener(() {
-      if (oldPassword != passwordController.text && mounted) {
-        setState(() => passwordIncorrect = false);
-      }
-      oldPassword = passwordController.text;
-      
-    });
     super.initState();
   }
 
@@ -75,7 +67,6 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
     return LoginPage(
       passwordController: passwordController,
       onLogin: onLogin,
-      passwordIncorrect: passwordIncorrect,
       loading: loading,
     );
   }
@@ -88,7 +79,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       }
       await widget._adminAuthenticator.login(passwordController.text);
     } on IncorrectPasswordException {
-      setState(() => passwordIncorrect = true);
+      setState(() => passwordController.error = 'Incorrect password');
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);
