@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/button.dart';
-import 'package:thyme_to_park_admin/ui/component/text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class RegisterCarBody extends StatelessWidget {
-  final TextEditingController registrationIdController;
-  final TextEditingController makeController;
-  final TextEditingController modelController;
-  final TextEditingController yearController;
-  final TextEditingController colorController;
-  final TextEditingController ownerController;
+  final TextFieldController registrationIdController;
+  final TextFieldController makeController;
+  final TextFieldController modelController;
+  final TextFieldController yearController;
+  final TextFieldController colorController;
+  final TextFieldController ownerController;
   final VoidCallback? onRegisterCar;
   final VoidCallback? onCancel;
-  final bool registrationIdBlank;
-  final bool makeBlank;
-  final bool modelBlank;
-  final bool yearBlank;
-  final bool colorBlank;
-  final bool ownerBlank;
 
   const RegisterCarBody({
     super.key,
@@ -29,12 +23,6 @@ class RegisterCarBody extends StatelessWidget {
     required this.ownerController,
     required this.onRegisterCar,
     required this.onCancel,
-    required this.registrationIdBlank,
-    required this.makeBlank,
-    required this.modelBlank,
-    required this.yearBlank,
-    required this.colorBlank,
-    required this.ownerBlank,
   });
 
   @override
@@ -51,52 +39,45 @@ class RegisterCarBody extends StatelessWidget {
           style: theme.textTheme.headlineLarge,
         ),
         const SizedBox(height: 16),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Registration ID',
           controller: registrationIdController,
-          errorText:
-              registrationIdBlank ? 'Registration ID is required' : null,
           roundedCorners: Edge.top,
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Make',
           controller: makeController,
-          errorText: makeBlank ? 'Make is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Model',
           controller: modelController,
-          errorText: modelBlank ? 'Model is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Year',
           controller: yearController,
-          errorText: yearBlank ? 'Year is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
           keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Color',
           controller: colorController,
-          errorText: colorBlank ? 'Color is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Owner',
           controller: ownerController,
-          errorText: ownerBlank ? 'Owner required.' : null,
           roundedCorners: Edge.bottom,
           onSubmitted: (final _) => onRegisterCar?.call(),
         ),
