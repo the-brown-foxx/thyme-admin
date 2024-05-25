@@ -20,7 +20,7 @@ class StatefulChangePasswordPage extends StatefulWidget {
       _StatefulChangePasswordPageState();
 }
 
-class _StatefulChangePasswordPageState 
+class _StatefulChangePasswordPageState
     extends State<StatefulChangePasswordPage> {
   final oldPasswordController = TextFieldController();
   final newPasswordController = TextFieldController();
@@ -77,9 +77,8 @@ class _StatefulChangePasswordPageState
     } on IncorrectPasswordException {
       oldPasswordController.error = 'Incorrect old password';
     } on PasswordTooShortException catch (exception) {
-      setState(() {
-        'Password must be at least ${exception.minLength} characters long';
-      });
+      oldPasswordController.error =
+          'Password must be at least ${exception.minLength} characters long';
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);
