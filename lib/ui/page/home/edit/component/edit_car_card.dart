@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/home//edit/component/edit_car_image.dart';
 import 'package:thyme_to_park_admin/ui/page/home/edit/component/edit_car_body.dart';
 
 class EditCarCard extends StatelessWidget {
   final Car car;
-  final TextEditingController makeController;
-  final TextEditingController modelController;
-  final TextEditingController yearController;
-  final TextEditingController colorController;
-  final TextEditingController ownerController;
+  final TextFieldController makeController;
+  final TextFieldController modelController;
+  final TextFieldController yearController;
+  final TextFieldController colorController;
+  final TextFieldController ownerController;
   final VoidCallback? onEditCar;
   final VoidCallback? onCancel;
-  final bool makeBlank;
-  final bool modelBlank;
-  final bool yearBlank;
-  final bool colorBlank;
-  final bool ownerBlank;
   final bool loading;
 
   const EditCarCard({
@@ -30,11 +26,6 @@ class EditCarCard extends StatelessWidget {
     required this.ownerController,
     required this.onEditCar,
     required this.onCancel,
-    required this.makeBlank,
-    required this.modelBlank,
-    required this.yearBlank,
-    required this.colorBlank,
-    required this.ownerBlank,
     required this.loading,
   });
 
@@ -54,11 +45,6 @@ class EditCarCard extends StatelessWidget {
             ownerController: ownerController,
             onEditCar: !loading ? onEditCar : null,
             onCancel: !loading ? onCancel : null,
-            makeBlank: makeBlank,
-            modelBlank: modelBlank,
-            yearBlank: yearBlank,
-            colorBlank: colorBlank,
-            ownerBlank: ownerBlank,
           ),
         ),
       ),

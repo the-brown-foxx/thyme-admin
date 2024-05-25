@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car_update.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/home/edit/edit_car_dialog.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
@@ -24,21 +25,11 @@ class StatefulEditCarDialog extends StatefulWidget {
 }
 
 class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
-  final makeController = TextEditingController();
-  final modelController = TextEditingController();
-  final yearController = TextEditingController();
-  final colorController = TextEditingController();
-  final ownerController = TextEditingController();
-  var oldMake = '';
-  var oldModel = '';
-  var oldYear = '';
-  var oldColor = '';
-  var oldOwner = '';
-  var makeBlank = false;
-  var modelBlank = false;
-  var yearBlank = false;
-  var colorBlank = false;
-  var ownerBlank = false;
+  final makeController = TextFieldController();
+  final modelController = TextFieldController();
+  final yearController = TextFieldController(numeric: true);
+  final colorController = TextFieldController();
+  final ownerController = TextFieldController();
   var loading = false;
 
   @override
@@ -53,40 +44,7 @@ class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
       if (!mounted) return;
       setState(() => this.loading = loading);
     });
-    makeController.addListener(() {
-      if (oldMake != makeController.text && mounted) {
-        setState(() => makeBlank = false);
-      }
-      oldMake = makeController.text;
-    });
-    modelController.addListener(() {
-      if (oldModel != modelController.text && mounted) {
-        setState(() => modelBlank = false);
-      }
-      oldModel = modelController.text;
-    });
-    yearController.addListener(() {
-      if (oldYear != yearController.text && mounted) {
-        setState(() => yearBlank = false);
-      }
-      if (int.tryParse(yearController.text) == null &&
-          yearController.text != '' && mounted) {
-        yearController.text = oldYear;
-      }
-      oldYear = yearController.text;
-    });
-    colorController.addListener(() {
-      if (oldColor != colorController.text && mounted) {
-        setState(() => colorBlank = false);
-      }
-      oldColor = colorController.text;
-    });
-    ownerController.addListener(() {
-      if (oldOwner != ownerController.text && mounted) {
-        setState(() => ownerBlank = false);
-      }
-      oldOwner = ownerController.text;
-    });
+
     super.initState();
   }
 
@@ -101,11 +59,6 @@ class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
       ownerController: ownerController,
       onEditCar: onEditCar,
       onCancel: onCancel,
-      makeBlank: makeBlank,
-      modelBlank: modelBlank,
-      yearBlank: yearBlank,
-      colorBlank: colorBlank,
-      ownerBlank: ownerBlank,
       loading: loading,
     );
   }
@@ -133,15 +86,15 @@ class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
       setState(() {
         switch (exception.fieldName) {
           case 'make':
-            makeBlank = true;
+            makeController.error = 'Make required';
           case 'model':
-            modelBlank = true;
+            modelController.error = 'Model required';
           case 'year':
-            yearBlank = true;
+            yearController.error = 'Year required';
           case 'color':
-            colorBlank = true;
+            colorController.error = 'Color required';
           case 'owner':
-            ownerBlank = true;
+            ownerController.error = 'Owner required';
         }
       });
     } on InvalidTokenException {

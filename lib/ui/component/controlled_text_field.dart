@@ -3,16 +3,23 @@ import 'package:thyme_to_park_admin/ui/component/text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class TextFieldController {
+  final bool numeric;
   final textEditingController = TextEditingController();
   final errorNotifier = ValueNotifier<String?>(null);
   var oldText = '';
 
-  TextFieldController() {
+  TextFieldController({this.numeric = false}) {
     textEditingController.addListener(() {
-      if (oldText != textEditingController.text) {
+      if (oldText != text) {
         errorNotifier.value = null;
       }
-      oldText = textEditingController.text;
+
+      final number = int.tryParse(text);
+      if (numeric && (number == null || number < 0) && text != '') {
+        text = oldText;
+      }
+
+      oldText = text;
     });
   }
 
@@ -54,16 +61,21 @@ class ControlledTextField extends StatelessWidget {
   Widget build(final BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: controller.errorNotifier,
-      builder: (final _, final error, final __) => HerbHubTextField(
-        controller: controller.textEditingController,
-        hintText: hintText,
-        icon: icon,
-        roundedCorners: roundedCorners,
-        obscureText: obscureText,
-        errorText: error,
-        onSubmitted: onSubmitted,
-        keyboardType: keyboardType,
-      ),
+      builder: (final _, final error, final __) {
+        final keyboardType = this.keyboardType ??
+            (controller.numeric ? TextInputType.number : null);
+
+        return HerbHubTextField(
+          controller: controller.textEditingController,
+          hintText: hintText,
+          icon: icon,
+          roundedCorners: roundedCorners,
+          obscureText: obscureText,
+          errorText: error,
+          onSubmitted: onSubmitted,
+          keyboardType: keyboardType,
+        );
+      },
     );
   }
 }
