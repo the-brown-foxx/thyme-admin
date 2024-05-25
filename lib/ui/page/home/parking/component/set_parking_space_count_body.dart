@@ -42,6 +42,7 @@ class SetParkingSpaceCountBody extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         HerbHubTextField(
+          icon: Icons.circle,
           hintText: 'Total space',
           controller: totalSpaceController,
           errorText: totalSpaceError,
@@ -50,6 +51,7 @@ class SetParkingSpaceCountBody extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         HerbHubTextField(
+          icon: Icons.incomplete_circle,
           hintText: 'Vacant space',
           controller: vacantSpaceController,
           errorText: vacantSpaceBlank ? 'Vacant space required' : null,
@@ -58,7 +60,7 @@ class SetParkingSpaceCountBody extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         HerbHubButton(
-          text: 'Set password',
+          text: 'Set available space',
           onPressed: onSetParkingSpaceCount,
           alignment: Alignment.center,
         ),

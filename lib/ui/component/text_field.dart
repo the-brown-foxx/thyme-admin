@@ -5,6 +5,7 @@ import '../util/corner.dart';
 class HerbHubTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
+  final IconData? icon;
   final Set<Corner> roundedCorners;
   final bool obscureText;
   final String? errorText;
@@ -15,6 +16,7 @@ class HerbHubTextField extends StatefulWidget {
     super.key,
     this.controller,
     this.hintText,
+    this.icon,
     this.roundedCorners = Corner.all,
     this.obscureText = false,
     this.errorText,
@@ -52,6 +54,7 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
     final hintStyle = theme.textTheme.bodyLarge
         ?.copyWith(color: theme.colorScheme.onSurface.withOpacity(0.8));
     final hasError = widget.errorText != null;
+    final icon = widget.icon != null ? Icon(widget.icon) : null;
     final standardBorder = OutlineInputBorder(
       borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
       borderRadius: BorderRadius.only(
@@ -87,6 +90,7 @@ class _HerbHubTextFieldState extends State<HerbHubTextField> {
               onSubmitted: widget.onSubmitted,
               keyboardType: widget.keyboardType,
               decoration: InputDecoration(
+                prefixIcon: icon,
                 hintText: widget.hintText,
                 hintStyle: hintStyle,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
