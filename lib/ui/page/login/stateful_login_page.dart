@@ -79,7 +79,7 @@ class _StatefulLoginPageState extends State<StatefulLoginPage> {
       }
       await widget._adminAuthenticator.login(passwordController.text);
     } on IncorrectPasswordException {
-      setState(() => passwordController.error = 'Incorrect password');
+      passwordController.error = 'Incorrect password';
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);

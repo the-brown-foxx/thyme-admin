@@ -14,7 +14,7 @@ class StatefulRegisterCarDialog extends StatefulWidget {
   const StatefulRegisterCarDialog({
     super.key,
     required final CarRegistry carRegistry,
-  })  : _carRegistry = carRegistry;
+  }) : _carRegistry = carRegistry;
 
   @override
   State<StatefulRegisterCarDialog> createState() =>
@@ -73,22 +73,20 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
       if (!mounted) return;
       context.pop();
     } on FieldCannotBeBlankException catch (exception) {
-      setState(() {
-        switch (exception.fieldName) {
-          case 'registration_id':
-            registrationIdController.error = 'Registration ID is required';
-          case 'make':
-            makeController.error = 'Make is required';
-          case 'model':
-            modelController.error = 'Model is required';
-          case 'year':
-            yearController.error = 'Year is required';
-          case 'color':
-            colorController.error = 'Color is required';
-          case 'owner':
-            ownerController.error = 'Owner is required';
-        }
-      });
+      switch (exception.fieldName) {
+        case 'registration_id':
+          registrationIdController.error = 'Registration ID is required';
+        case 'make':
+          makeController.error = 'Make is required';
+        case 'model':
+          modelController.error = 'Model is required';
+        case 'year':
+          yearController.error = 'Year is required';
+        case 'color':
+          colorController.error = 'Color is required';
+        case 'owner':
+          ownerController.error = 'Owner is required';
+      }
     } on InvalidTokenException {
       if (!mounted) return;
       context.showSnackBar('Invalid token');

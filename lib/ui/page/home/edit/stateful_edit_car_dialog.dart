@@ -17,11 +17,10 @@ class StatefulEditCarDialog extends StatefulWidget {
     super.key,
     required final CarRegistry carRegistry,
     required this.car,
-  })  : _carRegistry = carRegistry;
+  }) : _carRegistry = carRegistry;
 
   @override
-  State<StatefulEditCarDialog> createState() =>
-      _StatefulEditCarDialogState();
+  State<StatefulEditCarDialog> createState() => _StatefulEditCarDialogState();
 }
 
 class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
@@ -77,26 +76,23 @@ class _StatefulEditCarDialogState extends State<StatefulEditCarDialog> {
           year: int.tryParse(yearController.text) ?? -1,
           color: colorController.text,
           owner: ownerController.text,
-          
         ),
       );
       if (!mounted) return;
       context.pop();
     } on FieldCannotBeBlankException catch (exception) {
-      setState(() {
-        switch (exception.fieldName) {
-          case 'make':
-            makeController.error = 'Make is required';
-          case 'model':
-            modelController.error = 'Model is required';
-          case 'year':
-            yearController.error = 'Year is required';
-          case 'color':
-            colorController.error = 'Color is required';
-          case 'owner':
-            ownerController.error = 'Owner is required';
-        }
-      });
+      switch (exception.fieldName) {
+        case 'make':
+          makeController.error = 'Make is required';
+        case 'model':
+          modelController.error = 'Model is required';
+        case 'year':
+          yearController.error = 'Year is required';
+        case 'color':
+          colorController.error = 'Color is required';
+        case 'owner':
+          ownerController.error = 'Owner is required';
+      }
     } on InvalidTokenException {
       if (!mounted) return;
       context.showSnackBar('Invalid token');

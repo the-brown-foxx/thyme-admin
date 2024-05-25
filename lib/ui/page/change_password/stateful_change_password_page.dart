@@ -63,7 +63,7 @@ class _StatefulChangePasswordPageState
 
   void onChangePassword() async {
     if (newPasswordController.text != repeatPasswordController.text) {
-      setState(() => repeatPasswordController.error = "Passwords don't match");
+      repeatPasswordController.error = "Passwords don't match";
       return;
     }
 

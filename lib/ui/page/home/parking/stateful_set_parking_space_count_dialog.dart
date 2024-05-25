@@ -79,13 +79,11 @@ class _StatefulSetParkingSpaceCountDialogState
       });
     } on FieldCannotBeBlankException catch (exception) {
       if (!mounted) return;
-      setState(() {
-        if (exception.fieldName == 'totalSpace') {
-          totalSpaceController.error = 'Total space is required';
-        } else if (exception.fieldName == 'vacantSpace') {
-          totalSpaceController.error = 'Vacant space is required';
-        }
-      });
+      if (exception.fieldName == 'totalSpace') {
+        totalSpaceController.error = 'Total space is required';
+      } else if (exception.fieldName == 'vacantSpace') {
+        totalSpaceController.error = 'Vacant space is required';
+      }
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);

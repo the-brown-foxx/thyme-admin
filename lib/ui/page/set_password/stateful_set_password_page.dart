@@ -55,7 +55,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
 
   void onSetPassword() async {
     if (passwordController.text != repeatPasswordController.text) {
-      setState(() => repeatPasswordController.error = 'Passwords do not match');
+      repeatPasswordController.error = 'Passwords do not match';
       return;
     }
 
@@ -65,9 +65,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
       if (!mounted) return;
       context.pop();
     } on PasswordTooShortException catch (exception) {
-      setState(() {
-        passwordController.error = exception.message;
-      });
+      passwordController.error = exception.message;
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);
