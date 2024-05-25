@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
+import 'package:thyme_to_park_admin/ui/component/card_hover_decoration.dart';
 import 'package:thyme_to_park_admin/ui/component/disableable_ink_well.dart';
 import 'package:thyme_to_park_admin/ui/component/theme.dart';
 import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
@@ -21,35 +22,37 @@ class CarCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return HerbHubCard(
-      roundedCorners: roundedCorners,
-      child: DisableableInkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      car.owner,
-                      style: context.theme.textTheme.titleMedium,
-                      maxLines: 1,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      car.modelInfo,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+    return CardHoverDecoration.forHerbHubCard(
+      child: HerbHubCard(
+        roundedCorners: roundedCorners,
+        child: DisableableInkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        car.owner,
+                        style: context.theme.textTheme.titleMedium,
+                        maxLines: 1,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        car.modelInfo,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              LicensePlate(registrationId: car.registrationId),
-            ],
+                const SizedBox(width: 16),
+                LicensePlate(registrationId: car.registrationId),
+              ],
+            ),
           ),
         ),
       ),

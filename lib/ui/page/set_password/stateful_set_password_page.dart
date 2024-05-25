@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/set_password/set_password_page.dart';
 
@@ -20,12 +21,8 @@ class StatefulSetPasswordPage extends StatefulWidget {
 }
 
 class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
-  final passwordController = TextEditingController();
-  final repeatPasswordController = TextEditingController();
-  var oldPassword = '';
-  var oldRepeatPassword = '';
-  var passwordTooShort = false;
-  var passwordsDoNotMatch = false;
+  final passwordController = TextFieldController();
+  final repeatPasswordController = TextFieldController();
   int? minPasswordLength;
   var loading = false;
 
@@ -34,25 +31,6 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
     widget._adminAuthenticator.loading.listen((final loading) {
       if (!mounted) return;
       setState(() => this.loading = loading);
-    });
-
-    passwordController.addListener(() {
-      if (oldPassword != passwordController.text && mounted) {
-        setState(() {
-          passwordTooShort = false;
-          passwordsDoNotMatch = false;
-        });
-      }
-      oldPassword = passwordController.text;
-    });
-
-    repeatPasswordController.addListener(() {
-      if (oldRepeatPassword != repeatPasswordController.text && mounted) {
-        setState(() {
-          passwordsDoNotMatch = false;
-        });
-      }
-      oldRepeatPassword = repeatPasswordController.text;
     });
 
     super.initState();
@@ -71,15 +49,13 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
       passwordController: passwordController,
       repeatPasswordController: repeatPasswordController,
       onSetPassword: onSetPassword,
-      passwordTooShort: passwordTooShort,
-      passwordsDoNotMatch: passwordsDoNotMatch,
       loading: loading,
     );
   }
 
   void onSetPassword() async {
     if (passwordController.text != repeatPasswordController.text) {
-      setState(() => passwordsDoNotMatch = true);
+      repeatPasswordController.error = 'Passwords do not match';
       return;
     }
 
@@ -89,10 +65,7 @@ class _StatefulSetPasswordPageState extends State<StatefulSetPasswordPage> {
       if (!mounted) return;
       context.pop();
     } on PasswordTooShortException catch (exception) {
-      setState(() {
-        minPasswordLength = exception.minLength;
-        passwordTooShort = true;
-      });
+      passwordController.error = exception.message;
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);

@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/home/register/component/register_car_body.dart';
 import 'package:thyme_to_park_admin/ui/page/home/register/component/register_car_image.dart';
 
 class RegisterCarCard extends StatelessWidget {
-  final TextEditingController registrationIdController;
-  final TextEditingController makeController;
-  final TextEditingController modelController;
-  final TextEditingController yearController;
-  final TextEditingController colorController;
-  final TextEditingController ownerController;
+  final TextFieldController registrationIdController;
+  final TextFieldController makeController;
+  final TextFieldController modelController;
+  final TextFieldController yearController;
+  final TextFieldController colorController;
+  final TextFieldController ownerController;
   final VoidCallback? onRegisterCar;
   final VoidCallback? onCancel;
-  final bool registrationIdBlank;
-  final bool makeBlank;
-  final bool modelBlank;
-  final bool yearBlank;
-  final bool colorBlank;
-  final bool ownerBlank;
   final bool loading;
 
   const RegisterCarCard({
@@ -30,12 +25,6 @@ class RegisterCarCard extends StatelessWidget {
     required this.ownerController,
     required this.onRegisterCar,
     required this.onCancel,
-    required this.registrationIdBlank,
-    required this.makeBlank,
-    required this.modelBlank,
-    required this.yearBlank,
-    required this.colorBlank,
-    required this.ownerBlank,
     required this.loading,
   });
 
@@ -55,12 +44,6 @@ class RegisterCarCard extends StatelessWidget {
             ownerController: ownerController,
             onRegisterCar: !loading ? onRegisterCar : null,
             onCancel: !loading ? onCancel : null,
-            registrationIdBlank: registrationIdBlank,
-            makeBlank: makeBlank,
-            modelBlank: modelBlank,
-            yearBlank: yearBlank,
-            colorBlank: colorBlank,
-            ownerBlank: ownerBlank,
           ),
         ),
       ),

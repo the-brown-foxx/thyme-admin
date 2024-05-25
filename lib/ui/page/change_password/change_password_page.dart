@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 
 import 'component/change_password_card.dart';
 
 class ChangePasswordPage extends StatelessWidget {
-  final TextEditingController oldPasswordController;
-  final TextEditingController newPasswordController;
-  final TextEditingController repeatPasswordController;
+  final TextFieldController oldPasswordController;
+  final TextFieldController newPasswordController;
+  final TextFieldController repeatPasswordController;
   final VoidCallback? onChangePassword;
   final VoidCallback? onCancel;
-  final bool passwordIncorrect;
-  final bool passwordTooShort;
-  final bool passwordsDoNotMatch;
   final bool loading;
 
   const ChangePasswordPage({
@@ -20,9 +18,6 @@ class ChangePasswordPage extends StatelessWidget {
     required this.repeatPasswordController,
     required this.onChangePassword,
     required this.onCancel,
-    required this.passwordIncorrect,
-    required this.passwordTooShort,
-    required this.passwordsDoNotMatch,
     required this.loading,
   });
 
@@ -45,9 +40,6 @@ class ChangePasswordPage extends StatelessWidget {
                     repeatPasswordController: repeatPasswordController,
                     onChangePassword: onChangePassword,
                     onCancel: onCancel,
-                    passwordIncorrect: passwordIncorrect,
-                    passwordTooShort: passwordTooShort,
-                    passwordsDoNotMatch: passwordsDoNotMatch,
                     loading: loading,
                   ),
                 ),

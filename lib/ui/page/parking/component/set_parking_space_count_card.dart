@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/parking/component/set_parking_space_count_body.dart';
 import 'package:thyme_to_park_admin/ui/page/parking/component/set_parking_space_count_image.dart';
 
 class SetParkingSpaceCountCard extends StatelessWidget {
-  final TextEditingController totalSpaceController;
-  final TextEditingController vacantSpaceController;
+  final TextFieldController totalSpaceController;
+  final TextFieldController vacantSpaceController;
   final VoidCallback? onSetParkingSpaceCount;
-  final bool totalSpaceBlank;
-  final bool vacantSpaceBlank;
-  final bool totalSpaceIsLessThanVacantSpace;
   final bool loading;
 
   const SetParkingSpaceCountCard({
@@ -17,9 +15,6 @@ class SetParkingSpaceCountCard extends StatelessWidget {
     required this.totalSpaceController,
     required this.vacantSpaceController,
     this.onSetParkingSpaceCount,
-    required this.totalSpaceBlank,
-    required this.vacantSpaceBlank,
-    required this.totalSpaceIsLessThanVacantSpace,
     required this.loading,
   });
 
@@ -34,10 +29,6 @@ class SetParkingSpaceCountCard extends StatelessWidget {
             totalSpaceController: totalSpaceController,
             vacantSpaceController: vacantSpaceController,
             onSetParkingSpaceCount: onSetParkingSpaceCount,
-            totalSpaceBlank: totalSpaceBlank,
-            vacantSpaceBlank: vacantSpaceBlank,
-            totalSpaceIsLessThanVacantSpace:
-            totalSpaceIsLessThanVacantSpace,
           ),
         ),
       ),

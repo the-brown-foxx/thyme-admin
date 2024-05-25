@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/component/button.dart';
-import 'package:thyme_to_park_admin/ui/component/text_field.dart';
-import 'package:thyme_to_park_admin/ui/util/corner.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
+import 'package:thyme_to_park_admin/ui/component/button.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
+import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class EditCarBody extends StatelessWidget {
   final Car car;
-  final TextEditingController makeController;
-  final TextEditingController modelController;
-  final TextEditingController yearController;
-  final TextEditingController colorController;
-  final TextEditingController ownerController;
+  final TextFieldController makeController;
+  final TextFieldController modelController;
+  final TextFieldController yearController;
+  final TextFieldController colorController;
+  final TextFieldController ownerController;
   final VoidCallback? onEditCar;
   final VoidCallback? onCancel;
-  final bool makeBlank;
-  final bool modelBlank;
-  final bool yearBlank;
-  final bool colorBlank;
-  final bool ownerBlank;
 
   const EditCarBody({
     super.key,
@@ -30,11 +25,6 @@ class EditCarBody extends StatelessWidget {
     required this.ownerController,
     required this.onEditCar,
     required this.onCancel,
-    required this.makeBlank,
-    required this.modelBlank,
-    required this.yearBlank,
-    required this.colorBlank,
-    required this.ownerBlank,
   });
 
   @override
@@ -53,48 +43,43 @@ class EditCarBody extends StatelessWidget {
         const SizedBox(height: 16),
         LicensePlate(registrationId: car.registrationId),
         const SizedBox(height: 16),
-        HerbHubTextField(
+        ControlledTextField(
           icon: Icons.sell,
           hintText: 'Make',
           controller: makeController,
-          errorText: makeBlank ? 'Make is required' : null,
           roundedCorners: Edge.top,
           onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           icon: Icons.notes,
           hintText: 'Model',
           controller: modelController,
-          errorText: modelBlank ? 'Model is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           icon: Icons.onetwothree,
           hintText: 'Year',
           controller: yearController,
-          errorText: yearBlank ? 'Year is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onEditCar?.call(),
           keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           icon: Icons.color_lens,
           hintText: 'Color',
           controller: colorController,
-          errorText: colorBlank ? 'Color is required' : null,
           roundedCorners: const {},
           onSubmitted: (final _) => onEditCar?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           icon: Icons.person,
           hintText: 'Owner',
           controller: ownerController,
-          errorText: ownerBlank ? 'Owner required.' : null,
           roundedCorners: Edge.bottom,
           onSubmitted: (final _) => onEditCar?.call(),
         ),

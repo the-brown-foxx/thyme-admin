@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/button.dart';
-import 'package:thyme_to_park_admin/ui/component/text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 
 class LoginBody extends StatelessWidget {
-  final TextEditingController passwordController;
+  final TextFieldController passwordController;
   final VoidCallback? onLogin;
-  final bool passwordIncorrect;
 
   const LoginBody({
     super.key,
     required this.passwordController,
     required this.onLogin,
-    required this.passwordIncorrect,
   });
 
   @override
@@ -35,11 +33,10 @@ class LoginBody extends StatelessWidget {
           style: theme.textTheme.titleLarge,
         ),
         const SizedBox(height: 16),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Password',
           obscureText: true,
           controller: passwordController,
-          errorText: passwordIncorrect ? 'Incorrect password' : null,
           onSubmitted: (final _) => onLogin?.call(),
         ),
         const SizedBox(height: 16),

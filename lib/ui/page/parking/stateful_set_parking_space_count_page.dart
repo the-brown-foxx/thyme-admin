@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/parking/model/parking_space_count.dart';
 import 'package:thyme_to_park_admin/service/parking/parking_space_counter.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/parking/set_parking_space_count_page.dart';
 
@@ -22,45 +23,13 @@ class StatefulSetParkingSpaceCountPage extends StatefulWidget {
 
 class _StatefulSetParkingSpaceCountPageState
     extends State<StatefulSetParkingSpaceCountPage> {
-  final totalSpaceController = TextEditingController();
-  final vacantSpaceController = TextEditingController();
-  var oldTotalSpaceController = '';
-  var oldVacantSpaceController = '';
-  var totalSpaceBlank = false;
-  var vacantSpaceBlank = false;
-  var totalSpaceIsLessThanVacantSpace = false;
+  final totalSpaceController = TextFieldController(numeric: true);
+  final vacantSpaceController = TextFieldController(numeric: true);
   var loading = false;
 
   @override
   void initState() {
     // TODO: implement loading
-    totalSpaceController.addListener(() {
-      if (oldTotalSpaceController != totalSpaceController.text && mounted) {
-        setState(() {
-          totalSpaceBlank = false;
-          totalSpaceIsLessThanVacantSpace = false;
-        });
-      }
-      if (int.tryParse(totalSpaceController.text) == null &&
-          totalSpaceController.text != '' && mounted) {
-        totalSpaceController.text = oldTotalSpaceController;
-      }
-      oldTotalSpaceController = totalSpaceController.text;
-    });
-
-    vacantSpaceController.addListener(() {
-      if (oldVacantSpaceController != vacantSpaceController.text && mounted) {
-        setState(() {
-          vacantSpaceBlank = false;
-        });
-      }
-      if (int.tryParse(vacantSpaceController.text) == null &&
-          vacantSpaceController.text != '' && mounted) {
-        vacantSpaceController.text = oldVacantSpaceController;
-      }
-      oldVacantSpaceController = vacantSpaceController.text;
-    });
-
     super.initState();
   }
 
@@ -77,9 +46,6 @@ class _StatefulSetParkingSpaceCountPageState
       totalSpaceController: totalSpaceController,
       vacantSpaceController: vacantSpaceController,
       onSetParkingSpaceCount: onSetParkingSpaceCount,
-      totalSpaceBlank: totalSpaceBlank,
-      vacantSpaceBlank: vacantSpaceBlank,
-      totalSpaceIsLessThanVacantSpace: totalSpaceIsLessThanVacantSpace,
       loading: loading,
     );
   }
@@ -97,17 +63,16 @@ class _StatefulSetParkingSpaceCountPageState
     } on TotalSpaceLessThanVacantSpaceException {
       if (!mounted) return;
       setState(() {
-        totalSpaceIsLessThanVacantSpace = true;
+        totalSpaceController.error =
+            'Total space must be greater than vacant space';
       });
     } on FieldCannotBeBlankException catch (exception) {
       if (!mounted) return;
-      setState(() {
-        if (exception.fieldName == 'totalSpace') {
-          totalSpaceBlank = true;
-        } else if (exception.fieldName == 'vacantSpace') {
-          vacantSpaceBlank = true;
-        }
-      });
+      if (exception.fieldName == 'total_space') {
+        totalSpaceController.error = 'Total space is required';
+      } else if (exception.fieldName == 'vacant_space') {
+        vacantSpaceController.error = 'Vacant space is required';
+      }
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);

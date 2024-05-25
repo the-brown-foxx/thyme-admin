@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../util/corner.dart';
+import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class HerbHubTextField extends StatefulWidget {
   final TextEditingController? controller;

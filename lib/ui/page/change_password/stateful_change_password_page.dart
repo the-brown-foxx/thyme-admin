@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/change_password/change_password_page.dart';
 
@@ -19,18 +20,11 @@ class StatefulChangePasswordPage extends StatefulWidget {
       _StatefulChangePasswordPageState();
 }
 
-class _StatefulChangePasswordPageState 
+class _StatefulChangePasswordPageState
     extends State<StatefulChangePasswordPage> {
-  final oldPasswordController = TextEditingController();
-  final newPasswordController = TextEditingController();
-  final repeatPasswordController = TextEditingController();
-  var oldPassword = '';
-  var newPassword = '';
-  var repeatPassword = '';
-  var passwordIncorrect = false;
-  var passwordTooShort = false;
-  var passwordsDoNotMatch = false;
-  int? minPasswordLength;
+  final oldPasswordController = TextFieldController();
+  final newPasswordController = TextFieldController();
+  final repeatPasswordController = TextFieldController();
   var loading = false;
 
   @override
@@ -38,32 +32,6 @@ class _StatefulChangePasswordPageState
     widget._adminAuthenticator.loading.listen((final loading) {
       if (!mounted) return;
       setState(() => this.loading = loading);
-    });
-
-    oldPasswordController.addListener(() {
-      if (oldPassword != oldPasswordController.text && mounted) {
-        setState(() => passwordIncorrect = false);
-      }
-      oldPassword = oldPasswordController.text;
-    });
-
-    newPasswordController.addListener(() {
-      if (newPassword != newPasswordController.text && mounted) {
-        setState(() {
-          passwordTooShort = false;
-          passwordsDoNotMatch = false;
-        });
-      }
-      newPassword = newPasswordController.text;
-    });
-
-    repeatPasswordController.addListener(() {
-      if (repeatPassword != repeatPasswordController.text && mounted) {
-        setState(() {
-          passwordsDoNotMatch = false;
-        });
-      }
-      repeatPassword = repeatPasswordController.text;
     });
 
     super.initState();
@@ -85,9 +53,6 @@ class _StatefulChangePasswordPageState
       repeatPasswordController: repeatPasswordController,
       onChangePassword: onChangePassword,
       onCancel: onCancel,
-      passwordIncorrect: passwordIncorrect,
-      passwordTooShort: passwordTooShort,
-      passwordsDoNotMatch: passwordsDoNotMatch,
       loading: loading,
     );
   }
@@ -98,24 +63,22 @@ class _StatefulChangePasswordPageState
 
   void onChangePassword() async {
     if (newPasswordController.text != repeatPasswordController.text) {
-      setState(() => passwordsDoNotMatch = true);
+      repeatPasswordController.error = "Passwords don't match";
       return;
     }
 
     try {
       await widget._adminAuthenticator.changePassword(
-        oldPassword: oldPasswordController.text,
+        oldPassword: oldPasswordController.textEditingController.text,
         newPassword: newPasswordController.text,
       );
       if (!mounted) return;
       context.pop();
     } on IncorrectPasswordException {
-      setState(() => passwordIncorrect = true);
+      oldPasswordController.error = 'Incorrect old password';
     } on PasswordTooShortException catch (exception) {
-      setState(() {
-        minPasswordLength = exception.minLength;
-        passwordTooShort = true;
-      });
+      newPasswordController.error =
+          'Password must be at least ${exception.minLength} characters long';
     } on ApiException catch (exception) {
       if (!mounted) return;
       context.showSnackBar(exception.message);
