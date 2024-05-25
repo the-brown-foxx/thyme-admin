@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/component/card.dart';
-import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
+import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/set_password/component/set_password_body.dart';
 import 'package:thyme_to_park_admin/ui/page/set_password/component/set_password_image.dart';
 
@@ -24,32 +23,19 @@ class SetPasswordCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return HerbHubCard(
-      largeCornerRadius: true,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(64.0),
-                  child: SetPasswordBody(
-                    passwordController: passwordController,
-                    repeatPasswordController: repeatPasswordController,
-                    onSetPassword: !loading ? onSetPassword : null,
-                    passwordTooShort: passwordTooShort,
-                    passwordsDoNotMatch: passwordsDoNotMatch,
-                  ),
-                ),
-              ),
-              const Expanded(child: SetPasswordImage()),
-            ],
-          ),
-          if (loading) const HerbHubLinearProgressIndicator(),
-        ],
+    return TwoPaneCard(
+      loading: loading,
+      leftChild: Padding(
+        padding: const EdgeInsets.all(64.0),
+        child: SetPasswordBody(
+          passwordController: passwordController,
+          repeatPasswordController: repeatPasswordController,
+          onSetPassword: !loading ? onSetPassword : null,
+          passwordTooShort: passwordTooShort,
+          passwordsDoNotMatch: passwordsDoNotMatch,
+        ),
       ),
+      rightChild: const SetPasswordImage(),
     );
   }
 }

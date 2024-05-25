@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/component/card.dart';
-import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
+import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/home/parking/component/set_parking_space_count_body.dart';
 import 'package:thyme_to_park_admin/ui/page/home/parking/component/set_parking_space_count_image.dart';
 
@@ -26,34 +25,23 @@ class SetParkingSpaceCountCar extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return HerbHubCard(
-      largeCornerRadius: true,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(64.0),
-                  child: SetParkingSpaceCountBody(
-                    totalSpaceController: totalSpaceController,
-                    vacantSpaceController: vacantSpaceController,
-                    onSetParkingSpaceCount: onSetParkingSpaceCount,
-                    totalSpaceBlank: totalSpaceBlank,
-                    vacantSpaceBlank: vacantSpaceBlank,
-                    totalSpaceIsLessThanVacantSpace:
-                        totalSpaceIsLessThanVacantSpace,
-                  ),
-                ),
-              ),
-              const Expanded(child: SetParkingSpaceCountImage()),
-            ],
+    return TwoPaneCard(
+      loading: loading,
+      leftChild: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(64.0),
+          child: SetParkingSpaceCountBody(
+            totalSpaceController: totalSpaceController,
+            vacantSpaceController: vacantSpaceController,
+            onSetParkingSpaceCount: onSetParkingSpaceCount,
+            totalSpaceBlank: totalSpaceBlank,
+            vacantSpaceBlank: vacantSpaceBlank,
+            totalSpaceIsLessThanVacantSpace:
+            totalSpaceIsLessThanVacantSpace,
           ),
-          if (loading) const HerbHubLinearProgressIndicator(),
-        ],
+        ),
       ),
+      rightChild: const SetParkingSpaceCountImage(),
     );
   }
 }
