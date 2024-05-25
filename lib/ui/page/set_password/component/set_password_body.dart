@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/button.dart';
-import 'package:thyme_to_park_admin/ui/component/text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class SetPasswordBody extends StatelessWidget {
-  final TextEditingController passwordController;
-  final TextEditingController repeatPasswordController;
+  final TextFieldController passwordController;
+  final TextFieldController repeatPasswordController;
   final VoidCallback? onSetPassword;
-  final bool passwordTooShort;
-  final bool passwordsDoNotMatch;
   final int? minPasswordLength;
 
   const SetPasswordBody({
@@ -16,19 +14,12 @@ class SetPasswordBody extends StatelessWidget {
     required this.passwordController,
     required this.repeatPasswordController,
     required this.onSetPassword,
-    required this.passwordTooShort,
-    required this.passwordsDoNotMatch,
     this.minPasswordLength,
   });
 
   @override
   Widget build(final BuildContext context) {
     final theme = Theme.of(context);
-    final passwordErrorText = passwordTooShort
-        ? (minPasswordLength != null
-        ? 'Password must be at least $minPasswordLength characters long'
-        : 'Password is too short')
-        : null;
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -47,20 +38,18 @@ class SetPasswordBody extends StatelessWidget {
           style: theme.textTheme.bodyLarge,
         ),
         const SizedBox(height: 16),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Password',
           obscureText: true,
           controller: passwordController,
-          errorText: passwordErrorText,
           roundedCorners: Edge.top,
           onSubmitted: (final _) => onSetPassword?.call(),
         ),
         const SizedBox(height: 8),
-        HerbHubTextField(
+        ControlledTextField(
           hintText: 'Repeat password',
           obscureText: true,
           controller: repeatPasswordController,
-          errorText: passwordsDoNotMatch ? "Passwords don't match" : null,
           roundedCorners: Edge.bottom,
           onSubmitted: (final _) => onSetPassword?.call(),
         ),

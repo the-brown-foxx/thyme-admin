@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 
 import 'component/set_password_card.dart';
 
 class SetPasswordPage extends StatelessWidget {
-  final TextEditingController passwordController;
-  final TextEditingController repeatPasswordController;
+  final TextFieldController passwordController;
+  final TextFieldController repeatPasswordController;
   final VoidCallback? onSetPassword;
-  final bool passwordTooShort;
-  final bool passwordsDoNotMatch;
   final bool loading;
 
   const SetPasswordPage({
@@ -15,8 +15,6 @@ class SetPasswordPage extends StatelessWidget {
     required this.passwordController,
     required this.repeatPasswordController,
     required this.onSetPassword,
-    required this.passwordTooShort,
-    required this.passwordsDoNotMatch,
     required this.loading,
   });
 
@@ -37,8 +35,6 @@ class SetPasswordPage extends StatelessWidget {
                     passwordController: passwordController,
                     repeatPasswordController: repeatPasswordController,
                     onSetPassword: onSetPassword,
-                    passwordTooShort: passwordTooShort,
-                    passwordsDoNotMatch: passwordsDoNotMatch,
                     loading: loading,
                   ),
                 ),
