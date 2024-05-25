@@ -65,7 +65,7 @@ class CarInfoBody extends StatelessWidget {
           children: [
             Expanded(
               child: HerbHubButton(
-                text: 'Delete',
+                text: 'Unregister',
                 onPressed: onDelete,
                 type: ButtonType.outlined,
                 roundedCorners: const {Corner.topLeft},
