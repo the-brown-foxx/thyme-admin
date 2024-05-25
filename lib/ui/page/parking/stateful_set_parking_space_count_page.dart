@@ -5,23 +5,23 @@ import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/parking/model/parking_space_count.dart';
 import 'package:thyme_to_park_admin/service/parking/parking_space_counter.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
-import 'package:thyme_to_park_admin/ui/page/home/parking/set_parking_space_count_dialog.dart';
+import 'package:thyme_to_park_admin/ui/page/parking/set_parking_space_count_page.dart';
 
-class StatefulSetParkingSpaceCountDialog extends StatefulWidget {
+class StatefulSetParkingSpaceCountPage extends StatefulWidget {
   final ParkingSpaceCounter _parkingSpaceCounter;
 
-  const StatefulSetParkingSpaceCountDialog({
+  const StatefulSetParkingSpaceCountPage({
     super.key,
     required final ParkingSpaceCounter parkingSpaceCounter,
   }) : _parkingSpaceCounter = parkingSpaceCounter;
 
   @override
-  State<StatefulSetParkingSpaceCountDialog> createState() =>
-      _StatefulSetParkingSpaceCountDialogState();
+  State<StatefulSetParkingSpaceCountPage> createState() =>
+      _StatefulSetParkingSpaceCountPageState();
 }
 
-class _StatefulSetParkingSpaceCountDialogState
-    extends State<StatefulSetParkingSpaceCountDialog> {
+class _StatefulSetParkingSpaceCountPageState
+    extends State<StatefulSetParkingSpaceCountPage> {
   final totalSpaceController = TextEditingController();
   final vacantSpaceController = TextEditingController();
   var oldTotalSpaceController = '';
@@ -30,21 +30,10 @@ class _StatefulSetParkingSpaceCountDialogState
   var vacantSpaceBlank = false;
   var totalSpaceIsLessThanVacantSpace = false;
   var loading = false;
-  var alreadySet = false;
 
   @override
   void initState() {
     // TODO: implement loading
-
-    widget._parkingSpaceCounter.parkingSpaceCount.listen((final count) {
-      if (!mounted || alreadySet) return;
-      setState(() {
-        totalSpaceController.text = count.totalSpace.toString();
-        vacantSpaceController.text = count.vacantSpace.toString();
-      });
-      alreadySet = true;
-    });
-
     totalSpaceController.addListener(() {
       if (oldTotalSpaceController != totalSpaceController.text && mounted) {
         setState(() {
@@ -84,7 +73,7 @@ class _StatefulSetParkingSpaceCountDialogState
 
   @override
   Widget build(final BuildContext context) {
-    return SetParkingSpaceCountDialog(
+    return SetParkingSpaceCountPage(
       totalSpaceController: totalSpaceController,
       vacantSpaceController: vacantSpaceController,
       onSetParkingSpaceCount: onSetParkingSpaceCount,

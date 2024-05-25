@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
-import 'package:thyme_to_park_admin/ui/page/home/parking/component/set_parking_space_count_body.dart';
-import 'package:thyme_to_park_admin/ui/page/home/parking/component/set_parking_space_count_image.dart';
+import 'package:thyme_to_park_admin/ui/page/parking/component/set_parking_space_count_body.dart';
+import 'package:thyme_to_park_admin/ui/page/parking/component/set_parking_space_count_image.dart';
 
-class SetParkingSpaceCountCar extends StatelessWidget {
+class SetParkingSpaceCountCard extends StatelessWidget {
   final TextEditingController totalSpaceController;
   final TextEditingController vacantSpaceController;
   final VoidCallback? onSetParkingSpaceCount;
@@ -12,7 +12,7 @@ class SetParkingSpaceCountCar extends StatelessWidget {
   final bool totalSpaceIsLessThanVacantSpace;
   final bool loading;
 
-  const SetParkingSpaceCountCar({
+  const SetParkingSpaceCountCard({
     super.key,
     required this.totalSpaceController,
     required this.vacantSpaceController,

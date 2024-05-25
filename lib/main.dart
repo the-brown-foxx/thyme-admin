@@ -19,6 +19,7 @@ import 'package:thyme_to_park_admin/ui/page/change_password/stateful_change_pass
 import 'package:thyme_to_park_admin/ui/page/home/stateful_home_screen.dart';
 import 'package:thyme_to_park_admin/ui/page/login/stateful_login_page.dart';
 import 'package:thyme_to_park_admin/ui/page/logs/stateful_logs_page.dart';
+import 'package:thyme_to_park_admin/ui/page/parking/stateful_set_parking_space_count_page.dart';
 import 'package:thyme_to_park_admin/ui/page/set_password/stateful_set_password_page.dart';
 import 'package:thyme_to_park_admin/ui/theme/color_schemes.dart';
 import 'package:thyme_to_park_admin/ui/theme/text_theme.dart';
@@ -91,6 +92,12 @@ class MyApp extends StatelessWidget {
               parkingSpaceCounter: parkingSpaceCounter,
             ),
             routes: [
+              GoRoute(
+                path: 'set-parking-space-count',
+                builder: (final _, final __) => StatefulSetParkingSpaceCountPage(
+                  parkingSpaceCounter: parkingSpaceCounter,
+                ),
+              ),
               GoRoute(
                 path: 'logs',
                 builder: (final _, final __) => StatefulLogsPage(
