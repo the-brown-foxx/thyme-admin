@@ -66,14 +66,17 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
     super.initState();
   }
 
-  void navigateToCorrectPage() {
+  void navigateToCorrectPage() async {
     widget._adminAuthenticator.loggedIn.listen((final loggedIn) {
       if (!loggedIn && mounted) {
         context.pop();
       }
     });
 
-    // TODO: auto open parking dialog if parking space count is not set
+    if (!await widget._parkingSpaceCounter.parkingSpaceSet) {
+      if (!mounted) return;
+      context.go('/home/set-parking-space-count');
+    }
   }
 
   void search() {

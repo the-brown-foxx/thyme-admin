@@ -23,9 +23,24 @@ class ActualParkingSpaceCounter implements ParkingSpaceCounter {
         _tokenStorage = tokenStorage,
         _adminAuthenticator = adminAuthenticator {
     fetch();
-    Timer.periodic(const Duration(seconds: 10), (final _) {
+    Timer.periodic(const Duration(seconds: 5), (final _) {
       fetch();
     });
+  }
+
+  @override
+  Future<bool> get parkingSpaceSet async {
+    try {
+      final response = await get(
+        _api.urlOf('/parking/parking-space-set'),
+        headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
+      );
+      final jsonResponse = _api.parseJsonResponse(response);
+      return jsonResponse.body['parking_space_set'];
+    } on InvalidTokenException {
+      await _adminAuthenticator.logout();
+      return false;
+    }
   }
 
   final _parkingSpaceCount = BehaviorSubject<ParkingSpaceCount>();
