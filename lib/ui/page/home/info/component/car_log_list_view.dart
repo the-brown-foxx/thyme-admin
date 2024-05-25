@@ -5,21 +5,18 @@ import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class CarLogsListView extends StatelessWidget {
   final List<CarLog> carLogs;
+  final EdgeInsetsGeometry? contentPadding;
 
   const CarLogsListView({
     super.key,
     required this.carLogs,
+    this.contentPadding,
   });
 
   @override
   Widget build(final BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.only(
-        left: 32,
-        top: 64,
-        right: 64,
-        bottom: 64,
-      ),
+      padding: contentPadding,
       itemCount: carLogs.length,
       itemBuilder: (final _, final index) {
         final lastIndex = carLogs.length - 1;

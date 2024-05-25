@@ -5,8 +5,7 @@ import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/component/disableable_ink_well.dart';
 import 'package:thyme_to_park_admin/ui/component/theme.dart';
 import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
-
-import '../../../util/corner.dart';
+import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class CarCard extends StatelessWidget {
   final Car car;

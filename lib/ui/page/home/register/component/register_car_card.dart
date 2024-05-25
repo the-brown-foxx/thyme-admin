@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/component/card.dart';
-import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
+import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/home/register/component/register_car_body.dart';
 import 'package:thyme_to_park_admin/ui/page/home/register/component/register_car_image.dart';
 
@@ -42,43 +41,30 @@ class RegisterCarCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return HerbHubCard(
-      largeCornerRadius: true,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(64.0),
-                    child: RegisterCarBody(
-                      registrationIdController: registrationIdController,
-                      makeController: makeController,
-                      modelController: modelController,
-                      yearController: yearController,
-                      colorController: colorController,
-                      ownerController: ownerController,
-                      onRegisterCar: !loading ? onRegisterCar : null,
-                      onCancel: !loading ? onCancel : null,
-                      registrationIdBlank: registrationIdBlank,
-                      makeBlank: makeBlank,
-                      modelBlank: modelBlank,
-                      yearBlank: yearBlank,
-                      colorBlank: colorBlank,
-                      ownerBlank: ownerBlank,
-                    ),
-                  ),
-                ),
-              ),
-              const Expanded(child: RegisterCarImage()),
-            ],
+    return TwoPaneCard(
+      loading: loading,
+      leftChild: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(64.0),
+          child: RegisterCarBody(
+            registrationIdController: registrationIdController,
+            makeController: makeController,
+            modelController: modelController,
+            yearController: yearController,
+            colorController: colorController,
+            ownerController: ownerController,
+            onRegisterCar: !loading ? onRegisterCar : null,
+            onCancel: !loading ? onCancel : null,
+            registrationIdBlank: registrationIdBlank,
+            makeBlank: makeBlank,
+            modelBlank: modelBlank,
+            yearBlank: yearBlank,
+            colorBlank: colorBlank,
+            ownerBlank: ownerBlank,
           ),
-          if (loading) const HerbHubLinearProgressIndicator(),
-        ],
+        ),
       ),
+      rightChild: const RegisterCarImage(),
     );
   }
 }
