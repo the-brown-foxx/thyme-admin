@@ -11,6 +11,8 @@ import 'package:thyme_to_park_admin/service/authenticator/token/actual_token_sto
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 import 'package:thyme_to_park_admin/service/log/actual_car_logger.dart';
 import 'package:thyme_to_park_admin/service/log/car_logger.dart';
+import 'package:thyme_to_park_admin/service/parking/actual_parking_space_counter.dart';
+import 'package:thyme_to_park_admin/service/parking/parking_space_counter.dart';
 import 'package:thyme_to_park_admin/service/registry/actual_car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/ui/page/change_password/stateful_change_password_page.dart';
@@ -59,6 +61,12 @@ class MyApp extends StatelessWidget {
     tokenStorage: tokenStorage,
     adminAuthenticator: adminAuthenticator,
   );
+  late final ParkingSpaceCounter parkingSpaceCounter =
+      ActualParkingSpaceCounter(
+    api: api,
+    tokenStorage: tokenStorage,
+    adminAuthenticator: adminAuthenticator,
+  );
 
   MyApp({super.key});
 
@@ -80,6 +88,7 @@ class MyApp extends StatelessWidget {
               carRegistry: carRegistry,
               adminAuthenticator: adminAuthenticator,
               carLogger: carLogger,
+              parkingSpaceCounter: parkingSpaceCounter,
             ),
             routes: [
               GoRoute(

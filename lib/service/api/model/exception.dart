@@ -48,6 +48,16 @@ class IncorrectPasswordException extends ApiException {
       'Incorrect password';
 }
 
+class UnsetParkingSpaceException extends ApiException {
+  @override
+  String get message => 'Unset parking space';
+}
+
+class TotalSpaceLessThanVacantSpaceException extends ApiException {
+  @override
+  String get message => 'Total space should be greater than vacant space';
+}
+
 class InvalidTokenException extends ApiException {
   @override
   String get message =>

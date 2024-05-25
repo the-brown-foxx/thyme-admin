@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:thyme_to_park_admin/ui/component/theme.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
+import 'package:thyme_to_park_admin/ui/component/dialog.dart';
+
 import 'component/edit_car_card.dart';
 
 class EditCarDialog extends StatelessWidget {
@@ -39,14 +40,7 @@ class EditCarDialog extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(32),
-        side: BorderSide(
-          color: context.theme.colorScheme.onSurface,
-          width: 2,
-        ),
-      ),
+    return HerbHubDialog(
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1080),
         child: EditCarCard(

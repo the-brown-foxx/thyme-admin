@@ -40,6 +40,10 @@ class ActualApi implements Api {
         throw IncorrectPasswordException();
       case 'INVALID_TOKEN':
         throw InvalidTokenException();
+      case 'UNSET_PARKING_SPACE':
+        throw UnsetParkingSpaceException();
+      case 'TOTAL_SPACE_LESS_THAN_VACANT_SPACE':
+        throw TotalSpaceLessThanVacantSpaceException();
       case null:
         throw InvalidTokenException();
       case 'SUCCESSFUL':
