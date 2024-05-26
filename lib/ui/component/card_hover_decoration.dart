@@ -8,21 +8,24 @@ const _defaultColors = [
 ];
 
 class CardHoverDecoration extends StatefulWidget {
-  final Widget child;
   final Set<Corner> roundedCorners;
   final List<Color> gradientColors;
+  final bool persistent;
+  final Widget child;
 
   const CardHoverDecoration({
     super.key,
     this.roundedCorners = Corner.all,
-    required this.child,
     this.gradientColors = _defaultColors,
+    this.persistent = false,
+    required this.child,
   });
 
   CardHoverDecoration.forHerbHubCard({
     super.key,
-    required HerbHubCard this.child,
     this.gradientColors = _defaultColors,
+    this.persistent = false,
+    required HerbHubCard this.child,
   }) : roundedCorners = child.roundedCorners;
 
   @override
@@ -52,7 +55,9 @@ class _CardHoverDecorationState extends State<CardHoverDecoration> {
                   widget.child,
                   AnimatedSize(
                     duration: const Duration(milliseconds: 150),
-                    child: SizedBox(height: hovered ? 8 : 0),
+                    child: SizedBox(
+                      height: hovered || widget.persistent ? 8 : 0,
+                    ),
                   ),
                 ],
               ),

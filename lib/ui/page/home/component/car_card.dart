@@ -12,17 +12,20 @@ class CarCard extends StatelessWidget {
   final Car car;
   final VoidCallback? onTap;
   final Set<Corner> roundedCorners;
+  final bool decorationPersistent;
 
   const CarCard({
     super.key,
     required this.car,
     this.onTap,
     this.roundedCorners = Corner.all,
+    this.decorationPersistent = false,
   });
 
   @override
   Widget build(final BuildContext context) {
     return CardHoverDecoration.forHerbHubCard(
+      persistent: decorationPersistent,
       child: HerbHubCard(
         roundedCorners: roundedCorners,
         child: DisableableInkWell(

@@ -33,7 +33,7 @@ class UnregisterCarBody extends StatelessWidget {
           style: context.theme.textTheme.bodyLarge,
         ),
         const SizedBox(height: 16),
-        CarCard(car: car),
+        CarCard(car: car, decorationPersistent: true),
         const SizedBox(height: 16),
         Row(
           children: [
