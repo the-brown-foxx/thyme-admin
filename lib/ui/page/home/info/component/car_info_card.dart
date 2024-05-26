@@ -28,27 +28,28 @@ class CarInfoCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     // TODO: Make the max height of this card the height of the left pane
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 720),
-      child: TwoPaneCard(
-        loading: loading,
-        leftChild: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 64,
-              top: 64,
-              right: 32,
-              bottom: 64,
-            ),
-            child: CarInfoBody(
-              car: car,
-              onEdit: onEdit,
-              onDelete: onDelete,
-              onCancel: onCancel,
-            ),
+    return TwoPaneCard(
+      rowAlignment: CrossAxisAlignment.start,
+      loading: loading,
+      leftChild: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 64,
+            top: 64,
+            right: 32,
+            bottom: 64,
+          ),
+          child: CarInfoBody(
+            car: car,
+            onEdit: onEdit,
+            onDelete: onDelete,
+            onCancel: onCancel,
           ),
         ),
-        rightChild: CarLogsListView(
+      ),
+      rightChild: SizedBox(
+        height: double.maxFinite,
+        child: CarLogsListView(
           contentPadding: const EdgeInsets.only(
             left: 32,
             top: 64,

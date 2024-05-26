@@ -3,6 +3,7 @@ import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/home/register/component/register_car_body.dart';
 import 'package:thyme_to_park_admin/ui/page/home/register/component/register_car_image.dart';
+import 'package:thyme_to_park_admin/ui/page/login/component/login_image.dart';
 
 class RegisterCarCard extends StatelessWidget {
   final TextFieldController registrationIdController;
@@ -47,7 +48,7 @@ class RegisterCarCard extends StatelessWidget {
           ),
         ),
       ),
-      rightChild: const RegisterCarImage(),
+      rightChild: const LoginImage(),
     );
   }
 }

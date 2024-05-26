@@ -12,9 +12,15 @@ class LoginImage extends StatelessWidget {
       Brightness.dark => 'assets/landing_image_dark.svg',
     };
 
-    return SvgPicture.asset(
-      assetName,
-      alignment: Alignment.bottomRight,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(),
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: SvgPicture.asset(
+          assetName,
+          alignment: Alignment.bottomRight,
+        ),
+      ),
     );
   }
 }
