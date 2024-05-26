@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:thyme_to_park_admin/service/log/model/car_log.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
+import 'package:thyme_to_park_admin/ui/component/widget_with_placeholder.dart';
 import 'package:thyme_to_park_admin/ui/page/home/info/component/car_log_list_view.dart';
 
 import 'car_info_body.dart';
@@ -47,16 +48,20 @@ class CarInfoCard extends StatelessWidget {
           ),
         ),
       ),
-      rightChild: SizedBox(
-        height: double.maxFinite,
-        child: CarLogsListView(
-          contentPadding: const EdgeInsets.only(
-            left: 32,
-            top: 64,
-            right: 64,
-            bottom: 64,
+      rightChild: WidgetWithPlaceholder.withEmptyIndicator(
+        empty: carLogs.isEmpty,
+        emptyMessage: 'There are no logs for this car',
+        child: SizedBox(
+          height: double.maxFinite,
+          child: CarLogsListView(
+            contentPadding: const EdgeInsets.only(
+              left: 32,
+              top: 64,
+              right: 64,
+              bottom: 64,
+            ),
+            carLogs: carLogs,
           ),
-          carLogs: carLogs,
         ),
       ),
     );

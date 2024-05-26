@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
+import 'package:thyme_to_park_admin/ui/component/widget_with_placeholder.dart';
 import 'package:thyme_to_park_admin/ui/page/home/component/cars_list_view.dart';
 import 'package:thyme_to_park_admin/ui/page/home/component/home_top_bar.dart';
 
@@ -50,10 +51,15 @@ class HomeScreen extends StatelessWidget {
             maxContentWidth: 1080,
           ),
           Expanded(
-            child: CarsListView(
-              cars: cars,
-              maxContentWidth: 1080,
-              onCarTap: onCarTap,
+            child: WidgetWithPlaceholder.withEmptyIndicator(
+              flipImage: true,
+              empty: cars.isEmpty,
+              emptyMessage: 'There are no registered cars',
+              child: CarsListView(
+                cars: cars,
+                maxContentWidth: 1080,
+                onCarTap: onCarTap,
+              ),
             ),
           ),
         ],
