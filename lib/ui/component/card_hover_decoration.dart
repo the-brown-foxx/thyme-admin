@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
-const _defaultColors = [
-  Color(0xFF2fd096),
-  Color(0xFF452FD0),
-];
-
 class CardHoverDecoration extends StatefulWidget {
+  static const defaultGradientColors = [
+    Color(0xFF2fd096),
+    Color(0xFF452FD0),
+  ];
+
   final Set<Corner> roundedCorners;
   final List<Color> gradientColors;
   final bool persistent;
@@ -16,14 +16,14 @@ class CardHoverDecoration extends StatefulWidget {
   const CardHoverDecoration({
     super.key,
     this.roundedCorners = Corner.all,
-    this.gradientColors = _defaultColors,
+    this.gradientColors = defaultGradientColors,
     this.persistent = false,
     required this.child,
   });
 
   CardHoverDecoration.forHerbHubCard({
     super.key,
-    this.gradientColors = _defaultColors,
+    this.gradientColors = defaultGradientColors,
     this.persistent = false,
     required HerbHubCard this.child,
   }) : roundedCorners = child.roundedCorners;

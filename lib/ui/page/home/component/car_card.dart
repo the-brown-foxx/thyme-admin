@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
-import 'package:thyme_to_park_admin/ui/component/card_hover_decoration.dart';
 import 'package:thyme_to_park_admin/ui/component/disableable_ink_well.dart';
-import 'package:thyme_to_park_admin/ui/component/theme.dart';
 import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
+import 'package:thyme_to_park_admin/ui/component/theme.dart';
+import 'package:thyme_to_park_admin/ui/page/home/component/car_card_decoration.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class CarCard extends StatelessWidget {
@@ -24,7 +24,8 @@ class CarCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    return CardHoverDecoration.forHerbHubCard(
+    return CarCardDecoration(
+      carColor: car.color,
       persistent: decorationPersistent,
       child: HerbHubCard(
         roundedCorners: roundedCorners,
