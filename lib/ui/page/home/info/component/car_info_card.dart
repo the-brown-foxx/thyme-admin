@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:thyme_to_park_admin/service/log/model/car_log.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
+import 'package:thyme_to_park_admin/ui/component/widget_with_placeholder.dart';
 import 'package:thyme_to_park_admin/ui/page/home/info/component/car_log_list_view.dart';
 
 import 'car_info_body.dart';
@@ -28,34 +29,39 @@ class CarInfoCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     // TODO: Make the max height of this card the height of the left pane
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 720),
-      child: TwoPaneCard(
-        loading: loading,
-        leftChild: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 64,
-              top: 64,
-              right: 32,
-              bottom: 64,
-            ),
-            child: CarInfoBody(
-              car: car,
-              onEdit: onEdit,
-              onDelete: onDelete,
-              onCancel: onCancel,
-            ),
-          ),
-        ),
-        rightChild: CarLogsListView(
-          contentPadding: const EdgeInsets.only(
-            left: 32,
+    return TwoPaneCard(
+      rowAlignment: CrossAxisAlignment.start,
+      loading: loading,
+      leftChild: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 64,
             top: 64,
-            right: 64,
+            right: 32,
             bottom: 64,
           ),
-          carLogs: carLogs,
+          child: CarInfoBody(
+            car: car,
+            onEdit: onEdit,
+            onDelete: onDelete,
+            onCancel: onCancel,
+          ),
+        ),
+      ),
+      rightChild: WidgetWithPlaceholder.withEmptyIndicator(
+        empty: carLogs.isEmpty,
+        emptyMessage: 'There are no logs for this car',
+        child: SizedBox(
+          height: double.maxFinite,
+          child: CarLogsListView(
+            contentPadding: const EdgeInsets.only(
+              left: 32,
+              top: 64,
+              right: 64,
+              bottom: 64,
+            ),
+            carLogs: carLogs,
+          ),
         ),
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/splash_image.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/parking/component/set_parking_space_count_body.dart';
-import 'package:thyme_to_park_admin/ui/page/parking/component/set_parking_space_count_image.dart';
 
 class SetParkingSpaceCountCard extends StatelessWidget {
   final TextFieldController totalSpaceController;
@@ -32,7 +32,7 @@ class SetParkingSpaceCountCard extends StatelessWidget {
           ),
         ),
       ),
-      rightChild: const SetParkingSpaceCountImage(),
+      rightChild: const SplashImage.landing(),
     );
   }
 }

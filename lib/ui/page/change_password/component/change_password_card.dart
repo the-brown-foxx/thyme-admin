@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/splash_image.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/change_password/component/change_password_body.dart';
-import 'package:thyme_to_park_admin/ui/page/change_password/component/change_password_image.dart';
 
 class ChangePasswordCard extends StatelessWidget {
   final TextFieldController oldPasswordController;
@@ -36,7 +36,7 @@ class ChangePasswordCard extends StatelessWidget {
           onCancel: !loading ? onCancel : null,
         ),
       ),
-      rightChild: const ChangePasswordImage(),
+      rightChild: const SplashImage.landing(),
     );
   }
 }

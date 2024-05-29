@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
+import 'package:thyme_to_park_admin/ui/component/splash_image.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
-import 'package:thyme_to_park_admin/ui/page/home/unregister/component/unregister_car_image.dart';
 
 import 'unregister_car_body.dart';
 
@@ -33,7 +33,7 @@ class UnregisterCarCard extends StatelessWidget {
           ),
         ),
       ),
-      rightChild: const UnregisterCarImage(),
+      rightChild: const SplashImage.landing(),
     );
   }
 }

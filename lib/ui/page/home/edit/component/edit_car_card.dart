@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/splash_image.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
-import 'package:thyme_to_park_admin/ui/page/home//edit/component/edit_car_image.dart';
 import 'package:thyme_to_park_admin/ui/page/home/edit/component/edit_car_body.dart';
 
 class EditCarCard extends StatelessWidget {
@@ -48,7 +48,7 @@ class EditCarCard extends StatelessWidget {
           ),
         ),
       ),
-      rightChild: const EditCarImage(),
+      rightChild: const SplashImage.landing(),
     );
   }
 }

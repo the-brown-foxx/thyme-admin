@@ -70,6 +70,10 @@ flutter:
   assets:
     - assets/landing_image_dark.svg
     - assets/landing_image_light.svg
+    - assets/empty_pot_dark.svg
+    - assets/empty_pot_light.svg
+    - assets/i_balls.jpg
+    - assets/parking_lot.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

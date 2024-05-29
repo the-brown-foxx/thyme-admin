@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/controlled_text_field.dart';
+import 'package:thyme_to_park_admin/ui/component/splash_image.dart';
 import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/page/login/component/login_body.dart';
-import 'package:thyme_to_park_admin/ui/page/login/component/login_image.dart';
 
 class LoginCard extends StatelessWidget {
   final TextFieldController passwordController;
@@ -27,7 +27,7 @@ class LoginCard extends StatelessWidget {
           onLogin: !loading ? onLogin : null,
         ),
       ),
-      rightChild: const LoginImage(),
+      rightChild: const SplashImage.landing(),
     );
   }
 }
