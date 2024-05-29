@@ -6,7 +6,6 @@ import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/component/linear_progress_indicator.dart';
 import 'package:thyme_to_park_admin/ui/component/optional_intrinsic_height.dart';
-import 'package:thyme_to_park_admin/ui/component/two_pane_card.dart';
 import 'package:thyme_to_park_admin/ui/component/widget_with_placeholder.dart';
 import 'package:thyme_to_park_admin/ui/page/home/info/component/car_log_list_view.dart';
 

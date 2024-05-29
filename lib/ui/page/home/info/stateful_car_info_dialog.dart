@@ -31,17 +31,27 @@ class StatefulCarInfoDialog extends StatefulWidget {
 }
 
 class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
+  late Car car = widget.car;
   var fetching = false;
   Timer? timer;
   List<CarLog> carLogs = [];
 
   @override
   void initState() {
+    updateCar();
     fetch();
     timer = Timer.periodic(const Duration(seconds: 10), (final _) {
       fetch();
     });
     super.initState();
+  }
+
+  void updateCar() async {
+    final car = await widget._carRegistry.getCar(widget.car.registrationId);
+    if (!mounted) return;
+    setState(() {
+      this.car = car;
+    });
   }
 
   void fetch() async {
@@ -73,7 +83,7 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
   @override
   Widget build(final BuildContext context) {
     return CarInfoDialog(
-      car: widget.car,
+      car: car,
       carLogs: carLogs,
       onEdit: onEdit,
       onDelete: onDelete,
@@ -88,6 +98,7 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
       builder: (final _) {
         return StatefulEditCarDialog(
           carRegistry: widget._carRegistry,
+          carLogger: widget._carLogger,
           car: widget.car,
         );
       },
@@ -95,11 +106,13 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
   }
 
   void onDelete() {
+    context.pop();
     showDialog(
       context: context,
       builder: (final _) => StatefulUnregisterCarDialog(
         car: widget.car,
         carRegistry: widget._carRegistry,
+        carLogger: widget._carLogger,
       ),
     );
   }
