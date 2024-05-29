@@ -31,8 +31,7 @@ class WidgetWithPlaceholder extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    // TODO: Fix jerking animation
-    return AnimatedContainer(
+    return AnimatedSize(
       duration: const Duration(milliseconds: 150),
       child: showPlaceholder ? placeholder : child,
     );

@@ -16,7 +16,7 @@ class CarLogsListView extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return ListView.builder(
-      shrinkWrap: false,
+      shrinkWrap: true,
       padding: contentPadding,
       itemCount: carLogs.length,
       itemBuilder: (final _, final index) {
