@@ -27,9 +27,6 @@ class _MatchLeftPaneHeightLayoutDelegate extends MultiChildLayoutDelegate {
       ),
     );
 
-    print(
-        'size: $size; leftPaneSize: $leftPaneSize; rightPaneSize: $rightPaneSize');
-
     positionChild(_leftPane, const Offset(0, 0));
     positionChild(_rightPane, Offset(leftPaneSize.width, 0));
   }
