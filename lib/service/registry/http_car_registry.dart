@@ -12,12 +12,12 @@ import 'package:thyme_to_park_admin/service/registry/model/new_car.dart';
 
 import 'car_registry.dart';
 
-class ActualCarRegistry implements CarRegistry {
+class HttpCarRegistry implements CarRegistry {
   final Api _api;
   final TokenStorage _tokenStorage;
   final AdminAuthenticator _adminAuthenticator;
 
-  ActualCarRegistry._({
+  HttpCarRegistry._({
     required final Api api,
     required final TokenStorage tokenStorage,
     required final AdminAuthenticator adminAuthenticator,
@@ -25,12 +25,12 @@ class ActualCarRegistry implements CarRegistry {
         _tokenStorage = tokenStorage,
         _adminAuthenticator = adminAuthenticator;
 
-  factory ActualCarRegistry({
+  factory HttpCarRegistry({
     required final Api api,
     required final TokenStorage tokenStorage,
     required final AdminAuthenticator adminAuthenticator,
   }) {
-    final registry = ActualCarRegistry._(
+    final registry = HttpCarRegistry._(
       api: api,
       tokenStorage: tokenStorage,
       adminAuthenticator: adminAuthenticator,
