@@ -33,7 +33,7 @@ class _StatefulSetParkingSpaceCountDialogState
     // TODO: implement loading
 
     widget._parkingSpaceCounter.parkingSpaceCount.listen((final count) {
-      if (!mounted || alreadySet) return;
+      if (!mounted || alreadySet || count == null) return;
       setState(() {
         totalSpaceController.text = count.totalSpace.toString();
         vacantSpaceController.text = count.vacantSpace.toString();

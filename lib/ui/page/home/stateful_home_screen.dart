@@ -44,7 +44,7 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
     navigateToCorrectPage();
 
     widget._parkingSpaceCounter.parkingSpaceCount.listen((final count) {
-      if (!mounted) return;
+      if (!mounted || count == null) return;
       setState(() => vacantSpace = count.vacantSpace);
     });
 
@@ -73,10 +73,12 @@ class _StatefulHomeScreenState extends State<StatefulHomeScreen> {
       }
     });
 
-    if (!await widget._parkingSpaceCounter.parkingSpaceSet) {
-      if (!mounted) return;
-      context.go('/home/set-parking-space-count');
-    }
+    widget._parkingSpaceCounter.parkingSpaceSet.listen((final parkingSpaceSet) {
+      if (!parkingSpaceSet) {
+        if (!mounted) return;
+        context.go('/home/set-parking-space-count');
+      }
+    });
   }
 
   void search() {

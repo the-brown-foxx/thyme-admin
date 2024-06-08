@@ -10,12 +10,12 @@ import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.da
 import 'package:thyme_to_park_admin/service/parking/model/parking_space_count.dart';
 import 'package:thyme_to_park_admin/service/parking/parking_space_counter.dart';
 
-class ActualParkingSpaceCounter implements ParkingSpaceCounter {
+class HttpParkingSpaceCounter implements ParkingSpaceCounter {
   final Api _api;
   final TokenStorage _tokenStorage;
   final AdminAuthenticator _adminAuthenticator;
 
-  ActualParkingSpaceCounter({
+  HttpParkingSpaceCounter({
     required final Api api,
     required final TokenStorage tokenStorage,
     required final AdminAuthenticator adminAuthenticator,
@@ -29,17 +29,17 @@ class ActualParkingSpaceCounter implements ParkingSpaceCounter {
   }
 
   @override
-  Future<bool> get parkingSpaceSet async {
+  Stream<bool> get parkingSpaceSet async* {
     try {
       final response = await get(
         _api.urlOf('/parking/parking-space-set'),
         headers: {'Authorization': 'Bearer ${await _tokenStorage.token}'},
       );
       final jsonResponse = _api.parseJsonResponse(response);
-      return jsonResponse.body['parking_space_set'];
+      yield jsonResponse.body['parking_space_set'];
     } on InvalidTokenException {
       await _adminAuthenticator.logout();
-      return false;
+      yield false;
     }
   }
 

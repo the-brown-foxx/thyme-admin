@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/api/model/json.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
@@ -9,12 +8,13 @@ import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.da
 import 'package:thyme_to_park_admin/service/socket/socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+// TODO: Fix websocket not disconnecting when logging out
 class Websocket implements Socket {
   final TokenStorage _tokenStorage;
 
   final AdminAuthenticator _adminAuthenticator;
 
-  late WebSocketChannel _channel;
+  WebSocketChannel? _channel;
 
   final _messages = StreamController<Json>.broadcast();
 
@@ -30,10 +30,9 @@ class Websocket implements Socket {
     StreamSubscription<dynamic>? subscription;
     _adminAuthenticator.loggedIn.listen((final loggedIn) {
       if (loggedIn) {
-        subscription?.cancel();
         _channel = WebSocketChannel.connect(uri);
         _authenticate();
-        subscription = _channel.stream.listen(
+        subscription = _channel?.stream.listen(
               (final message) {
             final messageJson = jsonDecode(message) as Json;
             _messages.sink.add(messageJson);
@@ -42,6 +41,10 @@ class Websocket implements Socket {
             _adminAuthenticator.logout();
           },
         );
+      } else {
+        subscription?.cancel();
+        _channel?.sink.close();
+        _channel = null;
       }
     });
   }
@@ -55,12 +58,10 @@ class Websocket implements Socket {
 
   @override
   Future<Json> send(final Json message) async {
-    _channel.sink.add(jsonEncode(message));
+    _channel?.sink.add(jsonEncode(message));
     await for (final message in messages) {
       if (message['status'] != null) {
-        if (kDebugMode) {
-          print(message);
-        }
+        print(message);
         switch (message['status']) {
           case 'CAR_NOT_FOUND':
             throw CarNotFoundException(
