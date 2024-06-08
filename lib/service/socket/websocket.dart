@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
-import 'package:rxdart/rxdart.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/api/model/json.dart';
+import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
 import 'package:thyme_to_park_admin/service/socket/socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -10,22 +11,37 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class Websocket implements Socket {
   final TokenStorage _tokenStorage;
 
-  late final WebSocketChannel _channel;
+  final AdminAuthenticator _adminAuthenticator;
 
-  final _messages = BehaviorSubject<Json>();
+  late WebSocketChannel _channel;
+
+  final _messages = StreamController<Json>.broadcast();
 
   @override
   Stream<Json> get messages => _messages.stream;
 
   Websocket({
     required final TokenStorage tokenStorage,
+    required final AdminAuthenticator adminAuthenticator,
     required final Uri uri,
-  }) : _tokenStorage = tokenStorage {
-    _channel = WebSocketChannel.connect(uri);
-    _authenticate();
-    _channel.stream.listen((final message) {
-      final messageJson = jsonDecode(message) as Json;
-      _messages.value = messageJson;
+  })  : _tokenStorage = tokenStorage,
+        _adminAuthenticator = adminAuthenticator {
+    StreamSubscription<dynamic>? subscription;
+    _adminAuthenticator.loggedIn.listen((final loggedIn) {
+      if (loggedIn) {
+        subscription?.cancel();
+        _channel = WebSocketChannel.connect(uri);
+        _authenticate();
+        subscription = _channel.stream.listen(
+              (final message) {
+            final messageJson = jsonDecode(message) as Json;
+            _messages.sink.add(messageJson);
+          },
+          onDone: () {
+            _adminAuthenticator.logout();
+          },
+        );
+      }
     });
   }
 
@@ -41,6 +57,7 @@ class Websocket implements Socket {
     _channel.sink.add(jsonEncode(message));
     await for (final message in messages) {
       if (message['status'] != null) {
+        print(message);
         switch (message['status']) {
           case 'CAR_NOT_FOUND':
             throw CarNotFoundException(
@@ -70,8 +87,6 @@ class Websocket implements Socket {
             throw InvalidTokenException();
           case 'SUCCESSFUL':
             return message;
-          default:
-            throw UnknownException();
         }
       }
     }

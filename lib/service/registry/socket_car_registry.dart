@@ -8,7 +8,6 @@ import 'package:thyme_to_park_admin/service/socket/socket.dart';
 
 class SocketCarRegistry implements CarRegistry {
   final Socket _socket;
-  final AdminAuthenticator _adminAuthenticator;
 
   final _cars = BehaviorSubject<List<Car>>.seeded([]);
 
@@ -18,8 +17,7 @@ class SocketCarRegistry implements CarRegistry {
   SocketCarRegistry({
     required final Socket socket,
     required final AdminAuthenticator adminAuthenticator,
-  })  : _socket = socket,
-        _adminAuthenticator = adminAuthenticator {
+  }) : _socket = socket {
     _socket.messages.listen((final message) {
       if (message['action'] != 'show_cars') return;
       _cars.value = message['cars']
