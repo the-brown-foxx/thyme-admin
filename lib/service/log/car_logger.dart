@@ -5,5 +5,5 @@ abstract interface class CarLogger {
 
   Stream<List<CarLog>> get carLogs;
 
-  Future<List<CarLog>> getCarLogsByRegistrationId(final String registrationId);
+  Stream<List<CarLog>> getCarLogsByRegistrationId(final String registrationId);
 }

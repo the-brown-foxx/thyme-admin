@@ -9,12 +9,12 @@ import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.da
 import 'package:thyme_to_park_admin/service/log/car_logger.dart';
 import 'package:thyme_to_park_admin/service/log/model/car_log.dart';
 
-class ActualCarLogger implements CarLogger {
+class HttpCarLogger implements CarLogger {
   final Api _api;
   final TokenStorage _tokenStorage;
   final AdminAuthenticator _adminAuthenticator;
 
-  ActualCarLogger({
+  HttpCarLogger({
     required final Api api,
     required final TokenStorage tokenStorage,
     required final AdminAuthenticator adminAuthenticator,
@@ -59,9 +59,9 @@ class ActualCarLogger implements CarLogger {
   }
 
   @override
-  Future<List<CarLog>> getCarLogsByRegistrationId(
+  Stream<List<CarLog>> getCarLogsByRegistrationId(
     final String registrationId,
-  ) async {
+  ) async* {
     var logs = <CarLog>[];
     try {
       _loading.value = true;
@@ -77,6 +77,6 @@ class ActualCarLogger implements CarLogger {
     } finally {
       _loading.value = false;
     }
-    return logs;
+    yield logs;
   }
 }

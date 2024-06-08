@@ -40,9 +40,6 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
   void initState() {
     updateCar();
     fetch();
-    timer = Timer.periodic(const Duration(seconds: 10), (final _) {
-      fetch();
-    });
     super.initState();
   }
 
@@ -58,10 +55,13 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
     if (fetching) return;
     fetching = true;
     try {
-      final carLogs = await widget._carLogger
-          .getCarLogsByRegistrationId(widget.car.registrationId);
-      setState(() {
-        this.carLogs = carLogs;
+      widget._carLogger
+          .getCarLogsByRegistrationId(widget.car.registrationId)
+          .listen((final logs) {
+        if (!mounted) return;
+        setState(() {
+          carLogs = logs;
+        });
       });
     } on ApiException catch (exception) {
       if (!mounted) return;

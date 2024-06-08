@@ -1,5 +1,4 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car_update.dart';
@@ -14,10 +13,7 @@ class SocketCarRegistry implements CarRegistry {
   @override
   Stream<List<Car>> get cars => _cars.stream;
 
-  SocketCarRegistry({
-    required final Socket socket,
-    required final AdminAuthenticator adminAuthenticator,
-  }) : _socket = socket {
+  SocketCarRegistry({required final Socket socket}) : _socket = socket {
     _socket.messages.listen((final message) {
       if (message['action'] != 'show_cars') return;
       _cars.value = message['cars']

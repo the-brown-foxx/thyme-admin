@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/api/model/json.dart';
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
@@ -57,7 +58,9 @@ class Websocket implements Socket {
     _channel.sink.add(jsonEncode(message));
     await for (final message in messages) {
       if (message['status'] != null) {
-        print(message);
+        if (kDebugMode) {
+          print(message);
+        }
         switch (message['status']) {
           case 'CAR_NOT_FOUND':
             throw CarNotFoundException(

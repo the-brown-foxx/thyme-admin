@@ -9,8 +9,8 @@ import 'package:thyme_to_park_admin/service/authenticator/admin/actual_admin_aut
 import 'package:thyme_to_park_admin/service/authenticator/admin/admin_authenticator.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/actual_token_storage.dart';
 import 'package:thyme_to_park_admin/service/authenticator/token/token_storage.dart';
-import 'package:thyme_to_park_admin/service/log/actual_car_logger.dart';
 import 'package:thyme_to_park_admin/service/log/car_logger.dart';
+import 'package:thyme_to_park_admin/service/log/socket_car_logger.dart';
 import 'package:thyme_to_park_admin/service/parking/actual_parking_space_counter.dart';
 import 'package:thyme_to_park_admin/service/parking/parking_space_counter.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
@@ -58,15 +58,17 @@ class MyApp extends StatelessWidget {
     adminAuthenticator: adminAuthenticator,
     uri: Uri.parse('ws://127.0.0.1:8071/car-registry'),
   );
+  late final Socket carLoggerSocket = Websocket(
+    tokenStorage: tokenStorage,
+    adminAuthenticator: adminAuthenticator,
+    uri: Uri.parse('ws://127.0.0.1:8071/car-logger'),
+  );
 
   late final CarRegistry carRegistry = SocketCarRegistry(
     socket: carRegistrySocket,
-    adminAuthenticator: adminAuthenticator,
   );
-  late final CarLogger carLogger = ActualCarLogger(
-    api: api,
-    tokenStorage: tokenStorage,
-    adminAuthenticator: adminAuthenticator,
+  late final CarLogger carLogger = SocketCarLogger(
+    socket: carLoggerSocket,
   );
   late final ParkingSpaceCounter parkingSpaceCounter =
       ActualParkingSpaceCounter(
