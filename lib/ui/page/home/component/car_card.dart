@@ -2,27 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
-import 'package:thyme_to_park_admin/ui/component/card_hover_decoration.dart';
 import 'package:thyme_to_park_admin/ui/component/disableable_ink_well.dart';
-import 'package:thyme_to_park_admin/ui/component/theme.dart';
 import 'package:thyme_to_park_admin/ui/component/license_plate.dart';
+import 'package:thyme_to_park_admin/ui/component/theme.dart';
+import 'package:thyme_to_park_admin/ui/page/home/component/car_card_decoration.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class CarCard extends StatelessWidget {
   final Car car;
   final VoidCallback? onTap;
   final Set<Corner> roundedCorners;
+  final bool decorationPersistent;
 
   const CarCard({
     super.key,
     required this.car,
     this.onTap,
     this.roundedCorners = Corner.all,
+    this.decorationPersistent = false,
   });
 
   @override
   Widget build(final BuildContext context) {
-    return CardHoverDecoration.forHerbHubCard(
+    return CarCardDecoration(
+      carColor: car.color,
+      persistent: decorationPersistent,
       child: HerbHubCard(
         roundedCorners: roundedCorners,
         child: DisableableInkWell(

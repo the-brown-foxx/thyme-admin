@@ -94,9 +94,11 @@ class MyApp extends StatelessWidget {
             routes: [
               GoRoute(
                 path: 'set-parking-space-count',
-                builder: (final _, final __) => StatefulSetParkingSpaceCountPage(
-                  parkingSpaceCounter: parkingSpaceCounter,
-                ),
+                builder: (final _, final __) {
+                  return StatefulSetParkingSpaceCountPage(
+                    parkingSpaceCounter: parkingSpaceCounter,
+                  );
+                },
               ),
               GoRoute(
                 path: 'logs',

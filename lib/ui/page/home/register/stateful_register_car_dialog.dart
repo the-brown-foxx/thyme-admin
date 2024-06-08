@@ -55,7 +55,7 @@ class _StatefulRegisterCarDialogState extends State<StatefulRegisterCarDialog> {
   }
 
   void onCancel() {
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   void onRegisterCar() async {

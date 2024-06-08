@@ -2,27 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/ui/component/card.dart';
 import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
-const _defaultColors = [
-  Color(0xFF2fd096),
-  Color(0xFF452FD0),
-];
-
 class CardHoverDecoration extends StatefulWidget {
-  final Widget child;
+  static const defaultGradientColors = [
+    Color(0xFF2fd096),
+    Color(0xFF452FD0),
+  ];
+
   final Set<Corner> roundedCorners;
   final List<Color> gradientColors;
+  final bool persistent;
+  final Widget child;
 
   const CardHoverDecoration({
     super.key,
     this.roundedCorners = Corner.all,
+    this.gradientColors = defaultGradientColors,
+    this.persistent = false,
     required this.child,
-    this.gradientColors = _defaultColors,
   });
 
   CardHoverDecoration.forHerbHubCard({
     super.key,
+    this.gradientColors = defaultGradientColors,
+    this.persistent = false,
     required HerbHubCard this.child,
-    this.gradientColors = _defaultColors,
   }) : roundedCorners = child.roundedCorners;
 
   @override
@@ -52,7 +55,9 @@ class _CardHoverDecorationState extends State<CardHoverDecoration> {
                   widget.child,
                   AnimatedSize(
                     duration: const Duration(milliseconds: 150),
-                    child: SizedBox(height: hovered ? 8 : 0),
+                    child: SizedBox(
+                      height: hovered || widget.persistent ? 8 : 0,
+                    ),
                   ),
                 ],
               ),
