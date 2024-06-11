@@ -6,4 +6,6 @@ abstract interface class CarLogger {
   Stream<List<CarLog>> get carLogs;
 
   Stream<List<CarLog>> getCarLogsByRegistrationId(final String registrationId);
+
+  String getImageUrl(final filename);
 }

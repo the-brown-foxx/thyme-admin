@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:thyme_to_park_admin/service/api/api.dart';
 import 'package:thyme_to_park_admin/service/log/car_logger.dart';
 import 'package:thyme_to_park_admin/service/socket/socket.dart';
 
@@ -6,6 +7,7 @@ import 'model/car_log.dart';
 
 class SocketCarLogger implements CarLogger {
   final Socket _socket;
+  final Api _api;
 
   final _carLogs = BehaviorSubject<List<CarLog>>.seeded([]);
 
@@ -14,7 +16,8 @@ class SocketCarLogger implements CarLogger {
 
   SocketCarLogger({
     required final Socket socket,
-  }) : _socket = socket {
+    required final Api api,
+  }) : _socket = socket, _api = api {
     _socket.messages.listen((final message) {
       if (message['action'] != 'show_logs') return;
       _carLogs.value = message['logs']
@@ -37,5 +40,10 @@ class SocketCarLogger implements CarLogger {
           .where((final log) => log.carRegistrationId == registrationId)
           .toList(),
     );
+  }
+
+  @override
+  String getImageUrl(final filename) {
+    return '${_api.baseUrl}/snapshots/$filename';
   }
 }

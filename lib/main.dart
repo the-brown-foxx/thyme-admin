@@ -74,6 +74,7 @@ class MyApp extends StatelessWidget {
   );
   late final CarLogger carLogger = SocketCarLogger(
     socket: carLoggerSocket,
+    api: api,
   );
   late final ParkingSpaceCounter parkingSpaceCounter =
       SocketParkingSpaceCounter(socket: parkingSpaceCounterSocket,);
@@ -113,6 +114,7 @@ class MyApp extends StatelessWidget {
                 path: 'logs',
                 builder: (final _, final __) => StatefulLogsPage(
                   carLogger: carLogger,
+                  carRegistry: carRegistry,
                 ),
               ),
               GoRoute(

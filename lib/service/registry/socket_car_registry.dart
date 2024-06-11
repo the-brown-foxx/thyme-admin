@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:thyme_to_park_admin/service/api/model/exception.dart';
 import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car_update.dart';
@@ -28,9 +29,22 @@ class SocketCarRegistry implements CarRegistry {
   Stream<bool> get loading => _loading.stream;
 
   @override
+  Stream<Car> getLiveCar(final String registrationId) {
+    return _cars.map((final cars) {
+      return cars.firstWhere(
+        (final car) => car.registrationId == registrationId,
+        orElse: () =>
+            throw CarNotFoundException(registrationId: registrationId),
+      );
+    });
+  }
+
+  @Deprecated('Use `getLiveCar` instead')
+  @override
   Future<Car> getCar(final String registrationId) async {
     return _cars.value.firstWhere(
-      (final element) => element.registrationId == registrationId,
+      (final car) => car.registrationId == registrationId,
+      orElse: () => throw CarNotFoundException(registrationId: registrationId),
     );
   }
 

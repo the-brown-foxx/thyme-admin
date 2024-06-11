@@ -10,6 +10,7 @@ import 'package:thyme_to_park_admin/service/registry/car_registry.dart';
 import 'package:thyme_to_park_admin/service/registry/model/car.dart';
 import 'package:thyme_to_park_admin/ui/component/snack_bar.dart';
 import 'package:thyme_to_park_admin/ui/page/home/info/car_info_dialog.dart';
+import 'package:thyme_to_park_admin/ui/page/home/snapshot/stateful_snapshot_dialog.dart';
 import 'package:thyme_to_park_admin/ui/page/home/unregister/stateful_unregister_car_dialog.dart';
 import 'package:thyme_to_park_admin/ui/page/home/edit/stateful_edit_car_dialog.dart';
 
@@ -85,9 +86,34 @@ class _StatefulCarInfoDialogState extends State<StatefulCarInfoDialog> {
     return CarInfoDialog(
       car: car,
       carLogs: carLogs,
+      onViewLog: onViewLog,
       onEdit: onEdit,
       onDelete: onDelete,
       onCancel: onCancel,
+    );
+  }
+
+  void onViewLog(final CarLog carLog) {
+    context.pop();
+    showDialog(
+      context: context,
+      builder: (final _) => StatefulSnapshotDialog(
+        car: car,
+        carLogger: widget._carLogger,
+        carRegistry: widget._carRegistry,
+        carLog: carLog,
+      ),
+    );
+  }
+
+  void openCarInfoDialog() {
+    showDialog(
+      context: context,
+      builder: (final _) => StatefulCarInfoDialog(
+        car: widget.car,
+        carRegistry: widget._carRegistry,
+        carLogger: widget._carLogger,
+      ),
     );
   }
 

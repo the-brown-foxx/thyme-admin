@@ -14,6 +14,7 @@ import 'car_info_body.dart';
 class CarInfoCard extends StatelessWidget {
   final Car car;
   final List<CarLog> carLogs;
+  final Function(CarLog) onViewLog;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onCancel;
@@ -21,8 +22,9 @@ class CarInfoCard extends StatelessWidget {
 
   const CarInfoCard({
     super.key,
-    required this.carLogs,
     required this.car,
+    required this.carLogs,
+    required this.onViewLog,
     required this.onEdit,
     required this.onDelete,
     required this.onCancel,
@@ -37,7 +39,8 @@ class CarInfoCard extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         children: [
           AnimatedSize(
-            duration: const Duration(milliseconds: 300),
+            curve: Curves.fastOutSlowIn,
+            duration: const Duration(milliseconds: 150),
             child: OptionalIntrinsicHeight(
               enabled: carLogs.isEmpty,
               child: Row(
@@ -72,6 +75,7 @@ class CarInfoCard extends StatelessWidget {
                       empty: carLogs.isEmpty,
                       emptyMessage: 'There are no logs for this car',
                       child: CarLogsListView(
+                        onViewLog: onViewLog,
                         contentPadding: const EdgeInsets.only(
                           left: 32,
                           top: 64,

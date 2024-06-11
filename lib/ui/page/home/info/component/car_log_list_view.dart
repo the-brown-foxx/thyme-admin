@@ -5,11 +5,13 @@ import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class CarLogsListView extends StatelessWidget {
   final List<CarLog> carLogs;
+  final Function(CarLog) onViewLog;
   final EdgeInsetsGeometry? contentPadding;
 
   const CarLogsListView({
     super.key,
     required this.carLogs,
+    required this.onViewLog,
     this.contentPadding,
   });
 
@@ -39,6 +41,7 @@ class CarLogsListView extends StatelessWidget {
               bottom: index == lastIndex ? 0 : 4,
             ),
             child: CarLogCard(
+              onView: () => onViewLog(carLog),
               carLog: carLog,
               roundedCorners: roundedCorners,
             ),

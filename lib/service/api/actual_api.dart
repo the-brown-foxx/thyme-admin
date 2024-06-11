@@ -5,6 +5,7 @@ import 'package:thyme_to_park_admin/service/api/model/json_response.dart';
 import 'model/exception.dart';
 
 class ActualApi implements Api {
+  @override
   final baseUrl = const String.fromEnvironment(
     'BASE_URL',
     defaultValue: 'http://127.0.0.1:8071',

@@ -6,6 +6,7 @@ import 'package:thyme_to_park_admin/ui/page/logs/components/logs_top_bar.dart';
 
 class LogsPage extends StatelessWidget {
   final List<CarLog> logs;
+  final Function(CarLog carLog) onViewLog;
   final VoidCallback onNavigateUp;
   final bool loading;
 
@@ -13,6 +14,7 @@ class LogsPage extends StatelessWidget {
     super.key,
     required this.logs,
     required this.onNavigateUp,
+    required this.onViewLog,
     required this.loading,
   });
 
@@ -33,6 +35,7 @@ class LogsPage extends StatelessWidget {
               emptyMessage: 'There are no logs yet',
               child: LogsListView(
                 carLogs: logs,
+                onViewLog: onViewLog,
                 maxContentWidth: 1080,
               ),
             ),

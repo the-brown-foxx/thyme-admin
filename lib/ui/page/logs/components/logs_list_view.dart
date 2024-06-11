@@ -5,11 +5,13 @@ import 'package:thyme_to_park_admin/ui/util/corner.dart';
 
 class LogsListView extends StatelessWidget {
   final List<CarLog> carLogs;
+  final Function(CarLog carLog) onViewLog;
   final double maxContentWidth;
 
   const LogsListView({
     super.key,
     required this.carLogs,
+    required this.onViewLog,
     this.maxContentWidth = double.infinity,
   });
 
@@ -41,6 +43,7 @@ class LogsListView extends StatelessWidget {
               constraints: BoxConstraints(maxWidth: maxContentWidth),
               child: LogCard(
                 carLog: carLog,
+                onView: () => onViewLog(carLog),
                 roundedCorners: roundedCorners,
               ),
             ),

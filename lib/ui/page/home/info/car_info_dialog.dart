@@ -9,6 +9,7 @@ import 'package:thyme_to_park_admin/ui/page/home/info/component/car_info_card.da
 class CarInfoDialog extends StatelessWidget {
   final Car car;
   final List<CarLog> carLogs;
+  final Function(CarLog) onViewLog;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onCancel;
@@ -17,6 +18,7 @@ class CarInfoDialog extends StatelessWidget {
     super.key,
     required this.car,
     required this.carLogs,
+    required this.onViewLog,
     required this.onEdit,
     required this.onDelete,
     required this.onCancel,
@@ -30,6 +32,7 @@ class CarInfoDialog extends StatelessWidget {
         child: CarInfoCard(
           car: car,
           carLogs: carLogs,
+          onViewLog: onViewLog,
           onEdit: onEdit,
           onDelete: onDelete,
           onCancel: onCancel,

@@ -8,6 +8,9 @@ abstract interface class CarRegistry {
 
   Stream<List<Car>> get cars;
 
+  Stream<Car> getLiveCar(final String registrationId);
+
+  @Deprecated('Use `getLiveCar` instead')
   Future<Car> getCar(final String registrationId);
 
   Future<void> registerCar(final NewCar car);
