@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thyme_to_park_admin/service/log/model/car_log.dart';
+import 'package:thyme_to_park_admin/ui/component/widget_with_placeholder.dart';
 import 'package:thyme_to_park_admin/ui/page/logs/components/logs_list_view.dart';
 import 'package:thyme_to_park_admin/ui/page/logs/components/logs_top_bar.dart';
 
@@ -27,9 +28,13 @@ class LogsPage extends StatelessWidget {
             maxContentWidth: 1080,
           ),
           Expanded(
-            child: LogsListView(
-              carLogs: logs,
-              maxContentWidth: 1080,
+            child: WidgetWithPlaceholder.withEmptyIndicator(
+              empty: logs.isEmpty,
+              emptyMessage: 'There are no logs yet',
+              child: LogsListView(
+                carLogs: logs,
+                maxContentWidth: 1080,
+              ),
             ),
           ),
         ],

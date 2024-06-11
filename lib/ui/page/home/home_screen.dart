@@ -32,6 +32,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
+    final placeholderMessage = searchController.text.isEmpty
+        ? 'There are no registered cars'
+        : 'Nothing matched your query';
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.large(
         onPressed: onRegisterCar,
@@ -54,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             child: WidgetWithPlaceholder.withEmptyIndicator(
               flipImage: true,
               empty: cars.isEmpty,
-              emptyMessage: 'There are no registered cars',
+              emptyMessage: placeholderMessage,
               child: CarsListView(
                 cars: cars,
                 maxContentWidth: 1080,
